@@ -7,8 +7,10 @@ import 'package:wellnesshub/views/physical_page.dart';
 import 'package:wellnesshub/views/sign_in.dart';
 import 'package:wellnesshub/views/sign_up.dart';
 import 'package:wellnesshub/views/startup.dart';
+import 'package:wellnesshub/views/weight_page.dart';
+import 'package:wellnesshub/views/year_page.dart';
 
-void main(){
+void main() {
   runApp(WellnessHub());
 }
 
@@ -19,16 +21,17 @@ class WellnessHub extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        'LoginPage':(context)=>SignIn(),
-        'SignUpPage':(context)=>SignUp(),
-        'StartUp':(context)=>Startup(),
-        'GenderPage':(context)=>GenderPage(),
-        'GoalPage':(context)=>GoalPage(),
-        'PhysicalPage':(context)=>PhysicalPage(),
-        'InjuriesPage':(context)=>InjuriesPage(),
-        'ActivityPage':(context)=>ActivityPage(),
+        'StartUp': (context) => Startup(),
+        'LoginPage': (context) => SignIn(),
+        'SignUpPage': (context) => SignUp(),
+        'GenderPage': (context) => GenderPage(),
+        'GoalPage': (context) => GoalPage(),
+        'PhysicalPage': (context) => PhysicalPage(),
+        'InjuriesPage': (context) => InjuriesPage(),
+        'ActivityPage': (context) => ActivityPage(),
 
-       
+        'AgePage': (context) => YearPage(),
+        'WeightPage': (context) => WeightPage(),
 
         // 'LoginPage':(context)=>Sign_In(),
       },
