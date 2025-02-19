@@ -105,7 +105,7 @@ class _Gender_PageState extends State<GenderPage> {
                   on_Pressed: selectedGender == null
                       ? null // Disable button if no gender is selected
                       : () {
-                          Navigator.pushNamed(context, "GoalPage");
+                          Navigator.pushNamed(context, "AgePage");
                           
                         },
                 ),

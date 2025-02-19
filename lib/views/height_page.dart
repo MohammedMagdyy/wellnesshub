@@ -41,7 +41,7 @@ class _HeightPageState extends State<HeightPage> {
         ),
         SizedBox(height: 70,),
         Text(
-          '$_height',
+          '$_height cm',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.black,

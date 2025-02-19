@@ -39,7 +39,7 @@ class _WeightPageState extends State<WeightPage> {
         ),
         SizedBox(height: 150,),
         Text(
-          '$_weight',
+          '$_weight Kg',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.black,
