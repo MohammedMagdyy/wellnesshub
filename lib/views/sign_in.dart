@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:wellnesshub/widgets/custom_button.dart';
 import 'package:wellnesshub/widgets/custom_textfield.dart';
 
-class Sign_In extends StatefulWidget {
-  const Sign_In({super.key});
+class SignIn extends StatefulWidget {
+  const SignIn({super.key});
 
   @override
-  State<Sign_In> createState() => _Sign_InState();
+  State<SignIn> createState() => _Sign_InState();
 }
 
-class _Sign_InState extends State<Sign_In> {
+class _Sign_InState extends State<SignIn> {
   GlobalKey<FormState> formkey = GlobalKey();
   bool _isLoading = false;
   String? Email;
@@ -19,9 +19,7 @@ class _Sign_InState extends State<Sign_In> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
+    return  Scaffold(
           body: Form(
             key: formkey,
             child: ListView(
@@ -71,6 +69,8 @@ class _Sign_InState extends State<Sign_In> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical:8),
                   child: CustomButton(
+                    color: Colors.white,
+                    width: double.infinity,
                     name: 'Sign In',
                     on_Pressed: () async {
                       if (formkey.currentState!.validate()) {
@@ -111,6 +111,8 @@ class _Sign_InState extends State<Sign_In> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical:8),
                   child: CustomButton(
+                    color: Colors.white,
+                    width: double.infinity,
                     name: 'Sign In With Google',
                     on_Pressed: () async {
                       if (formkey.currentState!.validate()) {
@@ -155,6 +157,6 @@ class _Sign_InState extends State<Sign_In> {
               ],
             ),
           ),
-        ));
+        );
   }
 }
