@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/views/gender_page.dart';
 import 'package:wellnesshub/views/goal_page.dart';
+import 'package:wellnesshub/views/height_page.dart';
 import 'package:wellnesshub/views/sign_in.dart';
 import 'package:wellnesshub/views/sign_up.dart';
 import 'package:wellnesshub/views/startup.dart';
@@ -25,11 +26,11 @@ class WellnessHub extends StatelessWidget {
         'GoalPage':(context)=>GoalPage(),
         'AgePage' : (context)=>YearPage(),
         'WeightPage':(context)=>WeightPage(),
-
+        'HeightPage' :(context) => HeightPage(),
         // 'LoginPage':(context)=>Sign_In(),
       },
       debugShowCheckedModeBanner: false,
-      home: YearPage(),
+      home: HeightPage(),
     );
   }
 }
