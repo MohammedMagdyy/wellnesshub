@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/constant.dart';
+
 import 'package:wellnesshub/widgets/custom_button.dart';
 import 'package:wellnesshub/widgets/custom_textfield.dart';
 
@@ -11,7 +11,7 @@ class Sign_Up extends StatefulWidget {
 }
 
 class _Sign_UpState extends State<Sign_Up> {
-
+GlobalKey<FormState> formkey = GlobalKey();
   bool _isLoading = false;
   String? FirstName;
   String? LastName;
@@ -134,6 +134,7 @@ class _Sign_UpState extends State<Sign_Up> {
                     ),
                     TextButton(
                       onPressed: () {
+                        Navigator.pushReplacementNamed(context, 'LoginPage');
                         //Navigator.pushNamed(context, SignUpPage.routeName);
                       },
                       // Navigate to Sign Up page
