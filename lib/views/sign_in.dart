@@ -78,9 +78,8 @@ class _Sign_InState extends State<SignIn> {
                         setState(() {});
                         //await SignIn_Func();
                         //  Show_SnakBar(context, "Success");
-                        // Navigator.pushNamed(context, Chatpage.routeName);
+                        Navigator.pushNamed(context, "GenderPage");
                       }
-                      ;
                     },
                   ),
                 ),
@@ -122,7 +121,6 @@ class _Sign_InState extends State<SignIn> {
                         //  Show_SnakBar(context, "Success");
                         // Navigator.pushNamed(context, Chatpage.routeName);
                       }
-                      ;
                     },
                   ),
                 ),

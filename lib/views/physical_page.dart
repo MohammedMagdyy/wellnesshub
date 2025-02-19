@@ -1,17 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/widgets/checkbox_button.dart';
 import 'package:wellnesshub/widgets/custom_button.dart';
 
-class GoalPage extends StatefulWidget {
-  const GoalPage({super.key});
+class PhysicalPage extends StatefulWidget {
+  const PhysicalPage({super.key});
 
   @override
-  _GoalPageState createState() => _GoalPageState();
+  State<PhysicalPage> createState() => _PhysicalPageState();
 }
 
-class _GoalPageState extends State<GoalPage> {
-  String? selectedGoal; // Track selected goal
-
+class _PhysicalPageState extends State<PhysicalPage> {
+  String? selectedGoal;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,7 @@ class _GoalPageState extends State<GoalPage> {
         children: [
           SizedBox(height: 10),
           Text(
-            "What is Your Goal?",
+            "Physical Activity Level",
             style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 30),
@@ -36,47 +36,37 @@ class _GoalPageState extends State<GoalPage> {
             margin: EdgeInsets.symmetric(horizontal: 50),
             width: 360,
             child: Text(
-              "Choose the goal you’re hoping to achieve",
-              style: TextStyle(fontSize: 18),
+              "Please pick your overall current  physical activity level throughout the past 3 months",
+              style: TextStyle(fontSize: 14),
             ),
           ),
           SizedBox(height: 50),
           CheckboxButton(
-            text: "Lose Weight",
-            isSelected: selectedGoal == "Lose Weight",
+            text: "Beginner",
+            isSelected: selectedGoal == "Beginner",
             onTap: () {
               setState(() {
-                selectedGoal = "Lose Weight";
+                selectedGoal = "Beginner";
               });
             },
           ),
           SizedBox(height: 6),
           CheckboxButton(
-            text: "Gain Weight",
-            isSelected: selectedGoal == "Gain Weight",
+            text: "Intermediate",
+            isSelected: selectedGoal == "Intermediate",
             onTap: () {
               setState(() {
-                selectedGoal = "Gain Weight";
+                selectedGoal = "Intermediate";
               });
             },
           ),
           SizedBox(height: 6),
           CheckboxButton(
-            text: "Muscle Mass Gain",
-            isSelected: selectedGoal == "Muscle Mass Gain",
+            text: "Advanced",
+            isSelected: selectedGoal == "Advance",
             onTap: () {
               setState(() {
-                selectedGoal = "Muscle Mass Gain";
-              });
-            },
-          ),
-          SizedBox(height: 6),
-          CheckboxButton(
-            text: "Shape Body",
-            isSelected: selectedGoal == "Shape Body",
-            onTap: () {
-              setState(() {
-                selectedGoal = "Shape Body";
+                selectedGoal = "Advance";
               });
             },
           ),
@@ -88,8 +78,7 @@ class _GoalPageState extends State<GoalPage> {
             on_Pressed: selectedGoal == null
                 ? null // Disable button if no gender is selected
                 : () {
-                  Navigator.pushNamed(context, "InjuriesPage");
-                   //avigator.pushNamed(context, "GoalPage");
+                    Navigator.pushNamed(context, "InjuriesPage");
                   },
           ),
         ],

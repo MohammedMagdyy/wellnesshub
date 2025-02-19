@@ -10,7 +10,7 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       //padding: const EdgeInsets.symmetric(horizontal: 8),
       width: width,
       //color: Colors.blue,
