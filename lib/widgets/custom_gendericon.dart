@@ -8,13 +8,13 @@ class CustomGenderIcon extends StatelessWidget {
   final bool isSelected;
 
   const CustomGenderIcon({
-    Key? key,
+    super.key,
     required this.image,
     required this.firstColor,
     required this.onTap,
     required this.selectedColor,
     required this.isSelected
-  }) : super(key: key);
+  });
 
 
   @override

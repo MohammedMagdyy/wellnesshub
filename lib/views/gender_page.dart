@@ -23,90 +23,94 @@ class _Gender_PageState extends State<GenderPage> {
           ),
         ),
         body: SafeArea(
-          child: Column(
+          child: ListView(
             children: [
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                "What's Your Gender?",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+              Column(
+              children: [
+                SizedBox(
+                  height: 30,
                 ),
-              ),
-              SizedBox(
-                height: 100,
-              ),
-              //Male
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 88,
+                Text(
+                  "What's Your Gender?",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
-                  CustomGenderIcon(
-                    image: 'assets/Male.png',
-                    isSelected: selectedGender == "Male",
-                    firstColor: Colors.blue,
-                selectedColor: const Color.fromARGB(255, 11, 15, 216),
-                    onTap: () {
-                      setState(() {
-                        selectedGender = "Male";
-                      });
-                    },
-                  ),
-                  Image.asset(
-                    'assets/Man.png',
-                    height: 150,
-                    width: 100,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 60,
-              ),
-              //Female
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Image.asset(
-                    'assets/Women.png',
-                    height: 150,
-                    width: 100,
-                  ),
-                  CustomGenderIcon(
-                    image: 'assets/FemaleL.png',
-                    isSelected: selectedGender == "Female",
-                    firstColor: Colors.pinkAccent,
-                selectedColor: const Color.fromARGB(255, 133, 3, 46),
-                    onTap: () {
-                      setState(() {
-                        selectedGender = "Female";
-                        print(selectedGender);
-                      });
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              //Skip button
-              CustomButton(
-                width: 200,
-                color: Colors.black,
-                name: 'Continue',
-                on_Pressed: selectedGender == null
-                    ? null // Disable button if no gender is selected
-                    : () {
-                        // Navigate to next screen
+                ),
+                SizedBox(
+                  height: 100,
+                ),
+                //Male
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 88,
+                    ),
+                    CustomGenderIcon(
+                      image: 'assets/Male.png',
+                      isSelected: selectedGender == "Male",
+                      firstColor: Colors.blue,
+                      selectedColor: const Color.fromARGB(255, 11, 15, 216),
+                      onTap: () {
+                        setState(() {
+                          selectedGender = "Male";
+                        });
                       },
-              ),
-            ],
+                    ),
+                    Image.asset(
+                      'assets/Man.png',
+                      height: 150,
+                      width: 100,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 60,
+                ),
+                //Female
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Image.asset(
+                      'assets/Women.png',
+                      height: 150,
+                      width: 100,
+                    ),
+                    CustomGenderIcon(
+                      image: 'assets/FemaleL.png',
+                      isSelected: selectedGender == "Female",
+                      firstColor: Colors.pinkAccent,
+                      selectedColor: const Color.fromARGB(255, 133, 3, 46),
+                      onTap: () {
+                        setState(() {
+                          selectedGender = "Female";
+                          print(selectedGender);
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                //Skip button
+                CustomButton(
+                  width: 200,
+                  color: Colors.black,
+                  name: 'Continue',
+                  on_Pressed: selectedGender == null
+                      ? null // Disable button if no gender is selected
+                      : () {
+                          Navigator.pushNamed(context, "GoalPage");
+                          
+                        },
+                ),
+              ],
+            ),],
           ),
         ));
   }
