@@ -10,6 +10,7 @@ class GenderPage extends StatefulWidget {
 }
 
 class _Gender_PageState extends State<GenderPage> {
+  String? selectedGender; // Stores selected gender ("Male" or "Female")
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,10 +45,17 @@ class _Gender_PageState extends State<GenderPage> {
                   SizedBox(
                     width: 88,
                   ),
-                  CustomGendericon(
-                      imagee: 'assets/Male.png',
-                      firstColor: Colors.lightBlueAccent,
-                      spalshColor:  Color.fromRGBO(0, 0, 255, 2)),
+                  CustomGenderIcon(
+                    image: 'assets/Male.png',
+                    isSelected: selectedGender == "Male",
+                    firstColor: Colors.blue,
+                selectedColor: const Color.fromARGB(255, 11, 15, 216),
+                    onTap: () {
+                      setState(() {
+                        selectedGender = "Male";
+                      });
+                    },
+                  ),
                   Image.asset(
                     'assets/Man.png',
                     height: 150,
@@ -70,10 +78,18 @@ class _Gender_PageState extends State<GenderPage> {
                     height: 150,
                     width: 100,
                   ),
-                  CustomGendericon(
-                      imagee: 'assets/FemaleL.png',
-                      firstColor: const Color.fromARGB(255, 201, 117, 145),
-                      spalshColor: Colors.red),
+                  CustomGenderIcon(
+                    image: 'assets/FemaleL.png',
+                    isSelected: selectedGender == "Female",
+                    firstColor: Colors.pinkAccent,
+                selectedColor: const Color.fromARGB(255, 133, 3, 46),
+                    onTap: () {
+                      setState(() {
+                        selectedGender = "Female";
+                        print(selectedGender);
+                      });
+                    },
+                  ),
                 ],
               ),
               SizedBox(
@@ -84,9 +100,11 @@ class _Gender_PageState extends State<GenderPage> {
                 width: 200,
                 color: Colors.black,
                 name: 'Continue',
-                on_Pressed: () {
-                  // Navigate to next screen
-                },
+                on_Pressed: selectedGender == null
+                    ? null // Disable button if no gender is selected
+                    : () {
+                        // Navigate to next screen
+                      },
               ),
             ],
           ),
