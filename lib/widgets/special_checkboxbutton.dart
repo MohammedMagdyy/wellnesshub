@@ -24,7 +24,7 @@ class SpecialCheckboxbutton extends StatelessWidget {
       onTap: onTap, // Handle click
       child: Container(
         width: 350,
-        height: 65,
+        height: 75,
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50),

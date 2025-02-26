@@ -3,6 +3,7 @@ import 'package:wellnesshub/views/activity_page.dart';
 import 'package:wellnesshub/views/community_page.dart';
 import 'package:wellnesshub/views/gender_page.dart';
 import 'package:wellnesshub/views/goal_page.dart';
+import 'package:wellnesshub/views/height_page.dart';
 import 'package:wellnesshub/views/injuries_page.dart';
 import 'package:wellnesshub/views/nutrition_page.dart';
 import 'package:wellnesshub/views/physical_page.dart';
@@ -40,7 +41,7 @@ class WellnessHub extends StatelessWidget {
         'SettingPage': (context) => SettingPage(),
         // 'SettingPage': (context) => SettingPage(),
 
-      
+              'HeightPage' :(context) => HeightPage(),
       },
       debugShowCheckedModeBanner: false,
       home: SettingPage(),

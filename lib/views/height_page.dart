@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_ruler_picker/simple_ruler_picker.dart';
+import 'package:wellnesshub/widgets/custom_button.dart';
 
 class HeightPage extends StatefulWidget {
   const HeightPage({super.key});
@@ -9,36 +10,73 @@ class HeightPage extends StatefulWidget {
 }
 
 class _HeightPageState extends State<HeightPage> {
+  int _height = 170;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-        width: 150,
-        child: SimpleRulerPicker(
-          minValue: 100,
-          maxValue: 300,
-          initialValue: 150,
-          onValueChanged: (value) {
-            print("Selected value: $value");
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back), // Back icon
+          onPressed: () {
+            Navigator.pop(context); // Go back to the previous page
           },
-          scaleLabelSize: 16,
-         
-          scaleBottomPadding: 8,
-          scaleItemWidth: 12,
-          longLineHeight: 50,
-          shortLineHeight: 15,
-          lineColor: Colors.black,
-          selectedColor: Colors.blue,
-          labelColor: Colors.red,
-          lineStroke: 5,
-          height: 250,
-          axis: Axis.vertical,
         ),
+      ),
+
+      body: Column(
+        children: [
+          Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "What is your height ?",
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 30
+              ),
+            )
+          ],
+        ),
+        SizedBox(height: 70,),
+        Text(
+          '$_height cm',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontSize: 50
+          ),
+          ),
+        Container(
+          height: 300,
+          width: 130,
+          margin: EdgeInsets.all(50),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Color(0xff80C9FC),
+          ),
+          // padding: EdgeInsets.symmetric(horizontal: 90),
+          child: SimpleRulerPicker(
+            axis: Axis.vertical,
+            height: 150,
+            initialValue: _height,
+            labelColor: Colors.black,
+            lineColor: Colors.black,
+            maxValue: 280,
+            minValue: 100,
+            selectedColor: Color(0xff0095ff),
+            scaleBottomPadding: 15,
+            scaleLabelSize: 15,
+            onValueChanged: (value) => setState(() => _height = value),
+            
+          ),
+        ),
+        SizedBox(height: 70,),
+        CustomButton(name: "Continue", width: 200, color: Colors.black , on_Pressed: () {
+          Navigator.pushNamed(context, 'GoalPage');
+        },)
+        ],
       ),
     );
   }
