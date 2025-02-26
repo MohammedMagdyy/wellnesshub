@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 
 class SpecialCheckboxbutton extends StatelessWidget {
-     SpecialCheckboxbutton({
+     const SpecialCheckboxbutton({
     super.key,
     required this.text1,
     required this.text2,

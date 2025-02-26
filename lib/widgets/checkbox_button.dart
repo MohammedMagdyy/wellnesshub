@@ -6,7 +6,7 @@ class CheckboxButton extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-   CheckboxButton({
+   const CheckboxButton({
     super.key,
     required this.text,
     required this.isSelected,

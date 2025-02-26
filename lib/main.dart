@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/views/activity_page.dart';
+import 'package:wellnesshub/views/community_page.dart';
 import 'package:wellnesshub/views/gender_page.dart';
 import 'package:wellnesshub/views/goal_page.dart';
 import 'package:wellnesshub/views/injuries_page.dart';
+import 'package:wellnesshub/views/nutrition_page.dart';
 import 'package:wellnesshub/views/physical_page.dart';
+import 'package:wellnesshub/views/setting_page.dart';
 import 'package:wellnesshub/views/sign_in.dart';
 import 'package:wellnesshub/views/sign_up.dart';
 import 'package:wellnesshub/views/startup.dart';
@@ -32,11 +35,15 @@ class WellnessHub extends StatelessWidget {
 
         'AgePage': (context) => YearPage(),
         'WeightPage': (context) => WeightPage(),
+        'CommunityPage': (context) => CommunityPage(),
+        'NutritionPage': (context) => NutritionPage(),
+        'SettingPage': (context) => SettingPage(),
+        // 'SettingPage': (context) => SettingPage(),
 
-        // 'LoginPage':(context)=>Sign_In(),
+      
       },
       debugShowCheckedModeBanner: false,
-      home: Startup(),
+      home: SettingPage(),
     );
   }
 }
