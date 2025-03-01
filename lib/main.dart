@@ -13,6 +13,8 @@ import 'package:wellnesshub/views/sign_up.dart';
 import 'package:wellnesshub/views/startup.dart';
 import 'package:wellnesshub/views/weight_page.dart';
 import 'package:wellnesshub/views/year_page.dart';
+import 'package:wellnesshub/views/favorites.dart';
+import 'package:wellnesshub/views/privacypolicy.dart';
 
 void main() {
   runApp(WellnessHub());
@@ -36,15 +38,17 @@ class WellnessHub extends StatelessWidget {
 
         'AgePage': (context) => YearPage(),
         'WeightPage': (context) => WeightPage(),
+        'HeightPage' :(context) => HeightPage(),
+
         'CommunityPage': (context) => CommunityPage(),
         'NutritionPage': (context) => NutritionPage(),
-        'SettingPage': (context) => SettingPage(),
-        // 'SettingPage': (context) => SettingPage(),
 
-              'HeightPage' :(context) => HeightPage(),
+
+        'SettingPage': (context) => SettingPage(),
+        'Favorites' :(context) => Favorites(),
       },
       debugShowCheckedModeBanner: false,
-      home: Startup(),
+      home: PrivacyPolicyPage(),
     );
   }
 }
