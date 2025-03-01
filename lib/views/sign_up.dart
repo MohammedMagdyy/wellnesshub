@@ -43,7 +43,7 @@ class _Sign_UpState extends State<SignUp> {
                       child: Text(
                         'Create an Account to Start your Healthy Life  ',
                         style: TextStyle(
-                          fontSize: 28,
+                          fontSize: 30,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -101,7 +101,7 @@ class _Sign_UpState extends State<SignUp> {
                   },
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
@@ -123,9 +123,7 @@ class _Sign_UpState extends State<SignUp> {
                   },
                 ),
               ),
-              SizedBox(
-                height: 16,
-              ),
+              SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -44,7 +44,7 @@ class WellnessHub extends StatelessWidget {
               'HeightPage' :(context) => HeightPage(),
       },
       debugShowCheckedModeBanner: false,
-      home: SettingPage(),
+      home: Startup(),
     );
   }
 }
