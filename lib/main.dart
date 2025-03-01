@@ -15,6 +15,7 @@ import 'package:wellnesshub/views/weight_page.dart';
 import 'package:wellnesshub/views/year_page.dart';
 import 'package:wellnesshub/views/favorites.dart';
 import 'package:wellnesshub/views/privacypolicy.dart';
+import 'package:wellnesshub/views/profile.dart';
 
 void main() {
   runApp(WellnessHub());
@@ -46,9 +47,11 @@ class WellnessHub extends StatelessWidget {
 
         'SettingPage': (context) => SettingPage(),
         'Favorites' :(context) => Favorites(),
+        'PrivacyPolicy' :(context) => PrivacyPolicyPage(),
+        'Profile' :(context) => Profile(),
       },
       debugShowCheckedModeBanner: false,
-      home: PrivacyPolicyPage(),
+      home: Profile(),
     );
   }
 }
