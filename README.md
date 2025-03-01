@@ -2,8 +2,6 @@
 
 A new Flutter project.
 
-## Getting Started
-
 # Privacy Policy for WellnessHub
 Last Updated: [01/03/2025]
 
