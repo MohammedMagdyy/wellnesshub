@@ -19,6 +19,7 @@ class Startup extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Image.asset("assets/heart-icon.png"),
+              SizedBox(height: 5),
               Text(
                 "The Wellness Hub",
                 style: TextStyle(
@@ -27,21 +28,19 @@ class Startup extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     fontFamily: "Calibri"),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 5),
               Container(
                 padding: EdgeInsets.all(15),
                 child: Text(
-                  "Welcome to Wellness App a user friendly gateway to your healthier lifestyle journey!",
+                  "Welcome to The Wellness Hub \n A user friendly gateway to a healthier lifestyle",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 18,
                     color: Colors.white,
                   ),
                 ),
               ),
-              SizedBox(height: 100),
+              SizedBox(height: 150),
               MaterialButton(
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, 'LoginPage');
@@ -62,9 +61,7 @@ class Startup extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -92,18 +89,7 @@ class Startup extends StatelessWidget {
                   )
                 ],
               ),
-              // Row(
-              //   children: [
-              //     Text(
-              //       "Dark Mode",
-              //       style: TextStyle(
-              //         fontSize: 15,
-              //         color: Colors.white
-              //       ),
-              //     ),
-
-              //   ],
-              // )
+              SizedBox(height: 20),
             ],
           )
         ],

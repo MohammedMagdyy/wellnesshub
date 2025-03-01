@@ -14,6 +14,9 @@ import 'package:wellnesshub/views/startup.dart';
 import 'package:wellnesshub/views/verify_email_page.dart';
 import 'package:wellnesshub/views/weight_page.dart';
 import 'package:wellnesshub/views/year_page.dart';
+import 'package:wellnesshub/views/favorites.dart';
+import 'package:wellnesshub/views/privacypolicy.dart';
+import 'package:wellnesshub/views/profile.dart';
 
 void main() {
   runApp(WellnessHub());
@@ -37,11 +40,16 @@ class WellnessHub extends StatelessWidget {
 
         'AgePage': (context) => YearPage(),
         'WeightPage': (context) => WeightPage(),
+        'HeightPage' :(context) => HeightPage(),
+
         'CommunityPage': (context) => CommunityPage(),
         'NutritionPage': (context) => NutritionPage(),
-        'SettingPage': (context) => SettingPage(),
 
-        'HeightPage' :(context) => HeightPage(),
+
+        'SettingPage': (context) => SettingPage(),
+        'Favorites' :(context) => Favorites(),
+        'PrivacyPolicy' :(context) => PrivacyPolicyPage(),
+        'Profile' :(context) => Profile(),
         'VerifyEmailPage' : (context) => VerifyEmailPage(),
       },
       debugShowCheckedModeBanner: false,
