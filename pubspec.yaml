@@ -38,6 +38,8 @@ dependencies:
   roundcheckbox: ^2.0.5
   numberpicker: ^2.1.2
   flutter_polygon: ^0.3.0+2
+  pinput: ^5.0.1
+  flutter_timer_countdown: ^1.0.7
  
   
   
