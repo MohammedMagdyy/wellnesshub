@@ -17,6 +17,7 @@ import 'package:wellnesshub/views/signup_process/year_page.dart';
 import 'package:wellnesshub/views/favorites.dart';
 import 'package:wellnesshub/views/privacypolicy.dart';
 import 'package:wellnesshub/views/profile.dart';
+import 'package:wellnesshub/views/signup_process/meal_plan.dart';
 
 void main() {
   runApp(WellnessHub());
@@ -37,6 +38,7 @@ class WellnessHub extends StatelessWidget {
         'PhysicalPage': (context) => PhysicalPage(),
         'InjuriesPage': (context) => InjuriesPage(),
         'ActivityPage': (context) => ActivityPage(),
+        'MealPlan': (context) => MealPlan(),
 
         'AgePage': (context) => YearPage(),
         'WeightPage': (context) => WeightPage(),
@@ -53,7 +55,7 @@ class WellnessHub extends StatelessWidget {
         'VerifyEmailPage' : (context) => VerifyEmailPage(),
       },
       debugShowCheckedModeBanner: false,
-      home: VerifyEmailPage(),
+      home: Startup(),
     );
   }
 }

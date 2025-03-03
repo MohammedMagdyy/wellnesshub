@@ -92,7 +92,10 @@ class _ActivityPageState extends State<ActivityPage> {
               name: 'Continue',
               on_Pressed: selectedGoal == null
                   ? null // Disable button if no gender is selected
-                  : () {},
+                  : () {
+                Navigator.pushNamed(context, "MealPlan");
+
+              },
             ),
           ],
         ),],
