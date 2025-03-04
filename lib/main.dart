@@ -49,13 +49,13 @@ class WellnessHub extends StatelessWidget {
 
 
         'SettingPage': (context) => SettingPage(),
-        'Favorites' :(context) => Favorites(),
+        'Favorites' :(context) => FavoritesPage(),
         'PrivacyPolicy' :(context) => PrivacyPolicyPage(),
-        'Profile' :(context) => Profile(),
+        'Profile' :(context) => ProfilePage(),
         'VerifyEmailPage' : (context) => VerifyEmailPage(),
       },
       debugShowCheckedModeBanner: false,
-      home: Startup(),
+      home: HeightPage(),
     );
   }
 }

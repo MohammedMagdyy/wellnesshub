@@ -3,8 +3,8 @@ import 'package:wellnesshub/widgets/profile_info_card.dart';
 import 'package:wellnesshub/widgets/custom_textfield.dart';
 import 'package:wellnesshub/widgets/custom_button.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({super.key});
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {

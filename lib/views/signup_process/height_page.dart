@@ -24,59 +24,64 @@ class _HeightPageState extends State<HeightPage> {
         ),
       ),
 
-      body: Column(
-        children: [
-          Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Column(
           children: [
-            Text(
-              "What is your height ?",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 30
-              ),
-            )
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "What is your height ?",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30
+                ),
+              )
+            ],
+          ),
+          SizedBox(height: 70,),
+          Text(
+            '$_height cm',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              fontSize: 50
+            ),
+            ),
+          Container(
+            height: 300,
+            width: 130,
+            margin: EdgeInsets.all(50),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Color(0xff80C9FC),
+            ),
+            // padding: EdgeInsets.symmetric(horizontal: 90),
+            child: SimpleRulerPicker(
+              axis: Axis.vertical,
+              height: 150,
+              initialValue: _height,
+              labelColor: Colors.black,
+              lineColor: Colors.black,
+              maxValue: 280,
+              minValue: 100,
+              selectedColor: Color(0xff0095ff),
+              scaleBottomPadding: 15,
+              scaleLabelSize: 15,
+              onValueChanged: (value) => setState(() => _height = value),
+              
+            ),
+          ),
+          SizedBox(height: 10,),
+          CustomButton(name: "Continue", width: 200, color: Colors.black , on_Pressed: () {
+            Navigator.pushNamed(context, 'GoalPage');
+          },)
           ],
         ),
-        SizedBox(height: 70,),
-        Text(
-          '$_height cm',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            fontSize: 50
-          ),
-          ),
-        Container(
-          height: 300,
-          width: 130,
-          margin: EdgeInsets.all(50),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Color(0xff80C9FC),
-          ),
-          // padding: EdgeInsets.symmetric(horizontal: 90),
-          child: SimpleRulerPicker(
-            axis: Axis.vertical,
-            height: 150,
-            initialValue: _height,
-            labelColor: Colors.black,
-            lineColor: Colors.black,
-            maxValue: 280,
-            minValue: 100,
-            selectedColor: Color(0xff0095ff),
-            scaleBottomPadding: 15,
-            scaleLabelSize: 15,
-            onValueChanged: (value) => setState(() => _height = value),
-            
-          ),
-        ),
-        SizedBox(height: 70,),
-        CustomButton(name: "Continue", width: 200, color: Colors.black , on_Pressed: () {
-          Navigator.pushNamed(context, 'GoalPage');
-        },)
-        ],
       ),
     );
   }

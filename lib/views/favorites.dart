@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/widgets/favorites_videos.dart';
 
-class Favorites extends StatelessWidget {
-  const Favorites({super.key});
+class FavoritesPage extends StatelessWidget {
+  const FavoritesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +15,17 @@ class Favorites extends StatelessWidget {
         title: const Text('Favorites'),
         titleSpacing: 100,
       ),
-      body: Column(
-        children: const [
-          FavoriteItem(imagePath: "assets/squats.jpg", title: "Squat Exercise"),
-          FavoriteItem(imagePath: "assets/stretches.jpg", title: "Full Body Stretching"),
-          FavoriteItem(imagePath: "assets/plank.jpg", title: "Plank With Hip Twist"),
-          FavoriteItem(imagePath: "assets/squats.jpg", title: "Push-Ups"),
-          FavoriteItem(imagePath: "assets/stretches.jpg", title: "Jumping Jacks"),
-          FavoriteItem(imagePath: "assets/plank.jpg", title: "Morning Yoga"),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            FavoriteItem(imagePath: "assets/squats.jpg", title: "Squat Exercise"),
+            FavoriteItem(imagePath: "assets/stretches.jpg", title: "Full Body Stretching"),
+            FavoriteItem(imagePath: "assets/plank.jpg", title: "Plank With Hip Twist"),
+            FavoriteItem(imagePath: "assets/squats.jpg", title: "Push-Ups"),
+            FavoriteItem(imagePath: "assets/stretches.jpg", title: "Jumping Jacks"),
+            FavoriteItem(imagePath: "assets/plank.jpg", title: "Morning Yoga"),
+          ],
+        ),
       ),
     );
   }
