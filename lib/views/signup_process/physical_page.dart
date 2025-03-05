@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/widgets/checkbox_button.dart';
-import 'package:wellnesshub/widgets/custom_button.dart';
+import 'package:wellnesshub/core/widgets/checkbox_button.dart';
+import 'package:wellnesshub/core/widgets/custom_button.dart';
 
 class PhysicalPage extends StatefulWidget {
   const PhysicalPage({super.key});

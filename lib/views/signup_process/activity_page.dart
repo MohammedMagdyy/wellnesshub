@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/widgets/custom_button.dart';
-import 'package:wellnesshub/widgets/special_checkboxbutton.dart';
+import 'package:wellnesshub/core/utils/appimages.dart';
+import 'package:wellnesshub/core/widgets/custom_button.dart';
+import 'package:wellnesshub/core/widgets/special_checkboxbutton.dart';
 
 class ActivityPage extends StatefulWidget {
   const ActivityPage({super.key});
@@ -82,7 +83,7 @@ class _ActivityPageState extends State<ActivityPage> {
               },
             ),
             Image.asset(
-              "assets/img.png",
+             Assets.assetsImagesImg,
               height: 150,
             ),
             SizedBox(height: 30),

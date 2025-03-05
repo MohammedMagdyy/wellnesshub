@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_ruler_picker/simple_ruler_picker.dart';
-import 'package:wellnesshub/widgets/custom_button.dart';
+import 'package:wellnesshub/core/widgets/custom_button.dart';
 
 class HeightPage extends StatefulWidget {
   const HeightPage({super.key});

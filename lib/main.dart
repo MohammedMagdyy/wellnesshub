@@ -55,7 +55,7 @@ class WellnessHub extends StatelessWidget {
         'VerifyEmailPage' : (context) => VerifyEmailPage(),
       },
       debugShowCheckedModeBanner: false,
-      home: HeightPage(),
+      home: SignIn(),
     );
   }
 }

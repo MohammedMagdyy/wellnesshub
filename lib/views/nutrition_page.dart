@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/widgets/custom_comingsoon.dart';
+import 'package:wellnesshub/core/widgets/custom_comingsoon.dart';
+import 'package:wellnesshub/core/utils/appimages.dart';
 
 class NutritionPage extends StatelessWidget {
   const NutritionPage({super.key});
@@ -8,7 +9,7 @@ class NutritionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomComingsoon(
       title: "Nutrition Page",
-      image: "assets/Nutrition.jpeg"
+      image: Assets.assetsImagesNutrition,
       );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/widgets/meal_plan_section.dart';
-import 'package:wellnesshub/widgets/custom_button.dart';
+import 'package:wellnesshub/core/widgets/meal_plan_section.dart';
+import 'package:wellnesshub/core/widgets/custom_button.dart';
 
 class MealPlan extends StatefulWidget {
   const MealPlan({super.key});

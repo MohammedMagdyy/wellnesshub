@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/widgets/custom_settingwidget.dart';
+import 'package:wellnesshub/core/widgets/custom_settingwidget.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});

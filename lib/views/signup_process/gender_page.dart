@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/widgets/custom_button.dart';
-import 'package:wellnesshub/widgets/custom_gendericon.dart';
+import 'package:wellnesshub/core/widgets/custom_button.dart';
+import 'package:wellnesshub/core/widgets/custom_gendericon.dart';
+import 'package:wellnesshub/core/utils/appimages.dart';
 
 class GenderPage extends StatefulWidget {
   const GenderPage({super.key});
@@ -48,7 +49,7 @@ class _Gender_PageState extends State<GenderPage> {
                       width: 88,
                     ),
                     CustomGenderIcon(
-                      image: 'assets/Male.png',
+                      image: Assets.assetsImagesMale,
                       isSelected: selectedGender == "Male",
                       firstColor: Colors.blue,
                       selectedColor: const Color.fromARGB(255, 11, 15, 216),
@@ -59,7 +60,7 @@ class _Gender_PageState extends State<GenderPage> {
                       },
                     ),
                     Image.asset(
-                      'assets/Man.png',
+                      Assets.assetsImagesMan,
                       height: 150,
                       width: 100,
                     ),
@@ -76,12 +77,12 @@ class _Gender_PageState extends State<GenderPage> {
                       width: 15,
                     ),
                     Image.asset(
-                      'assets/Women.png',
+                      Assets.assetsImagesWomen,
                       height: 150,
                       width: 100,
                     ),
                     CustomGenderIcon(
-                      image: 'assets/FemaleL.png',
+                      image: Assets.assetsImagesFemaleL,
                       isSelected: selectedGender == "Female",
                       firstColor: Colors.pinkAccent,
                       selectedColor: const Color.fromARGB(255, 133, 3, 46),

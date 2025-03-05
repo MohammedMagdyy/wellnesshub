@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/utils/appimages.dart';
 
 class Startup extends StatelessWidget {
   const Startup({super.key});
@@ -13,12 +14,12 @@ class Startup extends StatelessWidget {
           Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("assets/introbackground.jpg"),
+                      image: AssetImage(Assets.assetsImagesIntrobackground),
                       fit: BoxFit.cover))),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Image.asset("assets/heart-icon.png"),
+              Image.asset(Assets.assetsImagesHeartIcon),
               SizedBox(height: 5),
               Text(
                 "The Wellness Hub",
