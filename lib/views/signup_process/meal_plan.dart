@@ -4,6 +4,7 @@ import 'package:wellnesshub/core/widgets/custom_button.dart';
 
 class MealPlan extends StatefulWidget {
   const MealPlan({super.key});
+  static const routeName = 'MealPlan';
 
   @override
   _MealPlanState createState() => _MealPlanState();

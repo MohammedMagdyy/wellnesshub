@@ -4,6 +4,7 @@ import 'package:wellnesshub/core/widgets/custom_button.dart';
 
 class PhysicalPage extends StatefulWidget {
   const PhysicalPage({super.key});
+  static const routeName = 'PhysicalPage';
 
   @override
   State<PhysicalPage> createState() => _PhysicalPageState();

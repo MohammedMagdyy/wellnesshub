@@ -5,6 +5,7 @@ import 'package:wellnesshub/core/widgets/special_checkboxbutton.dart';
 
 class ActivityPage extends StatefulWidget {
   const ActivityPage({super.key});
+  static const routeName = 'VerifyEmailPage';
 
   @override
   State<ActivityPage> createState() => _ActivityPageState();

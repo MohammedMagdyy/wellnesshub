@@ -5,6 +5,7 @@ import 'package:wellnesshub/core/widgets/custom_button.dart';
 
 class WeightPage extends StatefulWidget {
   const WeightPage({super.key});
+  static const routeName = 'WeightPage';
 
   @override
   State<WeightPage> createState() => _WeightPageState();

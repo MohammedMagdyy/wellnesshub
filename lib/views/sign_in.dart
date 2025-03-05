@@ -6,6 +6,7 @@ import 'package:wellnesshub/core/widgets/custom_textfield.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
+  static const routeName = 'LoginPage';
 
   @override
   State<SignIn> createState() => _Sign_InState();
@@ -115,19 +116,19 @@ class _Sign_InState extends State<SignIn> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: CustomButton(
-                    color: Colors.white,
-                    width: double.infinity,
-                    name: 'Sign In With Google',
-                    on_Pressed: () async {
-                      if (formkey.currentState!.validate()) {
-                        _isLoading = true;
-                        setState(() {});
-                        //await SignIn_Func();
-                        //  Show_SnakBar(context, "Success");
-                        // Navigator.pushNamed(context, Chatpage.routeName);
-                      }
-                    },
-                  ),
+                color: Colors.white,
+                width: double.infinity,
+                name: 'Sign In With Google',
+                on_Pressed: () async {
+                  if (formkey.currentState!.validate()) {
+                    _isLoading = true;
+                    setState(() {});
+                    //await SignIn_Func();
+                    //  Show_SnakBar(context, "Success");
+                    // Navigator.pushNamed(context, Chatpage.routeName);
+                  }
+                },
+              ),
             ),
             SizedBox(
               height: 16,

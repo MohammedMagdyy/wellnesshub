@@ -4,6 +4,7 @@ import 'package:wellnesshub/core/widgets/custom_comingsoon.dart';
 
 class CommunityPage extends StatelessWidget {
   const CommunityPage({super.key});
+  static const routeName = 'CommunityPage';
 
   @override
   Widget build(BuildContext context) {

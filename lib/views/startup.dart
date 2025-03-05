@@ -3,6 +3,7 @@ import 'package:wellnesshub/core/utils/appimages.dart';
 
 class Startup extends StatelessWidget {
   const Startup({super.key});
+  static const routeName = 'StartUp';
 
   @override
   Widget build(BuildContext context) {

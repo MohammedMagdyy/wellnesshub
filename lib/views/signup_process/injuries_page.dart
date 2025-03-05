@@ -4,6 +4,7 @@ import 'package:wellnesshub/core/widgets/custom_button.dart';
 
 class InjuriesPage extends StatefulWidget {
   const InjuriesPage({super.key});
+  static const routeName = 'InjuriesPage';
 
   @override
   State<InjuriesPage> createState() => _InjuriesPageState();

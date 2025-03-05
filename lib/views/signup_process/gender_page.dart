@@ -5,6 +5,7 @@ import 'package:wellnesshub/core/utils/appimages.dart';
 
 class GenderPage extends StatefulWidget {
   const GenderPage({super.key});
+   static const routeName = 'GenderPage';
 
   @override
   State<GenderPage> createState() => _Gender_PageState();

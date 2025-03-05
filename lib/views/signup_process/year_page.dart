@@ -5,6 +5,7 @@ import 'package:wellnesshub/core/widgets/custom_button.dart';
 
 class YearPage extends StatefulWidget {
   const YearPage({super.key});
+  static const routeName = 'AgePage';
 
   @override
   State<YearPage> createState() => _YearPageState();

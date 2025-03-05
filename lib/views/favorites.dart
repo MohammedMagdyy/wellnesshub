@@ -4,6 +4,7 @@ import 'package:wellnesshub/core/utils/appimages.dart';
 
 class FavoritesPage extends StatelessWidget {
   const FavoritesPage({super.key});
+  static const routeName = 'Favorites';
 
   @override
   Widget build(BuildContext context) {

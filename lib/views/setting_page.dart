@@ -3,6 +3,7 @@ import 'package:wellnesshub/core/widgets/custom_settingwidget.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
+  static const routeName = 'SettingPage';
 
   @override
   Widget build(BuildContext context) {

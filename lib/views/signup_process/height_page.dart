@@ -4,6 +4,7 @@ import 'package:wellnesshub/core/widgets/custom_button.dart';
 
 class HeightPage extends StatefulWidget {
   const HeightPage({super.key});
+   static const routeName = 'HeightPage';
 
   @override
   State<HeightPage> createState() => _HeightPageState();

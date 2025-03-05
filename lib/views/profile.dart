@@ -5,6 +5,7 @@ import 'package:wellnesshub/core/widgets/custom_button.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
+  static const routeName = 'Profile';
 
   @override
   Widget build(BuildContext context) {
