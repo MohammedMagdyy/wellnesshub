@@ -72,11 +72,10 @@ class _MealPlanState extends State<MealPlan> {
             ),
             const SizedBox(height: 20),
             CustomButton(
-              name: "Continue",
-              on_Pressed: () {
-              },
-              width: double.infinity,
-              color: Colors.white, // Text color
+              width: 200,
+              color: Colors.black,
+              name: 'Continue',
+              on_Pressed: () {},
             ),
           ],
         ),
