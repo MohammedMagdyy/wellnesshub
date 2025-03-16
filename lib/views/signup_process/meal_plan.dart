@@ -75,7 +75,9 @@ class _MealPlanState extends State<MealPlan> {
               width: 200,
               color: Colors.black,
               name: 'Continue',
-              on_Pressed: () {},
+              on_Pressed: () {
+                Navigator.pushNamed(context, "HomePage");
+              },
             ),
           ],
         ),

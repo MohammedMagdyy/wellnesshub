@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/views/community_page.dart';
 import 'package:wellnesshub/views/favorites.dart';
+import 'package:wellnesshub/views/homepage.dart';
 import 'package:wellnesshub/views/nutrition_page.dart';
 import 'package:wellnesshub/views/privacypolicy.dart';
 import 'package:wellnesshub/views/profile.dart';
@@ -17,6 +18,7 @@ import 'package:wellnesshub/views/signup_process/sign_up.dart';
 import 'package:wellnesshub/views/signup_process/verify_email_page.dart';
 import 'package:wellnesshub/views/signup_process/weight_page.dart';
 import 'package:wellnesshub/views/signup_process/year_page.dart';
+import 'package:wellnesshub/core/widgets/categories.dart';
 import 'package:wellnesshub/views/bmi_calculator.dart';
 import 'package:wellnesshub/views/startup.dart';
 
@@ -62,6 +64,10 @@ Route<dynamic>OnGenerateRoute(RouteSettings settings){
       return MaterialPageRoute(builder: (context) => VerifyEmailPage());
     case 'BMICalculator':
       return MaterialPageRoute(builder: (context) => BMICalculator());
+    case 'Categories':
+      return MaterialPageRoute(builder: (context) => Categories());
+    case 'HomePage':
+      return MaterialPageRoute(builder: (context) => HomePage());
     default:
       return MaterialPageRoute(
           builder: (context) =>
