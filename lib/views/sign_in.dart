@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/core/utils/appimages.dart';
 
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';

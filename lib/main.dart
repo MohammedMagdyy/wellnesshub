@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/helper_functions/on_generate_route.dart';
-import 'package:wellnesshub/views/startup.dart';
+import 'package:wellnesshub/core/widgets/custom_bottomNavigatorBar.dart';
+import 'package:wellnesshub/views/homepage.dart';
 
 void main() {
   runApp(WellnessHub());
@@ -13,8 +14,8 @@ class WellnessHub extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
      onGenerateRoute: OnGenerateRoute,
-     initialRoute:Startup.routeName ,
-      debugShowCheckedModeBanner: false,
+     initialRoute:MainPage.routeName ,
+     debugShowCheckedModeBanner: false,
       
     );
   }

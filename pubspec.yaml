@@ -43,6 +43,7 @@ dependencies:
   flutter_svg: ^2.0.9
   dio: ^5.0.3
   shared_preferences: ^2.0.8
+  google_nav_bar: ^5.0.7
  
   
   

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/widgets/custom_bottomNavigatorBar.dart';
 import 'package:wellnesshub/views/community_page.dart';
 import 'package:wellnesshub/views/favorites.dart';
 import 'package:wellnesshub/views/homepage.dart';
@@ -68,6 +69,8 @@ Route<dynamic>OnGenerateRoute(RouteSettings settings){
       return MaterialPageRoute(builder: (context) => Categories());
     case 'HomePage':
       return MaterialPageRoute(builder: (context) => HomePage());
+    case 'CustomBottomNavigatorBar':
+      return MaterialPageRoute(builder: (context) => MainPage());  
     default:
       return MaterialPageRoute(
           builder: (context) =>

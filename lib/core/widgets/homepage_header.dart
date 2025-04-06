@@ -7,6 +7,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        const SizedBox(width: 5),
         const CircleAvatar(
           radius: 30,
           backgroundColor: Colors.grey,
@@ -21,7 +22,11 @@ class Header extends StatelessWidget {
           ],
         ),
         const Spacer(),
-        const Icon(Icons.person, size: 28),
+        GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, "Profile");
+              },
+          child: Icon(Icons.person, size: 28)),
       ],
     );
   }

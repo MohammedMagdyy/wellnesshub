@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class BMIBar extends StatelessWidget {
   final double bmi;
 
-  BMIBar({required this.bmi});
+  const BMIBar({super.key, required this.bmi});
 
   double _getAlignment() {
     if (bmi < 15) return -1.0;
