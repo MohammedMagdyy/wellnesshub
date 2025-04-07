@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/services/auth/login_service.dart';
+import 'package:wellnesshub/core/utils/appimages.dart';
 
 import 'package:wellnesshub/core/widgets/custom_button.dart';
+import 'package:wellnesshub/core/widgets/custom_list_tile.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
 
 class SignIn extends StatefulWidget {
@@ -14,9 +17,9 @@ class SignIn extends StatefulWidget {
 class _Sign_InState extends State<SignIn> {
   GlobalKey<FormState> formkey = GlobalKey();
   bool _isLoading = false;
-  String? Email;
-
-  String? Password;
+  String email = "";
+  String password = "";
+  String? error;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,7 @@ class _Sign_InState extends State<SignIn> {
               child: CustomTextfield(
                 name: "Email",
                 onChanged: (value) {
-                  Email = value;
+                  email = value;
                 },
               ),
             ),
@@ -63,7 +66,7 @@ class _Sign_InState extends State<SignIn> {
               child: CustomTextfield(
                 name: "Password",
                 onChanged: (value) {
-                  Password = value;
+                  password = value;
                 },
               ),
             ),
@@ -79,9 +82,20 @@ class _Sign_InState extends State<SignIn> {
                   if (formkey.currentState!.validate()) {
                     _isLoading = true;
                     setState(() {});
-                    //await SignIn_Func();
-                    //  Show_SnakBar(context, "Success");
-                    Navigator.pushNamed(context, "MainPage");
+                    //   LoginService loginservice = LoginService();
+                    //   final success = await loginservice.login(email, password);
+                    //   if (success) {
+                    //     Navigator.pushReplacementNamed(context, 'MainPage');
+                    //   } else {
+                    //     setState(
+                    //       () {
+                    //         error =
+                    //             'Login failed. Please check your credentials.';
+                    //       },
+                    //     );
+                    //   }
+                    // }
+                    Navigator.pushReplacementNamed(context, 'MainPage');
                   }
                 },
               ),
@@ -114,23 +128,20 @@ class _Sign_InState extends State<SignIn> {
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-              child: CustomButton(
-                color: Colors.white,
-                width: double.infinity,
-                name: 'Sign In With Google',
-                on_Pressed: () async {
-                  if (formkey.currentState!.validate()) {
-                    _isLoading = true;
-                    setState(() {});
-                    //await SignIn_Func();
-                    //  Show_SnakBar(context, "Success");
-                    // Navigator.pushNamed(context, Chatpage.routeName);
-                  }
-                },
+              child: CustomListTile(
+                text: "Sign In Using Google",
+                image: Assets.assetsImagesGoogleLogo,
               ),
             ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              child: CustomListTile(
+                  text: "Sign In With Facebook",
+                  image: Assets.assetsImagesFacebookLogo),
+            ),
             SizedBox(
-              height: 16,
+              height: 4,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
