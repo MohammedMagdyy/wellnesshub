@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/views/community_page.dart';
 import 'package:wellnesshub/views/nutrition_page.dart';
+import 'package:wellnesshub/views/progress.dart';
+import 'package:wellnesshub/views/workout.dart';
 
 class Categories extends StatelessWidget {
   const Categories({super.key});
@@ -10,8 +12,8 @@ class Categories extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-       // _CategoryItem(icon: Icons.fitness_center, label: "Workout", page: const Workout()),
-       // _CategoryItem(icon: Icons.show_chart, label: "Progress", page: const Progress()),
+        _CategoryItem(icon: Icons.fitness_center, label: "Workout", page: const WorkoutPage()),
+        _CategoryItem(icon: Icons.show_chart, label: "Progress", page: const ProgressPage()),
         _CategoryItem(icon: Icons.local_dining, label: "Nutrition", page: const NutritionPage()),
         _CategoryItem(icon: Icons.groups, label: "Community", page: const CommunityPage()),
       ],
