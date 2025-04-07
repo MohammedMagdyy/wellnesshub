@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
-class BMIBar extends StatelessWidget {
+class BMIBar extends StatefulWidget {
   final double bmi;
 
   const BMIBar({super.key, required this.bmi});
 
+  @override
+  State<BMIBar> createState() => _BMIBarState();
+}
+
+class _BMIBarState extends State<BMIBar> {
   double _getAlignment() {
-    if (bmi < 15) return -1.0;
-    if (bmi > 40) return 1.0;
-    return (bmi - 15) / 25 * 2 - 1;
+    if (widget.bmi < 15) return -1.0;
+    if (widget.bmi > 40) return 1.0;
+    return (widget.bmi - 15) / 25 * 2 - 1;
   }
 
   @override
@@ -28,7 +33,8 @@ class BMIBar extends StatelessWidget {
               _buildSegment(35, 40, Colors.red),
             ],
           ),
-          Align(
+          AnimatedAlign(
+            duration: Duration(milliseconds: 300),
             alignment: Alignment(_getAlignment(), 0),
             child: Container(
               width: 4,

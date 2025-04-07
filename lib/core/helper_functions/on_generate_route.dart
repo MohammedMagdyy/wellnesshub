@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/views/fitnessplanpage.dart';
 import 'package:wellnesshub/views/mainpage.dart';
 import 'package:wellnesshub/views/community_page.dart';
 import 'package:wellnesshub/views/favorites.dart';
@@ -71,6 +72,8 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => HomePage());
     case 'MainPage':
       return MaterialPageRoute(builder: (context) => MainPage());
+    case 'FitnessPlanPage':
+      return MaterialPageRoute(builder: (context) => FitnessPlanPage());
 
     default:
       return MaterialPageRoute(
