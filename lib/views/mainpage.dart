@@ -55,14 +55,14 @@ class _MainPageState extends State<MainPage> {
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
                 child: GNav(
                   rippleColor: Colors.blueGrey,
-                  hoverColor: const Color.fromARGB(255, 165, 85, 111),
+                  hoverColor:  Colors.blue,
                   backgroundColor: Colors.white,
                   gap: 4,
-                  activeColor: Colors.blueAccent,
+                  activeColor: Colors.white,
                   iconSize: 24,
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   duration: const Duration(milliseconds: 400),
-                  tabBackgroundColor: const Color.fromARGB(255, 165, 85, 111),
+                  tabBackgroundColor: Colors.blue,
                   color: Colors.blueAccent,
                   tabs: const [
                     GButton(icon: Icons.home, text: 'Home'),

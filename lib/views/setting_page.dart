@@ -27,16 +27,19 @@ class SettingPage extends StatelessWidget {
               title: "Set Workout Reminders",
               icon: Icons.notifications_none,
               check: true,
+              pageName: "SettingPage",
             ),
             CustomSettingwidget(
               title: "Enable Location Services",
               icon: Icons.location_on_outlined,
               check: true,
+              pageName: "SettingPage",
             ),
             CustomSettingwidget(
               title: "Dark Mode",
               icon: Icons.dark_mode,
               check: true,
+              pageName: "SettingPage",
             ),
             CustomSettingwidget(
               title: "Privacy Policy",
