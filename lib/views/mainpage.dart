@@ -8,7 +8,7 @@ import 'package:wellnesshub/views/setting_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
-  static const routeName = 'CustomBottomNavigatorBar';
+  static const routeName = 'MainPage';
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -28,7 +28,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: IndexedStack(
         index: _selectedIndex,
         children: _pages,
@@ -46,29 +45,37 @@ class _MainPageState extends State<MainPage> {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-              child: GNav(
-                rippleColor: Colors.blueGrey,
-                hoverColor: Colors.blueAccent,
-                gap: 4,
-                activeColor: Colors.black,
-                iconSize: 24,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                duration: const Duration(milliseconds: 400),
-                tabBackgroundColor: Colors.lightBlue,
-                color: Colors.black,
-                tabs: const [
-                  GButton(icon: Icons.home, text: 'Home'),
-                  GButton(icon: Icons.show_chart, text: 'Progress'),
-                  GButton(icon: Icons.favorite, text: 'Favs'),
-                  GButton(icon: Icons.calculate, text: 'BMI'),
-                  GButton(icon: Icons.settings, text: 'Settings'),
-                ],
-                selectedIndex: _selectedIndex,
-                onTabChange: (index) {
-                  setState(() => _selectedIndex = index);
-                },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Padding(
+                
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                child: GNav(
+                  rippleColor: Colors.blueGrey,
+                  hoverColor: const Color.fromARGB(255, 165, 85, 111),
+                  backgroundColor: Colors.white,
+                  gap: 4,
+                  activeColor: Colors.blueAccent,
+                  iconSize: 24,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  duration: const Duration(milliseconds: 400),
+                  tabBackgroundColor: const Color.fromARGB(255, 165, 85, 111),
+                  color: Colors.blueAccent,
+                  tabs: const [
+                    GButton(icon: Icons.home, text: 'Home'),
+                    GButton(icon: Icons.show_chart, text: 'Progress'),
+                    GButton(icon: Icons.favorite, text: 'Favourites'),
+                    GButton(icon: Icons.calculate, text: 'BMI'),
+                    GButton(icon: Icons.settings, text: 'Settings'),
+                  ],
+                  selectedIndex: _selectedIndex,
+                  onTabChange: (index) {
+                    setState(() => _selectedIndex = index);
+                  },
+                ),
               ),
             ),
           ),

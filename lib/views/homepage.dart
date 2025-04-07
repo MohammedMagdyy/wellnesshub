@@ -14,11 +14,11 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 50),
             Header(),
             const SizedBox(height: 30),
             SearchBarWidget(),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
             // Wrap Categories in an Expanded or Flexible if necessary
             const Categories(),
             const SizedBox(height: 20),

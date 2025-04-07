@@ -29,7 +29,8 @@ class _ChatPageState extends State<CommunityPage> {
       });
     } catch (e) {
       setState(() {
-        _messages.add({'text': 'Sorry, something went wrong.', 'isCoach': true});
+        _messages
+            .add({'text': 'Sorry, something went wrong.', 'isCoach': true});
       });
     }
   }
@@ -37,7 +38,14 @@ class _ChatPageState extends State<CommunityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Coach Chat')),
+      appBar: AppBar(
+          title: const Text(
+        'Coach Chat',
+        style: TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
+      )),
       body: Column(
         children: [
           Expanded(

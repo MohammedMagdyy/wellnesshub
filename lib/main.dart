@@ -13,10 +13,9 @@ class WellnessHub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-     onGenerateRoute: OnGenerateRoute,
-     initialRoute:MainPage.routeName ,
-     debugShowCheckedModeBanner: false,
-      
+      onGenerateRoute: OnGenerateRoute,
+      initialRoute: MainPage.routeName,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

@@ -20,12 +20,23 @@ class ChatBubble extends StatelessWidget {
         constraints: const BoxConstraints(maxWidth: 300),
         decoration: BoxDecoration(
           color: isCoach ? Colors.grey[300] : Colors.blueAccent,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: isCoach
+              ? BorderRadius.only(
+                  bottomRight: Radius.circular(20.0),
+                  bottomLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                )
+              : BorderRadius.only(
+                  bottomLeft: Radius.circular(30.0),
+                  topLeft: Radius.circular(30.0),
+                  bottomRight: Radius.circular(30.0),
+                ),
         ),
         child: Text(
           message,
           style: TextStyle(
-            color: isCoach ? Colors.black87 : Colors.white,
+            color: isCoach ? Colors.black : Colors.white,
+            fontSize: 16,
           ),
         ),
       ),

@@ -20,24 +20,31 @@ class _MessageInputState extends State<MessageInput> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              controller: _controller,
-              decoration: const InputDecoration(
-                hintText: 'Type a message...',
-                border: OutlineInputBorder(),
-              ),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      child: TextField(
+        controller: _controller,
+        decoration: InputDecoration(
+          hintText: 'Type a message...',
+          suffixIcon: IconButton(
+            icon: Icon(
+              Icons.send,
+              color: Colors.blue,
             ),
-          ),
-          const SizedBox(width: 8),
-          IconButton(
-            icon: const Icon(Icons.send),
             onPressed: _send,
           ),
-        ],
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey,
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.blue,
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+          ),
+        ),
       ),
     );
   }

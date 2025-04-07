@@ -16,16 +16,28 @@ class BMICalculator extends StatelessWidget {
   Widget build(BuildContext context) {
     double bmi = calculateBMI(height, weight);
 
-    return SafeArea(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            BMIBar(bmi: bmi),
-            const SizedBox(height: 10),
-            Text('BMI: \${bmi.toStringAsFixed(1)}',
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'BMI Calculator ',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        
+      ),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              BMIBar(bmi: bmi),
+              const SizedBox(height: 10),
+              Text('BMI: \${bmi.toStringAsFixed(1)}',
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            ],
+          ),
         ),
       ),
     );

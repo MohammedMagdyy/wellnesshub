@@ -23,7 +23,7 @@ import 'package:wellnesshub/core/widgets/categories.dart';
 import 'package:wellnesshub/views/bmi_calculator.dart';
 import 'package:wellnesshub/views/startup.dart';
 
-Route<dynamic>OnGenerateRoute(RouteSettings settings){
+Route<dynamic> OnGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case 'StartUp':
       return MaterialPageRoute(builder: (context) => Startup());
@@ -69,13 +69,12 @@ Route<dynamic>OnGenerateRoute(RouteSettings settings){
       return MaterialPageRoute(builder: (context) => Categories());
     case 'HomePage':
       return MaterialPageRoute(builder: (context) => HomePage());
-    case 'CustomBottomNavigatorBar':
-      return MaterialPageRoute(builder: (context) => MainPage());  
+    case 'MainPage':
+      return MaterialPageRoute(builder: (context) => MainPage());
+
     default:
       return MaterialPageRoute(
           builder: (context) =>
               Scaffold(body: Center(child: Text('Page not found'))));
   }
 }
-
-
