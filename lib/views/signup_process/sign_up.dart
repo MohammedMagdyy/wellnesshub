@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:wellnesshub/widgets/custom_button.dart';
-import 'package:wellnesshub/widgets/custom_textfield.dart';
+import 'package:wellnesshub/core/widgets/custom_button.dart';
+import 'package:wellnesshub/core/widgets/custom_textfield.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
-import 'package:wellnesshub/widgets/custom_button.dart';
+import 'package:wellnesshub/core/utils/appimages.dart';
+import 'package:wellnesshub/core/widgets/custom_button.dart';
 
 class WeightPage extends StatefulWidget {
   const WeightPage({super.key});
+  static const routeName = 'WeightPage';
 
   @override
   State<WeightPage> createState() => _WeightPageState();
@@ -47,7 +49,7 @@ class _WeightPageState extends State<WeightPage> {
           ),
           ),
         SizedBox(height: 50,),
-        Image.asset("assets/arrow.png"),
+        Image.asset(Assets.assetsImagesArrow),
         SizedBox(height: 50,),
         Container(
           height: 100,

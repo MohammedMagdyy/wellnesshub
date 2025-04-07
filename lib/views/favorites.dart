@@ -1,31 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/widgets/favorites_videos.dart';
+import 'package:wellnesshub/core/widgets/videos.dart';
+import 'package:wellnesshub/core/utils/appimages.dart';
 
-class Favorites extends StatelessWidget {
-  const Favorites({super.key});
+
+class FavoritesPage extends StatelessWidget {
+  const FavoritesPage({super.key});
+  static const routeName = 'Favorites';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back), // Back icon
-          onPressed: () => Navigator.pop(context), // Navigate back
+        title: const Text(
+          'Favorites ',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        title: const Text('Favorites'),
-        titleSpacing: 100,
+        
       ),
-      body: Column(
-        children: const [
-          FavoriteItem(imagePath: "assets/squats.jpg", title: "Squat Exercise"),
-          FavoriteItem(imagePath: "assets/stretches.jpg", title: "Full Body Stretching"),
-          FavoriteItem(imagePath: "assets/plank.jpg", title: "Plank With Hip Twist"),
-          FavoriteItem(imagePath: "assets/squats.jpg", title: "Push-Ups"),
-          FavoriteItem(imagePath: "assets/stretches.jpg", title: "Jumping Jacks"),
-          FavoriteItem(imagePath: "assets/plank.jpg", title: "Morning Yoga"),
-        ],
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: SafeArea(
+          child: Column(
+            children: const [
+              FavoriteItem(imagePath: Assets.assetsImagesSquats, title: "Squat Exercise"),
+              SizedBox(height: 15),
+              FavoriteItem(imagePath: Assets.assetsImagesStretches, title: "Full Body Stretching"),
+              SizedBox(height: 15),
+              FavoriteItem(imagePath: Assets.assetsImagesPlank, title: "Plank With Hip Twist"),
+              SizedBox(height: 15),
+              FavoriteItem(imagePath: Assets.assetsImagesSquats, title: "Push-Ups"),
+              SizedBox(height: 15),
+              FavoriteItem(imagePath: Assets.assetsImagesStretches, title: "Jumping Jacks"),
+              SizedBox(height: 15),
+              FavoriteItem(imagePath: Assets.assetsImagesPlank, title: "Morning Yoga"),
+              SizedBox(height: 15),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
-

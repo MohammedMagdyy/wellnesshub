@@ -1,22 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/views/activity_page.dart';
-import 'package:wellnesshub/views/community_page.dart';
-import 'package:wellnesshub/views/gender_page.dart';
-import 'package:wellnesshub/views/goal_page.dart';
-import 'package:wellnesshub/views/height_page.dart';
-import 'package:wellnesshub/views/injuries_page.dart';
-import 'package:wellnesshub/views/nutrition_page.dart';
-import 'package:wellnesshub/views/physical_page.dart';
-import 'package:wellnesshub/views/setting_page.dart';
-import 'package:wellnesshub/views/sign_in.dart';
-import 'package:wellnesshub/views/sign_up.dart';
-import 'package:wellnesshub/views/startup.dart';
-import 'package:wellnesshub/views/verify_email_page.dart';
-import 'package:wellnesshub/views/weight_page.dart';
-import 'package:wellnesshub/views/year_page.dart';
-import 'package:wellnesshub/views/favorites.dart';
-import 'package:wellnesshub/views/privacypolicy.dart';
-import 'package:wellnesshub/views/profile.dart';
+import 'package:wellnesshub/core/helper_functions/on_generate_route.dart';
+import 'package:wellnesshub/views/mainpage.dart';
 
 void main() {
   runApp(WellnessHub());
@@ -28,32 +12,9 @@ class WellnessHub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        'StartUp': (context) => Startup(),
-        'LoginPage': (context) => SignIn(),
-        'SignUpPage': (context) => SignUp(),
-        'GenderPage': (context) => GenderPage(),
-        'GoalPage': (context) => GoalPage(),
-        'PhysicalPage': (context) => PhysicalPage(),
-        'InjuriesPage': (context) => InjuriesPage(),
-        'ActivityPage': (context) => ActivityPage(),
-
-        'AgePage': (context) => YearPage(),
-        'WeightPage': (context) => WeightPage(),
-        'HeightPage' :(context) => HeightPage(),
-
-        'CommunityPage': (context) => CommunityPage(),
-        'NutritionPage': (context) => NutritionPage(),
-
-
-        'SettingPage': (context) => SettingPage(),
-        'Favorites' :(context) => Favorites(),
-        'PrivacyPolicy' :(context) => PrivacyPolicyPage(),
-        'Profile' :(context) => Profile(),
-        'VerifyEmailPage' : (context) => VerifyEmailPage(),
-      },
+      onGenerateRoute: OnGenerateRoute,
+      initialRoute: MainPage.routeName,
       debugShowCheckedModeBanner: false,
-      home: HeightPage(),
     );
   }
 }
