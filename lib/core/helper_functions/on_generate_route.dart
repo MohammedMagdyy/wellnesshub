@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/core/widgets/custom_bottomNavigatorBar.dart';
+import 'package:wellnesshub/views/mainpage.dart';
 import 'package:wellnesshub/views/community_page.dart';
 import 'package:wellnesshub/views/favorites.dart';
 import 'package:wellnesshub/views/homepage.dart';
