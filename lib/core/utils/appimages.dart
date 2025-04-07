@@ -10,6 +10,10 @@ class Assets {
   /// assets/images/Community.jpeg
   static const String assetsImagesCommunity = "assets/images/Community.jpeg";
 
+  /// Assets for assetsImagesFacebookLogo
+  /// assets/images/Facebook_logo.png
+  static const String assetsImagesFacebookLogo = "assets/images/Facebook_logo.png";
+
   /// Assets for assetsImagesFemaleL
   /// assets/images/FemaleL.png
   static const String assetsImagesFemaleL = "assets/images/FemaleL.png";
