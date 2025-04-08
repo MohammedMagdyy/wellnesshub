@@ -3,7 +3,7 @@ import 'package:wellnesshub/core/widgets/videos.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 
 class WorkoutPage extends StatelessWidget {
-  const WorkoutPage({Key? key}) : super(key: key);
+  const WorkoutPage({super.key});
 
   @override
   Widget build(BuildContext context) {

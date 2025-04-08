@@ -67,7 +67,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                       SizedBox(height: 10,),
                       Text("Your BMI :" , style: TextStyle(fontSize: 16 , fontWeight: FontWeight.bold),),
                       SizedBox(height: 10,),
-                      Text("${bmi.toStringAsFixed(1)}" , style: TextStyle(fontSize: 64 , color: Color(0xff0957DE) , fontWeight: FontWeight.bold),),
+                      Text(bmi.toStringAsFixed(1) , style: TextStyle(fontSize: 64 , color: Color(0xff0957DE) , fontWeight: FontWeight.bold),),
                       SizedBox(height: 10,),
                       BMIBar(bmi: bmi),
                       SizedBox(height: 10),
