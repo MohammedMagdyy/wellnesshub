@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
@@ -23,17 +24,7 @@ class _Sign_UpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new_rounded),
-          onPressed: (){
-            Navigator.pop(context);
-          },
-          
-          ),
-
-      ),
+      appBar: CustomAppbar(title: "SignUp"),
       body: Form(
         key: formkey,
         child: SafeArea(

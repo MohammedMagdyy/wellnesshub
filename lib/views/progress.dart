@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 
 class ProgressPage extends StatelessWidget {
   const ProgressPage({super.key});
@@ -7,17 +8,7 @@ class ProgressPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Progress ',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Color(0xff0095FF),
-          ),
-        ),
-        
-      ),
+      appBar: CustomAppbar(title: "Progress"),
       body: SafeArea(
         child: const Center(
           child: Text('Progress Page'),
