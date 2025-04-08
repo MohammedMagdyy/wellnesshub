@@ -20,8 +20,9 @@ class _WorkoutCardState extends State<WorkoutCard> {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 1,
+      aspectRatio: 1.3,
       child: Container(
+        width: 200,
         decoration: BoxDecoration(
           color: Colors.grey,
           borderRadius: BorderRadius.all(Radius.circular(15))
@@ -36,7 +37,7 @@ class _WorkoutCardState extends State<WorkoutCard> {
                 child: Column(
                   children: [
                     Expanded(
-                      flex: 1,
+                      flex: 2,
                       child: Image.asset(
                         Assets.workout1,
                         fit: BoxFit.cover,
@@ -51,16 +52,16 @@ class _WorkoutCardState extends State<WorkoutCard> {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text("Workout Name" , style: TextStyle(fontSize: 20 , fontWeight: FontWeight.bold),),
+                              Text("Workout Name" , style: TextStyle(fontSize: 15 , fontWeight: FontWeight.bold),),
                               Row(
                                 children: [
-                                  Icon(Icons.timer, size: 20, color: Colors.blue),
-                                  SizedBox(width: 5),
-                                  Text("12 minutes" , style: TextStyle(fontSize: 15 , fontWeight: FontWeight.bold),),
-                                  SizedBox(width: 20,),
-                                  Icon(Icons.local_fire_department, size: 20, color: Colors.blue),
-                                  SizedBox(width: 5),
-                                  Text("120 Kcal" , style: TextStyle(fontSize: 15 , fontWeight: FontWeight.bold),)
+                                  Icon(Icons.timer, size: 15, color: Colors.blue),
+                                  SizedBox(width: 1),
+                                  Text("12 minutes" , style: TextStyle(fontSize: 12 , fontWeight: FontWeight.bold),),
+                                  SizedBox(width: 5,),
+                                  Icon(Icons.local_fire_department, size: 15, color: Colors.blue),
+                                  SizedBox(width: 1),
+                                  Text("120 Kcal" , style: TextStyle(fontSize: 12 , fontWeight: FontWeight.bold),)
                                 ],
                               )
                             ],

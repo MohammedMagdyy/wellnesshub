@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/profile_info_card.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
@@ -10,13 +11,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text('Profile'),
-      ),
+      appBar: CustomAppbar(title: "Profile"),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

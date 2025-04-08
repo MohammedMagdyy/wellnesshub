@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 
 class CustomComingsoon extends StatelessWidget {
   const CustomComingsoon({super.key,required this.title,required this.image});
@@ -8,14 +9,7 @@ class CustomComingsoon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Back icon
-          onPressed: () {
-            Navigator.pop(context); // Go back to the previous page
-          },
-        ),
-      ),
+      appBar: CustomAppbar(title: title),
       body: Stack(
         fit: StackFit.expand,
         children: [

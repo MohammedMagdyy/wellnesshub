@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/bmi_bar.dart';
 import 'package:wellnesshub/core/widgets/bmi_infos.dart';
+import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 
 
@@ -38,17 +39,7 @@ class _BMICalculatorState extends State<BMICalculator> {
     double bmi = calculateBMI(height, weight);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'BMI Calculator ',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Color(0xff0095FF)
-          ),
-        ),
-        
-      ),
+      appBar: CustomAppbar(title: "BMI Calculator"),
       body: SafeArea(
         child: Center(
           child: Column(

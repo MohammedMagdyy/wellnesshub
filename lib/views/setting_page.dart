@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_settingwidget.dart';
 
 
@@ -10,17 +11,7 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Settings ',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Color(0xff0095FF),
-          ),
-        ),
-        
-      ),
+      appBar: CustomAppbar(title: "Settings"),
       body: SafeArea(
         child: ListView(
           children: const [

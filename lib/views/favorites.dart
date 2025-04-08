@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/videos.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 
@@ -10,17 +11,7 @@ class FavoritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Favorites ',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Color(0xff0095FF),
-          ),
-        ),
-        
-      ),
+      appBar: CustomAppbar(title: "Favourites"),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: SafeArea(
