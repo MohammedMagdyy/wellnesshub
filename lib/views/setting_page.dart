@@ -16,6 +16,7 @@ class SettingPage extends StatelessWidget {
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
+            color: Color(0xff0095FF),
           ),
         ),
         

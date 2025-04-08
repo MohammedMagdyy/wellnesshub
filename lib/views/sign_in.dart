@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/core/services/auth/login_service.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 
 import 'package:wellnesshub/core/widgets/custom_button.dart';
@@ -24,6 +23,7 @@ class _Sign_InState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //backgroundColor: Colors.black,
       body: Form(
         key: formkey,
         child: ListView(
@@ -41,11 +41,13 @@ class _Sign_InState extends State<SignIn> {
                     style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
+                      color: const Color(0xff0065d0),
                     ),
                   ),
                   Text(
                     'it’s good to see you again',
-                    style: TextStyle(fontSize: 15),
+                    style:
+                        TextStyle(fontSize: 15, color: const Color(0xff0065d0)),
                   ),
                 ],
               ),
@@ -109,16 +111,19 @@ class _Sign_InState extends State<SignIn> {
                   indent: 20,
                   endIndent: 10,
                   thickness: 1.5,
-                  color: Colors.black,
+                  color: Colors.blueGrey,
                 ),
               ),
-              Text("or continue with"),
+              Text(
+                "or continue with",
+                style: TextStyle(color: const Color(0xff0065d0)),
+              ),
               Expanded(
                 child: Divider(
                   indent: 10,
                   endIndent: 20,
                   thickness: 1.5,
-                  color: Colors.black,
+                  color: Colors.blueGrey,
                 ),
               ),
             ]),
@@ -149,13 +154,13 @@ class _Sign_InState extends State<SignIn> {
                 const Text(
                   "Don't have an account?",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: const Color(0xff0065d0),
                     fontSize: 13,
                   ),
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, 'SignUpPage');
+                    Navigator.pushNamed(context, 'SignUpPage');
                     //Navigator.pushNamed(context, SignUpPage.routeName);
                   },
                   // Navigate to Sign Up page

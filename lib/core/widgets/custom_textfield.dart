@@ -18,7 +18,7 @@ class CustomTextfield extends StatelessWidget {
       onChanged: onChanged,
       decoration: InputDecoration(
         labelText: name,
-        labelStyle: const TextStyle(color: Colors.black),
+        labelStyle: const TextStyle(color: Colors.grey),
         
         // 👇 Default Border
         border: OutlineInputBorder(
@@ -41,7 +41,7 @@ class CustomTextfield extends StatelessWidget {
         // 👇 Border when text field is enabled but not focused
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50),
-          borderSide: const BorderSide(color: Colors.black, width: 1),
+          borderSide: const BorderSide(color: Colors.blue, width: 1),
         ),
       ),
     );

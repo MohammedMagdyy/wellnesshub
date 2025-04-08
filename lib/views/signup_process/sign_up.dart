@@ -23,13 +23,22 @@ class _Sign_UpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Form(
-          key: formkey,
+      appBar: AppBar(
+        
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+          
+          ),
+
+      ),
+      body: Form(
+        key: formkey,
+        child: SafeArea(
           child: ListView(
             children: [
-              SizedBox(
-                height: 60,
-              ),
               Padding(
                 padding: const EdgeInsets.all(32.0),
                 child: Column(
@@ -51,7 +60,7 @@ class _Sign_UpState extends State<SignUp> {
                   ],
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 5),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextfield(
@@ -111,15 +120,14 @@ class _Sign_UpState extends State<SignUp> {
                   name: 'Sign Up',
                   on_Pressed: () async {
                     if (formkey.currentState!.validate()) {
-                      
                       setState(() {
                         _isLoading = true;
                       });
                       //await SignIn_Func();
                       //  Show_SnakBar(context, "Success");
-                       Navigator.pushNamed(context, "GenderPage");
+                      Navigator.pushNamed(context, "GenderPage");
                       // Navigator.pushNamed(context, Chatpage.routeName);
-                    } 
+                    }
                   },
                 ),
               ),
@@ -156,6 +164,7 @@ class _Sign_UpState extends State<SignUp> {
             ],
           ),
         ),
-      );
+      ),
+    );
   }
 }
