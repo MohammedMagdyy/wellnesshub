@@ -38,24 +38,25 @@ class _FavoriteItemState extends State<FavoriteItem> {
           ),
         ),
         Positioned(
-            left: 100,
-            top: 80,
-            right: 100,
-            child: GestureDetector(
-              onTap: () {},
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.blue.withOpacity(0.5),
-                 // borderRadius: BorderRadius.circular(100),
-                ),
-                child: Icon(
-                  Icons.play_circle_outlined,
-                  color: Colors.white,
-                  size: 60,
-                ),
+          left: 100,
+          top: 80,
+          right: 100,
+          child: GestureDetector(
+            onTap: () {},
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.blue.withValues(alpha: 0.4),
+                // borderRadius: BorderRadius.circular(100),
               ),
-            ),),
+              child: Icon(
+                Icons.play_circle_outlined,
+                color: Colors.white,
+                size: 60,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

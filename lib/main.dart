@@ -15,7 +15,7 @@ class WellnessHub extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateRoute: OnGenerateRoute,
-      initialRoute: ExercisePage.routeName,
+      initialRoute: FitnessPlanPage.routeName,
       debugShowCheckedModeBanner: false,
       
     );
