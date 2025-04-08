@@ -28,7 +28,7 @@ class _BMICalculatorState extends State<BMICalculator> {
     Future.delayed(Duration(seconds: 5), () {
       setState(() {
         height = 180;
-        weight = 110;
+        weight = 50;
       });
     });
   }
