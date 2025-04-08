@@ -20,7 +20,7 @@ class ExercisePage extends StatelessWidget {
             children: [
               const FavoriteItem(
                 imagePath:
-                    Assets.assetsImagesIntrobackground, 
+                    Assets.assetsImagesIntrobackground,
                 title: 'Full Body Workout',
               ),
               const SizedBox(height: 16),

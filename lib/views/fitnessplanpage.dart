@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
+import 'package:wellnesshub/core/widgets/workout_card.dart';
 
 class FitnessPlanPage extends StatefulWidget {
   const FitnessPlanPage({super.key});
@@ -36,7 +37,7 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                   itemBuilder: (context, index) {
                     return const Padding(
                       padding: EdgeInsets.only(right: 10),
-                      child: MyCustomCard(),
+                      child: WorkoutCard(),
                     );
                   },
                 ),
@@ -63,7 +64,7 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                       crossAxisSpacing: 15,
                     ),
                     itemBuilder: (context, index) {
-                      return const MyCustomCard();
+                      return const WorkoutCard();
                     },
                   );
                 },

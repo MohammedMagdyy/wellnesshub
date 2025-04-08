@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class BmiInfos extends StatelessWidget {
   String label , value ;
   BmiInfos({super.key , required this.label , required this.value});
