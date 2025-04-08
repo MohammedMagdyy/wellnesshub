@@ -65,5 +65,9 @@ class Assets {
   /// Assets for assetsImagesWomen
   /// assets/images/Women.png
   static const String assetsImagesWomen = "assets/images/Women.png";
+
+  /// Assets for assetsImagesWomen
+  /// assets/images/workout_1.png
+  static const String workout1 = "assets/images/Workout_1.png";
 }
 
