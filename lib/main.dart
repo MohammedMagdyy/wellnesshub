@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/helper_functions/on_generate_route.dart';
-import 'package:wellnesshub/views/fitnessplanpage.dart';
+import 'package:wellnesshub/views/signup_process/sign_up.dart';
 import 'package:wellnesshub/views/splash_screen.dart';
 // import 'package:wellnesshub/views/sign_in.dart';
 // import 'package:wellnesshub/views/exercise_page.dart';
@@ -17,7 +17,7 @@ class WellnessHub extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateRoute: OnGenerateRoute,
-      initialRoute: SplashScreen.routeName,
+      initialRoute: SignUp.routeName,
       debugShowCheckedModeBanner: false,
       
     );

@@ -154,7 +154,7 @@ class _Sign_InState extends State<SignIn> {
                 const Text(
                   "Don't have an account?",
                   style: TextStyle(
-                    color: const Color(0xff0065d0),
+                    color: Color(0xff0065d0),
                     fontSize: 13,
                   ),
                 ),

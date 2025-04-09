@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(
-      Duration(seconds: 2),
+      Duration(seconds:5 ),
       () {
         logedIn?
         Navigator.pushReplacementNamed(context, "MainPage") :
