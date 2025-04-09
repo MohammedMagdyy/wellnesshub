@@ -38,7 +38,7 @@ class _WorkoutCardState extends State<WorkoutCard> {
                     children: [
                       Expanded(
                         flex: 2,
-                        child: Image.asset(Assets.workout1,
+                        child: Image.asset(Assets.assetsImagesWorkout1,
                             fit: BoxFit.cover, width: double.infinity),
                       ),
                       Expanded(
