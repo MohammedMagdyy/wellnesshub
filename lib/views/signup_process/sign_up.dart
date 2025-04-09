@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/helper_functions/build_custom_materialBanner.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
-
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
+import 'package:wellnesshub/core/widgets/custom_material_banner.dart';
+import 'package:wellnesshub/core/helper_functions/build_customSnackbar.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
+  static const routeName = 'SignUpPage';
 
   @override
   State<SignUp> createState() => _Sign_UpState();
@@ -15,11 +19,11 @@ class _Sign_UpState extends State<SignUp> {
   GlobalKey<FormState> formkey = GlobalKey();
   bool _isLoading = false;
   // ignore: non_constant_identifier_names
-  String? FirstName;
-  String? LastName;
-  String? Email;
-  String? Password;
-  String? ConfirmPassword;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? password;
+  String? confirmPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +61,7 @@ class _Sign_UpState extends State<SignUp> {
                 child: CustomTextfield(
                   name: "First Name",
                   onChanged: (value) {
-                    FirstName = value;
+                    firstName = value;
                   },
                 ),
               ),
@@ -67,7 +71,7 @@ class _Sign_UpState extends State<SignUp> {
                 child: CustomTextfield(
                   name: "Last Name",
                   onChanged: (value) {
-                    LastName = value;
+                    lastName = value;
                   },
                 ),
               ),
@@ -77,28 +81,33 @@ class _Sign_UpState extends State<SignUp> {
                 child: CustomTextfield(
                   name: "Email",
                   onChanged: (value) {
-                    Email = value;
+                    email = value;
                   },
+                  keyboardtype: TextInputType.emailAddress,
                 ),
               ),
               const SizedBox(height: 18),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextfield(
+                  obscureText: true,
                   name: "Password",
                   onChanged: (value) {
-                    Password = value;
+                    password = value;
                   },
+                  keyboardtype: TextInputType.visiblePassword,
                 ),
               ),
               const SizedBox(height: 18),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextfield(
+                  obscureText: true,
                   name: "Confirm Password",
                   onChanged: (value) {
-                    ConfirmPassword = value;
+                    confirmPassword = value;
                   },
+                  keyboardtype: TextInputType.visiblePassword,
                 ),
               ),
               const SizedBox(height: 40),
@@ -114,10 +123,63 @@ class _Sign_UpState extends State<SignUp> {
                       setState(() {
                         _isLoading = true;
                       });
-                      //await SignIn_Func();
-                      //  Show_SnakBar(context, "Success");
-                      Navigator.pushNamed(context, "GenderPage");
-                      // Navigator.pushNamed(context, Chatpage.routeName);
+
+                      if (!email!.contains('@')) {
+                        final snackBar = buildCustomSnackbar(
+                          backgroundColor: Colors.redAccent,
+                          title: 'Oops!',
+                          message: 'Please enter a valid email address.',
+                          type: ContentType.failure,
+                        );
+
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(snackBar);
+                        return;
+                      }
+
+                      if (password == null || password!.length < 8) {
+                        final snackBar = buildCustomSnackbar(
+                          backgroundColor: Colors.redAccent,
+                          title: 'Oops!',
+                          message:
+                              'Password must be at least 8 characters long',
+                          type: ContentType.failure,
+                        );
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(snackBar);
+                        return;
+                      }
+
+                      if (!RegExp(r'^(?=.*\d)(?=.*[a-zA-Z]).{8,}$')
+                          .hasMatch(password!)) {
+                        final snackBar = buildCustomSnackbar(
+                          backgroundColor: Colors.amberAccent,
+                          title: 'Oops!',
+                          message:
+                              'Password must contain at least one digit and one letter',
+                          type: ContentType.warning,
+                        );
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(snackBar);
+                        return;
+                      }
+                      if (password == confirmPassword) {
+                        Navigator.pushNamed(context, "GenderPage");
+                      } else {
+                        final snackBar = buildCustomSnackbar(
+                          backgroundColor: Colors.redAccent,
+                          title: 'Oops!',
+                          message: 'Password Don' 't Match',
+                          type: ContentType.failure,
+                        );
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(snackBar);
+                        return;
+                      }
                     }
                   },
                 ),

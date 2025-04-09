@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/chat_bubble.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/message_input.dart';
-import 'package:wellnesshub/core/widgets/ai_service.dart';
+import 'package:wellnesshub/core/services/ai_coach/ai_service.dart';
 
 class CommunityPage extends StatefulWidget {
   const CommunityPage({super.key});
