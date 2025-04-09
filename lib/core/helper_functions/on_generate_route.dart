@@ -22,6 +22,7 @@ import 'package:wellnesshub/views/signup_process/weight_page.dart';
 import 'package:wellnesshub/views/signup_process/year_page.dart';
 import 'package:wellnesshub/core/widgets/categories.dart';
 import 'package:wellnesshub/views/bmi_calculator.dart';
+import 'package:wellnesshub/views/splash_screen.dart';
 import 'package:wellnesshub/views/startup.dart';
 import 'package:wellnesshub/views/test.dart';
 import 'package:wellnesshub/views/exercise_page.dart';
@@ -80,6 +81,8 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => FitnessPlanPage());
     case 'Test':
       return MaterialPageRoute(builder: (context) => Test());
+    case 'Splash_Screen':
+      return MaterialPageRoute(builder: (context) => SplashScreen());
 
     default:
       return MaterialPageRoute(
