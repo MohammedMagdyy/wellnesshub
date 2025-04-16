@@ -4,7 +4,7 @@ import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 
 class VerifyEmailPage extends StatefulWidget {
   const VerifyEmailPage({super.key});
-   static const routeName = 'Favorites';
+  static const routeName = 'VerifyEmailPage';
 
   @override
   State<VerifyEmailPage> createState() => _VerifyEmailPageState();

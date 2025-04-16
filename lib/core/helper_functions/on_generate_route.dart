@@ -7,6 +7,7 @@ import 'package:wellnesshub/views/homepage.dart';
 import 'package:wellnesshub/views/nutrition_page.dart';
 import 'package:wellnesshub/views/privacypolicy.dart';
 import 'package:wellnesshub/views/profile.dart';
+import 'package:wellnesshub/views/progress.dart';
 import 'package:wellnesshub/views/setting_page.dart';
 import 'package:wellnesshub/views/sign_in.dart';
 import 'package:wellnesshub/views/signup_process/activity_page.dart';
@@ -83,6 +84,8 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => Test());
     case 'Splash_Screen':
       return MaterialPageRoute(builder: (context) => SplashScreen());
+    case 'ProgressPage':
+      return MaterialPageRoute(builder: (context) => ProgressPage());
 
     default:
       return MaterialPageRoute(
