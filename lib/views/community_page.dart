@@ -20,18 +20,24 @@ class _ChatPageState extends State<CommunityPage> {
   void _handleSend(String message) async {
     if (message.trim().isEmpty) return;
 
+    if (!mounted) return;
     setState(() {
       _messages.add({'text': message, 'isCoach': false});
     });
 
     try {
       final reply = await GeminiService.sendMessage(message);
+      if (!mounted) return;
       setState(() {
         _messages.add({'text': reply, 'isCoach': true});
       });
     } catch (e) {
+      if (!mounted) return;
       setState(() {
-        _messages.add({'text': 'Something went wrong. Try again later.', 'isCoach': true});
+        _messages.add({
+          'text': 'Something went wrong. Try again later.',
+          'isCoach': true,
+        });
       });
     }
   }
@@ -40,6 +46,7 @@ class _ChatPageState extends State<CommunityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(title: "AI Coach Chat"),
+      backgroundColor: Colors.black,
       body: Column(
         children: [
           Expanded(

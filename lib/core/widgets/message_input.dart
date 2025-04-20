@@ -22,9 +22,11 @@ class _MessageInputState extends State<MessageInput> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: TextField(
+        style:TextStyle(color: Colors.blue) ,
         controller: _controller,
         decoration: InputDecoration(
           hintText: 'Type a message...',
+          hintStyle: TextStyle(color: Colors.blue),
           suffixIcon: IconButton(
             icon: Icon(
               Icons.send,
@@ -34,7 +36,7 @@ class _MessageInputState extends State<MessageInput> {
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.grey,
+              color: Colors.blue,
             ),
             borderRadius: BorderRadius.all(Radius.circular(30)),
           ),
