@@ -20,6 +20,9 @@ class _MealPlanState extends State<MealPlan> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -29,57 +32,67 @@ class _MealPlanState extends State<MealPlan> {
         title: const Text("Meal Plan"),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            MealPlanSection(
-              title: "Dietary Preferences",
-              options: ["Vegetarian", "Vegan", "Gluten-Free", "Keto", "Paleo", "No preferences"],
-              selectedValue: selectedDietaryPreference,
-              onChanged: (value) => setState(() => selectedDietaryPreference = value),
-            ),
-            MealPlanSection(
-              title: "Allergies",
-              options: ["Nuts", "Dairy", "Shellfish", "Eggs", "No allergies"],
-              selectedValue: selectedAllergy,
-              onChanged: (value) => setState(() => selectedAllergy = value),
-            ),
-            MealPlanSection(
-              title: "Meal Types",
-              options: ["Breakfast", "Lunch", "Dinner", "Snacks"],
-              selectedValue: selectedMealType,
-              onChanged: (value) => setState(() => selectedMealType = value),
-            ),
-            MealPlanSection(
-              title: "Caloric Goal",
-              options: ["Less than 1500 calories", "1500-2000 calories", "More than 2000 calories", "Not sure/Don't have a goal"],
-              selectedValue: selectedCaloricGoal,
-              onChanged: (value) => setState(() => selectedCaloricGoal = value),
-            ),
-            MealPlanSection(
-              title: "Cooking Time",
-              options: ["Less than 15 minutes", "15-30 minutes", "More than 30 minutes"],
-              selectedValue: selectedCookingTime,
-              onChanged: (value) => setState(() => selectedCookingTime = value),
-            ),
-            MealPlanSection(
-              title: "Servings",
-              options: ["1", "2", "3-4", "More than 4"],
-              selectedValue: selectedServings,
-              onChanged: (value) => setState(() => selectedServings = value),
-            ),
-            const SizedBox(height: 20),
-            CustomButton(
-              width: 200,
-              color: Colors.black,
-              name: 'Continue',
-              on_Pressed: () {
-                Navigator.pushNamed(context, "HomePage");
-              },
-            ),
-          ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: width * 0.05, vertical: height * 0.02),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              MealPlanSection(
+                title: "Dietary Preferences",
+                options: ["Vegetarian", "Vegan", "Gluten-Free", "Keto", "Paleo", "No preferences"],
+                selectedValue: selectedDietaryPreference,
+                onChanged: (value) => setState(() => selectedDietaryPreference = value),
+              ),
+              MealPlanSection(
+                title: "Allergies",
+                options: ["Nuts", "Dairy", "Shellfish", "Eggs", "No allergies"],
+                selectedValue: selectedAllergy,
+                onChanged: (value) => setState(() => selectedAllergy = value),
+              ),
+              MealPlanSection(
+                title: "Meal Types",
+                options: ["Breakfast", "Lunch", "Dinner", "Snacks"],
+                selectedValue: selectedMealType,
+                onChanged: (value) => setState(() => selectedMealType = value),
+              ),
+              MealPlanSection(
+                title: "Caloric Goal",
+                options: [
+                  "Less than 1500 calories",
+                  "1500-2000 calories",
+                  "More than 2000 calories",
+                  "Not sure/Don't have a goal"
+                ],
+                selectedValue: selectedCaloricGoal,
+                onChanged: (value) => setState(() => selectedCaloricGoal = value),
+              ),
+              MealPlanSection(
+                title: "Cooking Time",
+                options: ["Less than 15 minutes", "15-30 minutes", "More than 30 minutes"],
+                selectedValue: selectedCookingTime,
+                onChanged: (value) => setState(() => selectedCookingTime = value),
+              ),
+              MealPlanSection(
+                title: "Servings",
+                options: ["1", "2", "3-4", "More than 4"],
+                selectedValue: selectedServings,
+                onChanged: (value) => setState(() => selectedServings = value),
+              ),
+              SizedBox(height: height * 0.04),
+              Center(
+                child: CustomButton(
+                  width: width * 0.6,
+                  color: Colors.black,
+                  name: 'Continue',
+                  on_Pressed: () {
+                    Navigator.pushNamed(context, "HomePage");
+                  },
+                ),
+              ),
+              SizedBox(height: height * 0.04),
+            ],
+          ),
         ),
       ),
     );

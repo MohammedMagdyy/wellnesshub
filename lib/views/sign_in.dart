@@ -5,15 +5,15 @@ import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/widgets/custom_listtile.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
   static const routeName = 'LoginPage';
 
   @override
-  State<SignIn> createState() => _Sign_InState();
+  State<SignInPage> createState() => _Sign_InState();
 }
 
-class _Sign_InState extends State<SignIn> {
+class _Sign_InState extends State<SignInPage> {
   GlobalKey<FormState> formkey = GlobalKey();
   bool _isLoading = false;
   String email = "";
@@ -142,6 +142,10 @@ class _Sign_InState extends State<SignIn> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: CustomListTile(
+                  on_Pressed: () {
+                    Navigator.pushReplacementNamed(
+                        context, 'FacebookLoginPage');
+                  },
                   text: "Sign In With Facebook",
                   image: Assets.assetsImagesFacebookLogo),
             ),

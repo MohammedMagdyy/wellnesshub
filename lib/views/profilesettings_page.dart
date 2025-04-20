@@ -16,19 +16,19 @@ class ProfilesettingsPage extends StatelessWidget {
             CustomSettingwidget(
               title: "Change Password",
               icon: Icons.password_rounded,
-              check: true,
+              switchcheck:false,
               pageName: "ChangepasswordPage",
             ),
             CustomSettingwidget(
               title: "Profile Details",
               icon: Icons.person,
-              check: true,
+              switchcheck:false,
               pageName: "Profile",
             ),
             CustomSettingwidget(
               title: "Delete Account",
               icon: Icons.delete,
-              check: true,
+              switchcheck:false,
               pageName: "RateAppPage",
             ),
           ],

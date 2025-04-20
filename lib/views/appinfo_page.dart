@@ -16,22 +16,21 @@ class AppinfoPage extends StatelessWidget {
             CustomSettingwidget(
               title: "Version Info",
               icon: Icons.insert_drive_file_outlined,
-              check: true,
-              pageName: "VersioninfoPage",
+              switchcheck: false,
+              pageName: "VersionInfoPage",
             ),
             CustomSettingwidget(
               title: "About Us",
               icon: Icons.group,
-              check: true,
+              switchcheck: false,
               pageName: "AboutUsPage",
             ),
             CustomSettingwidget(
               title: "Rate Our App",
               icon: Icons.rate_review,
-              check: true,
+              switchcheck: false,
               pageName: "RateAppPage",
             ),
-           
           ],
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:wellnesshub/core/helper_functions/api.dart';
-import 'package:wellnesshub/core/helper_functions/localstorage.dart';
+import 'package:wellnesshub/core/helper_class/api.dart';
+import 'package:wellnesshub/core/helper_class/localstorage.dart';
 
 class LoginService {
   final Dio _dio = Dio();

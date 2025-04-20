@@ -100,7 +100,7 @@ class PrivacyPolicyPage extends StatelessWidget {
               Text(
                 "9. Contact Us:\n"
                 "If you have any questions or concerns about our privacy practices, please contact us at:\n\n"
-                "- Email: mahammedmagdy85@gmail.com\n",
+                "- Email: support@wellnesshub.com\n",
                 
                 style: TextStyle(fontSize: 15),
               ),

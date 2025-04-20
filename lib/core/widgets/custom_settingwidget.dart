@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/helper_functions/showLanguagePicker.dart';
+import 'package:wellnesshub/core/helper_functions/show_fontsize_Picker.dart';
+import 'package:wellnesshub/core/widgets/custom_switchtoggle.dart';
 
 class CustomSettingwidget extends StatelessWidget {
   const CustomSettingwidget(
       {super.key,
       required this.title,
       required this.icon,
-      required this.check,
-      this.pageName,
+      required this.switchcheck,
+      this.onTapFunc = 0,
+      required this.pageName,
       this.iconColor,
       this.textColor});
   final String title;
   final IconData icon;
-  final bool check;
+  final bool switchcheck;
   final String? pageName;
   final Color? textColor;
   final Color? iconColor;
+  final int? onTapFunc;
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +46,22 @@ class CustomSettingwidget extends StatelessWidget {
           ),
           horizontalTitleGap: 20,
           onTap: () {
-            Navigator.pushNamed(context, pageName!);
+            if (onTapFunc == 0) {
+              Navigator.pushNamed(context, pageName!);
+            } else if (onTapFunc == 1) {
+              showLanguagePicker(context);
+            } else if (onTapFunc == 2) {
+              showFontSizePicker(context);
+            } else {
+              //noThing
+            }
           },
           leading: Icon(
             icon,
             color: Colors.blueAccent,
           ),
-          trailing: check == 1
-              ? Icon(
-                  Icons.chevron_right_outlined,
-                  color: iconColor,
-                )
+          trailing: switchcheck
+              ? CustomToggleSwitch()
               : Icon(
                   Icons.chevron_right_outlined,
                   color: iconColor,

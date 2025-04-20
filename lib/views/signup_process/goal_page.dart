@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/checkbox_button.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 
@@ -11,89 +12,70 @@ class GoalPage extends StatefulWidget {
 }
 
 class _GoalPageState extends State<GoalPage> {
-  String? selectedGoal; // Track selected goal
+  String? selectedGoal;
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Back icon
-          onPressed: () {
-            Navigator.pop(context); // Go back to the previous page
-          },
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(height: 10),
-          Text(
-            "What is Your Goal?",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0), // Safe padding
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: height * 0.02),
+              Text(
+                "What is Your Goal?",
+                style: TextStyle(
+                  fontSize: width * 0.07,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: height * 0.03),
+              CheckboxButton(
+                text: "Weight Cut",
+                isSelected: selectedGoal == "Weight Cut",
+                onTap: () => setState(() => selectedGoal = "Weight Cut"),
+              ),
+              SizedBox(height: height * 0.015),
+              CheckboxButton(
+                text: "Muscles Gain",
+                isSelected: selectedGoal == "Muscles Gain",
+                onTap: () => setState(() => selectedGoal = "Muscles Gain"),
+              ),
+              SizedBox(height: height * 0.015),
+              CheckboxButton(
+                text: "Increasing Strength",
+                isSelected: selectedGoal == "Increasing Strength",
+                onTap: () => setState(() => selectedGoal = "Increasing Strength"),
+              ),
+              SizedBox(height: height * 0.03),
+              Image.asset(
+                Assets.assetsImagesBigshowman,
+                height: height * 0.2,
+              ),
+              SizedBox(height: height * 0.05),
+              CustomButton(
+                width: width * 0.6,
+                color: Colors.black,
+                name: 'Continue',
+                on_Pressed: selectedGoal == null
+                    ? null
+                    : () => Navigator.pushNamed(context, "ExperienceLevelPage"),
+              ),
+              SizedBox(height: height * 0.05),
+            ],
           ),
-          SizedBox(height: 30),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 50),
-            width: 360,
-            child: Text(
-              "Choose the goal you’re hoping to achieve",
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-          SizedBox(height: 50),
-          CheckboxButton(
-            text: "Lose Weight",
-            isSelected: selectedGoal == "Lose Weight",
-            onTap: () {
-              setState(() {
-                selectedGoal = "Lose Weight";
-              });
-            },
-          ),
-          SizedBox(height: 6),
-          CheckboxButton(
-            text: "Gain Weight",
-            isSelected: selectedGoal == "Gain Weight",
-            onTap: () {
-              setState(() {
-                selectedGoal = "Gain Weight";
-              });
-            },
-          ),
-          SizedBox(height: 6),
-          CheckboxButton(
-            text: "Muscle Mass Gain",
-            isSelected: selectedGoal == "Muscle Mass Gain",
-            onTap: () {
-              setState(() {
-                selectedGoal = "Muscle Mass Gain";
-              });
-            },
-          ),
-          SizedBox(height: 6),
-          CheckboxButton(
-            text: "Shape Body",
-            isSelected: selectedGoal == "Shape Body",
-            onTap: () {
-              setState(() {
-                selectedGoal = "Shape Body";
-              });
-            },
-          ),
-          SizedBox(height: 20),
-          CustomButton(
-            width: 200,
-            color: Colors.black,
-            name: 'Continue',
-            on_Pressed: selectedGoal == null
-                ? null // Disable button if no gender is selected
-                : () {
-                  Navigator.pushNamed(context, "InjuriesPage");
-                   //avigator.pushNamed(context, "GoalPage");
-                  },
-          ),
-        ],
+        ),
       ),
     );
   }

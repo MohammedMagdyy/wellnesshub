@@ -1,0 +1,2 @@
+D:/GP/wellnesshub/android/app/.cxx/RelWithDebInfo/3j3d154j/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/GP/wellnesshub/android/app/.cxx/RelWithDebInfo/3j3d154j/armeabi-v7a/CMakeFiles/rebuild_cache.dir
