@@ -13,7 +13,7 @@ class ChangepasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(title: "About Us"),
+      appBar: CustomAppbar(title: "Change Password"),
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32),

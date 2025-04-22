@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/widgets/custom_switchtoggle.dart';
 import 'package:wellnesshub/views/about_us_page.dart';
 import 'package:wellnesshub/views/appinfo_page.dart';
 import 'package:wellnesshub/views/changepassword_page.dart';
+import 'package:wellnesshub/views/facebookLoginPage.dart';
 import 'package:wellnesshub/views/fitnessplanpage.dart';
 import 'package:wellnesshub/views/mainpage.dart';
 import 'package:wellnesshub/views/community_page.dart';
@@ -16,6 +18,7 @@ import 'package:wellnesshub/views/progress.dart';
 import 'package:wellnesshub/views/setting_page.dart';
 import 'package:wellnesshub/views/sign_in.dart';
 import 'package:wellnesshub/views/signup_process/activity_page.dart';
+import 'package:wellnesshub/views/signup_process/experiencelevel_page.dart';
 import 'package:wellnesshub/views/signup_process/gender_page.dart';
 import 'package:wellnesshub/views/signup_process/goal_page.dart';
 import 'package:wellnesshub/views/signup_process/height_page.dart';
@@ -25,6 +28,7 @@ import 'package:wellnesshub/views/signup_process/physical_page.dart';
 import 'package:wellnesshub/views/signup_process/sign_up.dart';
 import 'package:wellnesshub/views/signup_process/verify_email_page.dart';
 import 'package:wellnesshub/views/signup_process/weight_page.dart';
+import 'package:wellnesshub/views/signup_process/workoutdays_page.dart';
 import 'package:wellnesshub/views/signup_process/year_page.dart';
 import 'package:wellnesshub/core/widgets/categories.dart';
 import 'package:wellnesshub/views/bmi_calculator.dart';
@@ -33,13 +37,14 @@ import 'package:wellnesshub/views/startup.dart';
 import 'package:wellnesshub/views/test.dart';
 import 'package:wellnesshub/views/exercise_page.dart';
 import 'package:wellnesshub/views/versioninfo_page.dart';
+import 'package:wellnesshub/views/workout_reminder_page.dart';
 
 Route<dynamic> OnGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case 'StartUp':
       return MaterialPageRoute(builder: (context) => Startup());
     case 'LoginPage':
-      return MaterialPageRoute(builder: (context) => SignIn());
+      return MaterialPageRoute(builder: (context) => SignInPage());
     case 'SignUpPage':
       return MaterialPageRoute(builder: (context) => SignUp());
     case 'GenderPage':
@@ -98,10 +103,20 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => RateAppPage());
     case 'AppinfoPage':
       return MaterialPageRoute(builder: (context) => AppinfoPage());
-    case 'VersioninfoPage':
-      return MaterialPageRoute(builder: (context) => VersioninfoPage());
+    case 'VersionInfoPage':
+      return MaterialPageRoute(builder: (context) => VersionInfoPage());
     case 'ProfilesettingsPage':
-      return MaterialPageRoute(builder: (context) => ProfilesettingsPage());  
+      return MaterialPageRoute(builder: (context) => ProfilesettingsPage());
+    case 'CustomToggleSwitch':
+      return MaterialPageRoute(builder: (context) => CustomToggleSwitch());
+    case 'WorkoutReminder':
+      return MaterialPageRoute(builder: (context) => WorkoutReminderPage());
+    case 'FacebookLoginPage':
+      return MaterialPageRoute(builder: (context) => FacebookLoginPage());
+    case 'ExperienceLevelPage':
+      return MaterialPageRoute(builder: (context) => ExperienceLevelPage());
+    case 'WorkoutDaysPage':
+      return MaterialPageRoute(builder: (context) => WorkoutDaysPage());  
     case 'ProgressPage':
       return MaterialPageRoute(builder: (context) => ProgressPage());
 

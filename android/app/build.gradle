@@ -8,7 +8,8 @@ plugins {
 android {
     namespace = "com.example.wellnesshub"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion "25.2.9519653"
+    ndkVersion "27.1.12297006"
+
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -24,10 +25,17 @@ android {
         applicationId = "com.example.wellnesshub"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        // minSdkVersion 21
+        // targetSdkVersion 33
+        minSdk = 21
+        targetSdk = 33
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        manifestPlaceholders = [
+        facebookAppId: "1037939251573451",
+        facebookClientToken: "19b0d1e317c583b4f748657f204e0244"
+    ]
     }
 
     buildTypes {

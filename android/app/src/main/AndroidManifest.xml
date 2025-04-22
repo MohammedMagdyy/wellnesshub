@@ -1,12 +1,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wellnesshub"> <!-- Replace with your actual package name -->
+    package="com.example.wellnesshub">
 
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
 
+=======
+    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <queries>
+        <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
+    </queries>
+    
+>>>>>>> 795155159af45470a3f4f6a8a5db8848f331124b
     <application
         android:label="wellnesshub"
-        android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
+
+        
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
 
         <activity
             android:name=".MainActivity"
@@ -20,24 +36,26 @@
 
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
-                android:resource="@style/NormalTheme"/>
+                android:resource="@style/NormalTheme" />
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-
     </application>
 
+    <!-- Required for certain Android API behaviors -->
     <queries>
+        
         <intent>
-            <action android:name="android.intent.action.PROCESS_TEXT"/>
-            <data android:mimeType="text/plain"/>
+            <action android:name="android.intent.action.PROCESS_TEXT" />
+            <data android:mimeType="text/plain" />
         </intent>
     </queries>
 </manifest>

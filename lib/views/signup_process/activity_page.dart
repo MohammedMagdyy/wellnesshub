@@ -5,7 +5,7 @@ import 'package:wellnesshub/core/widgets/special_checkboxbutton.dart';
 
 class ActivityPage extends StatefulWidget {
   const ActivityPage({super.key});
-  static const routeName = 'VerifyEmailPage';
+  static const routeName = 'ActivityPage';
 
   @override
   State<ActivityPage> createState() => _ActivityPageState();
@@ -13,94 +13,84 @@ class ActivityPage extends StatefulWidget {
 
 class _ActivityPageState extends State<ActivityPage> {
   String? selectedGoal;
+
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Back icon
-          onPressed: () {
-            Navigator.pop(context); // Go back to the previous page
-          },
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: ListView(
-        children: [
-          Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "Your activity Plan",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 50),
-              width: 360,
-              child: Text(
-                "Please pick your desired activity Plan",
-                style: TextStyle(fontSize: 14),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: ListView(
+            children: [
+              SizedBox(height: height * 0.02),
+              Text(
+                "Your Activity Plan",
+                style: TextStyle(
+                  fontSize: width * 0.07,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
-            ),
-            SizedBox(height: 20),
-            SpecialCheckboxbutton(
-              text1: "Sedentary",
-              text2: "(little or no exercise)",
-              isSelected: selectedGoal == "Sedentary",
-              onTap: () {
-                setState(() {
-                  selectedGoal = "Sedentary";
-                });
-              },
-            ),
-            SpecialCheckboxbutton(
-              text1: "Lightly active",
-              text2: "(1–3 days/week)",
-              isSelected: selectedGoal == "Lightly active",
-              onTap: () {
-                setState(() {
-                  selectedGoal = "Lightly active";
-                });
-              },
-            ),
-            SpecialCheckboxbutton(
-              text1: "Moderately active",
-              text2: "(3–5 days/week)",
-              isSelected: selectedGoal == "Moderately active",
-              onTap: () {
-                setState(() {
-                  selectedGoal = "Moderately active";
-                });
-              },
-            ),
-            SpecialCheckboxbutton(
-              text1: "Very active",
-              text2: "(6–7 days/week)",
-              isSelected: selectedGoal == "Very active",
-              onTap: () {
-                setState(() {
-                  selectedGoal = "Very active";
-                });
-              },
-            ),
-            Image.asset(
-             Assets.assetsImagesImg,
-              height: 150,
-            ),
-            SizedBox(height: 30),
-            CustomButton(
-              width: 200,
-              color: Colors.black,
-              name: 'Continue',
-              on_Pressed: selectedGoal == null
-                  ? null // Disable button if no gender is selected
-                  : () {
-                Navigator.pushNamed(context, "MealPlan");
-
-              },
-            ),
-          ],
-        ),],
+              SizedBox(height: height * 0.015),
+              Text(
+                "Please pick your desired activity plan.",
+                style: TextStyle(
+                  fontSize: width * 0.04,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: height * 0.03),
+              ...[
+                ["Sedentary", "(little or no exercise)"],
+                ["Lightly active", "(1–3 days/week)"],
+                ["Moderately active", "(3–5 days/week)"],
+                ["Very active", "(6–7 days/week)"],
+              ].map((option) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6.0),
+                  child: SpecialCheckboxbutton(
+                    text1: option[0],
+                    text2: option[1],
+                    isSelected: selectedGoal == option[0],
+                    onTap: () {
+                      setState(() {
+                        selectedGoal = option[0];
+                      });
+                    },
+                  ),
+                );
+              }).toList(),
+              SizedBox(height: height * 0.03),
+              Image.asset(
+                Assets.assetsImagesImg,
+                height: height * 0.2,
+              ),
+              SizedBox(height: height * 0.04),
+              Center(
+                child: CustomButton(
+                  width: width * 0.6,
+                  color: Colors.black,
+                  name: 'Continue',
+                  on_Pressed: selectedGoal == null
+                      ? null
+                      : () {
+                          Navigator.pushNamed(context, "MealPlan");
+                        },
+                ),
+              ),
+              SizedBox(height: height * 0.04),
+            ],
+          ),
+        ),
       ),
     );
   }

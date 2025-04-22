@@ -12,76 +12,87 @@ class PhysicalPage extends StatefulWidget {
 
 class _PhysicalPageState extends State<PhysicalPage> {
   String? selectedGoal;
+
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Back icon
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context); // Go back to the previous page
+            Navigator.pop(context);
           },
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(height: 10),
-          Text(
-            "Physical Activity Level",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: width * 0.08, vertical: height * 0.03),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Text(
+                  "Physical Activity Level",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: width * 0.07, fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(height: height * 0.03),
+              Text(
+                "Please pick your overall current physical activity level throughout the past 3 months",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: width * 0.04),
+              ),
+              SizedBox(height: height * 0.05),
+              CheckboxButton(
+                text: "Beginner",
+                isSelected: selectedGoal == "Beginner",
+                onTap: () {
+                  setState(() {
+                    selectedGoal = "Beginner";
+                  });
+                },
+              ),
+              SizedBox(height: height * 0.015),
+              CheckboxButton(
+                text: "Intermediate",
+                isSelected: selectedGoal == "Intermediate",
+                onTap: () {
+                  setState(() {
+                    selectedGoal = "Intermediate";
+                  });
+                },
+              ),
+              SizedBox(height: height * 0.015),
+              CheckboxButton(
+                text: "Advanced",
+                isSelected: selectedGoal == "Advanced", // fixed: was "Advance"
+                onTap: () {
+                  setState(() {
+                    selectedGoal = "Advanced";
+                  });
+                },
+              ),
+              SizedBox(height: height * 0.04),
+              Center(
+                child: CustomButton(
+                  width: width * 0.6,
+                  color: Colors.black,
+                  name: 'Continue',
+                  on_Pressed: selectedGoal == null
+                      ? null
+                      : () {
+                          Navigator.pushNamed(context, "InjuriesPage");
+                        },
+                ),
+              ),
+              SizedBox(height: height * 0.04),
+            ],
           ),
-          SizedBox(height: 30),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 50),
-            width: 360,
-            child: Text(
-              "Please pick your overall current  physical activity level throughout the past 3 months",
-              style: TextStyle(fontSize: 14),
-            ),
-          ),
-          SizedBox(height: 50),
-          CheckboxButton(
-            text: "Beginner",
-            isSelected: selectedGoal == "Beginner",
-            onTap: () {
-              setState(() {
-                selectedGoal = "Beginner";
-              });
-            },
-          ),
-          SizedBox(height: 6),
-          CheckboxButton(
-            text: "Intermediate",
-            isSelected: selectedGoal == "Intermediate",
-            onTap: () {
-              setState(() {
-                selectedGoal = "Intermediate";
-              });
-            },
-          ),
-          SizedBox(height: 6),
-          CheckboxButton(
-            text: "Advanced",
-            isSelected: selectedGoal == "Advance",
-            onTap: () {
-              setState(() {
-                selectedGoal = "Advance";
-              });
-            },
-          ),
-          SizedBox(height: 20),
-          CustomButton(
-            width: 200,
-            color: Colors.black,
-            name: 'Continue',
-            on_Pressed: selectedGoal == null
-                ? null // Disable button if no gender is selected
-                : () {
-                    Navigator.pushNamed(context, "InjuriesPage");
-                  },
-          ),
-        ],
+        ),
       ),
     );
   }
