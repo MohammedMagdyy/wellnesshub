@@ -89,4 +89,8 @@ class Assets {
   /// Assets for assetsImagesWorkout1
   /// assets/images/Workout_1.png
   static const String assetsImagesWorkout1 = "assets/images/Workout_1.png";
+
+  /// Assets for progress page
+  /// assets/images/progress.jpg
+  static const String assetsImagesProgress = "assets/images/progress.jpg";
 }

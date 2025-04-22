@@ -15,6 +15,7 @@ import 'package:wellnesshub/views/privacypolicy.dart';
 import 'package:wellnesshub/views/profile.dart';
 import 'package:wellnesshub/views/profilesettings_page.dart';
 import 'package:wellnesshub/views/rate_app.dart';
+import 'package:wellnesshub/views/progress.dart';
 import 'package:wellnesshub/views/setting_page.dart';
 import 'package:wellnesshub/views/sign_in.dart';
 import 'package:wellnesshub/views/signup_process/activity_page.dart';
@@ -122,6 +123,9 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => MainExercisesPage());
     case 'SpecificExercisePage':
       return MaterialPageRoute(builder: (context) => SpecificExercisePage(title: " ",));
+      return MaterialPageRoute(builder: (context) => WorkoutDaysPage());  
+    case 'ProgressPage':
+      return MaterialPageRoute(builder: (context) => ProgressPage());
 
     default:
       return MaterialPageRoute(

@@ -1,12 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.wellnesshub">
 
+<<<<<<< HEAD
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+
+=======
     
     <uses-permission android:name="android.permission.INTERNET" />
     <queries>
         <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
     </queries>
     
+>>>>>>> 795155159af45470a3f4f6a8a5db8848f331124b
     <application
         android:label="wellnesshub"
         android:icon="@mipmap/launcher_icon">
