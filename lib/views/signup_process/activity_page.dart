@@ -68,7 +68,7 @@ class _ActivityPageState extends State<ActivityPage> {
                     },
                   ),
                 );
-              }).toList(),
+              }),
               SizedBox(height: height * 0.03),
               Image.asset(
                 Assets.assetsImagesImg,

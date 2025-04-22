@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class FacebookLoginPage extends StatefulWidget {
   static const routeName = 'FacebookLoginPage';
+
+  const FacebookLoginPage({super.key});
   @override
   _FacebookLoginPageState createState() => _FacebookLoginPageState();
 }

@@ -60,7 +60,7 @@ class _InjuriesPageState extends State<InjuriesPage> {
                   },
                 ),
               );
-            }).toList(),
+            }),
             SizedBox(height: height * 0.04),
             Center(
               child: CustomButton(

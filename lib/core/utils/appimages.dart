@@ -1,10 +1,15 @@
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
-  
+
   /// Assets for assetsImagesArrow
   /// assets/images/arrow.png
   static const String assetsImagesArrow = "assets/images/arrow.png";
+
+  /// Assets for assetsImagesBackExercise
+  /// assets/images/BackExercise.png
+  static const String assetsImagesBackkExercise =
+      "assets/images/BackExercise.png";
 
   /// Assets for assetsImagesBigshowman
   /// assets/images/bigshowman.png
@@ -20,7 +25,8 @@ class Assets {
 
   /// Assets for assetsImagesFacebookLogo
   /// assets/images/Facebook_logo.png
-  static const String assetsImagesFacebookLogo = "assets/images/Facebook_logo.png";
+  static const String assetsImagesFacebookLogo =
+      "assets/images/Facebook_logo.png";
 
   /// Assets for assetsImagesFemaleL
   /// assets/images/FemaleL.png
@@ -40,7 +46,8 @@ class Assets {
 
   /// Assets for assetsImagesIntrobackground
   /// assets/images/introbackground.jpg
-  static const String assetsImagesIntrobackground = "assets/images/introbackground.jpg";
+  static const String assetsImagesIntrobackground =
+      "assets/images/introbackground.jpg";
 
   /// Assets for assetsImagesMale
   /// assets/images/Male.png
@@ -70,6 +77,11 @@ class Assets {
   /// assets/images/stretches.jpg
   static const String assetsImagesStretches = "assets/images/stretches.jpg";
 
+  /// Assets for assetsImagesWelcomephoto
+  /// assets/images/welcomephoto.png
+  static const String assetsImagesWelcomephoto =
+      "assets/images/welcomephoto.png";
+
   /// Assets for assetsImagesWomen
   /// assets/images/Women.png
   static const String assetsImagesWomen = "assets/images/Women.png";
@@ -78,4 +90,3 @@ class Assets {
   /// assets/images/Workout_1.png
   static const String assetsImagesWorkout1 = "assets/images/Workout_1.png";
 }
-

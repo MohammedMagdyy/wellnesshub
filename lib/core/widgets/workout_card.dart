@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 
-class WorkoutCard extends StatefulWidget {
-  const WorkoutCard({super.key});
+class WorkoutCard_Plan extends StatefulWidget {
+  const WorkoutCard_Plan({super.key});
 
   @override
-  State<WorkoutCard> createState() => _WorkoutCardState();
+  State<WorkoutCard_Plan> createState() => _WorkoutCard_PlanState();
 }
 
-class _WorkoutCardState extends State<WorkoutCard> {
+class _WorkoutCard_PlanState extends State<WorkoutCard_Plan> {
   bool isFavorite = false;
 
   void toggleFavorite() {

@@ -15,7 +15,7 @@ class Startup extends StatelessWidget {
           Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(Assets.assetsImagesIntrobackground),
+                      image: AssetImage(Assets.assetsImagesWelcomephoto),
                       fit: BoxFit.cover))),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -32,9 +32,10 @@ class Startup extends StatelessWidget {
               ),
               SizedBox(height: 5),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: EdgeInsets.all(8),
                 child: Text(
-                  "Welcome to The Wellness Hub \n A user friendly gateway to a healthier lifestyle",
+                  "Welcome to The Wellness Hub\n"
+                  "A user friendly gateway to a healthier lifestyle",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,

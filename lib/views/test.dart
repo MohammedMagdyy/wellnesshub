@@ -9,7 +9,7 @@ class Test extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(
-        child: Center(child: WorkoutCard()),
+        child: Center(child: WorkoutCard_Plan()),
       ),
     );
   }

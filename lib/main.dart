@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/helper_functions/on_generate_route.dart';
-import 'package:wellnesshub/views/changepassword_page.dart';
-import 'package:wellnesshub/views/homepage.dart';
 import 'package:wellnesshub/views/mainpage.dart';
-import 'package:wellnesshub/views/profilesettings_page.dart';
-import 'package:wellnesshub/views/setting_page.dart';
-import 'package:wellnesshub/views/sign_in.dart';
-import 'package:wellnesshub/views/signup_process/goal_page.dart';
-import 'package:wellnesshub/views/signup_process/sign_up.dart';
-import 'package:wellnesshub/views/splash_screen.dart';
-import 'package:wellnesshub/views/workout_reminder_page.dart';
 
 void main() {
   runApp(WellnessHub());
@@ -22,7 +13,7 @@ class WellnessHub extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateRoute: OnGenerateRoute,
-      initialRoute: HomePage.routeName,
+      initialRoute: MainPage.routeName,
       debugShowCheckedModeBanner: false,
     );
   }
