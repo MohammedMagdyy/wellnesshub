@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/views/about_us_page.dart';
+import 'package:wellnesshub/views/appinfo_page.dart';
+import 'package:wellnesshub/views/changepassword_page.dart';
 import 'package:wellnesshub/views/fitnessplanpage.dart';
 import 'package:wellnesshub/views/mainpage.dart';
 import 'package:wellnesshub/views/community_page.dart';
@@ -7,6 +10,8 @@ import 'package:wellnesshub/views/homepage.dart';
 import 'package:wellnesshub/views/nutrition_page.dart';
 import 'package:wellnesshub/views/privacypolicy.dart';
 import 'package:wellnesshub/views/profile.dart';
+import 'package:wellnesshub/views/profilesettings_page.dart';
+import 'package:wellnesshub/views/rate_app.dart';
 import 'package:wellnesshub/views/progress.dart';
 import 'package:wellnesshub/views/setting_page.dart';
 import 'package:wellnesshub/views/sign_in.dart';
@@ -27,6 +32,7 @@ import 'package:wellnesshub/views/splash_screen.dart';
 import 'package:wellnesshub/views/startup.dart';
 import 'package:wellnesshub/views/test.dart';
 import 'package:wellnesshub/views/exercise_page.dart';
+import 'package:wellnesshub/views/versioninfo_page.dart';
 
 Route<dynamic> OnGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -84,6 +90,18 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => Test());
     case 'Splash_Screen':
       return MaterialPageRoute(builder: (context) => SplashScreen());
+    case 'AboutUsPage':
+      return MaterialPageRoute(builder: (context) => AboutUsPage());
+    case 'ChangepasswordPage':
+      return MaterialPageRoute(builder: (context) => ChangepasswordPage());
+    case 'RateAppPage':
+      return MaterialPageRoute(builder: (context) => RateAppPage());
+    case 'AppinfoPage':
+      return MaterialPageRoute(builder: (context) => AppinfoPage());
+    case 'VersioninfoPage':
+      return MaterialPageRoute(builder: (context) => VersioninfoPage());
+    case 'ProfilesettingsPage':
+      return MaterialPageRoute(builder: (context) => ProfilesettingsPage());  
     case 'ProgressPage':
       return MaterialPageRoute(builder: (context) => ProgressPage());
 

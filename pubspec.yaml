@@ -48,7 +48,7 @@ dependencies:
   animated_splash_screen: ^1.3.0
   awesome_snackbar_content: ^0.1.5
   pedometer: ^4.1.1
-  syncfusion_flutter_charts: ^29.1.37+1
+  syncfusion_flutter_charts: ^29.1.38
   permission_handler: ^12.0.0+1
 
 dev_dependencies:

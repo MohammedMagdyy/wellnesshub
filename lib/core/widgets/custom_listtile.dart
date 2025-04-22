@@ -12,7 +12,8 @@ class CustomListTile extends StatelessWidget {
     return Container(
       height: 40,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30), color:  const Color.fromARGB(127, 158, 158, 158)),
+          borderRadius: BorderRadius.circular(30),
+          color: const Color.fromARGB(127, 158, 158, 158)),
       child: ListTile(
         visualDensity: VisualDensity(vertical: VisualDensity.minimumDensity),
         dense: true,
