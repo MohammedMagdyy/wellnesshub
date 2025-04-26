@@ -37,7 +37,7 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                   itemBuilder: (context, index) {
                     return const Padding(
                       padding: EdgeInsets.only(right: 10),
-                      child: WorkoutCard(),
+                      child: WorkoutCard_Plan(),
                     );
                   },
                 ),
@@ -64,7 +64,7 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                       crossAxisSpacing: 15,
                     ),
                     itemBuilder: (context, index) {
-                      return const WorkoutCard();
+                      return const WorkoutCard_Plan();
                     },
                   );
                 },

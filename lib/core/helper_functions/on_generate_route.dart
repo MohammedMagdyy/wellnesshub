@@ -6,6 +6,7 @@ import 'package:wellnesshub/views/challenges/challenge_plank.dart';
 import 'package:wellnesshub/views/challenges/challenge_pushups.dart';
 import 'package:wellnesshub/views/challenges/challenge_squats.dart';
 import 'package:wellnesshub/views/changepassword_page.dart';
+import 'package:wellnesshub/views/main_exercises_page.dart';
 import 'package:wellnesshub/views/facebookLoginPage.dart';
 import 'package:wellnesshub/views/fitnessplanpage.dart';
 import 'package:wellnesshub/views/mainpage.dart';
@@ -35,6 +36,7 @@ import 'package:wellnesshub/views/signup_process/workoutdays_page.dart';
 import 'package:wellnesshub/views/signup_process/year_page.dart';
 import 'package:wellnesshub/core/widgets/categories.dart';
 import 'package:wellnesshub/views/bmi_calculator.dart';
+import 'package:wellnesshub/views/specificexercise_page.dart';
 import 'package:wellnesshub/views/splash_screen.dart';
 import 'package:wellnesshub/views/startup.dart';
 import 'package:wellnesshub/views/test.dart';
@@ -119,6 +121,12 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
     case 'ExperienceLevelPage':
       return MaterialPageRoute(builder: (context) => ExperienceLevelPage());
     case 'WorkoutDaysPage':
+      return MaterialPageRoute(builder: (context) => WorkoutDaysPage());
+    case 'MainExercisesPage':
+      return MaterialPageRoute(builder: (context) => MainExercisesPage());
+    case 'SpecificExercisePage':
+      return MaterialPageRoute(builder: (context) => SpecificExercisePage(title: " ",));
+      return MaterialPageRoute(builder: (context) => WorkoutDaysPage());  
       return MaterialPageRoute(builder: (context) => WorkoutDaysPage());
     case 'ProgressPage':
       return MaterialPageRoute(builder: (context) => ProgressPage());

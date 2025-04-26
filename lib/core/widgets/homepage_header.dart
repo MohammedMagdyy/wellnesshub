@@ -17,18 +17,33 @@ class Header extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Hi, Madison",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Text("It's time to challenge your limits.",
-                style: TextStyle(color: Colors.grey.shade700, fontSize: 14)),
+            const Text(
+              "Hi, Madison",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Color(0xff0095FF),
+                  fontWeight: FontWeight.bold),
+            ),
+            Text(
+              "Let's make your body stronger today!",
+              style: TextStyle(
+                color: Color(0xff0095FF),
+                fontSize: 14,
+              ),
+            ),
           ],
         ),
         const Spacer(),
         GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, "Profile");
-            },
-            child: Icon(Icons.person, size: 28)),
+          onTap: () {
+            Navigator.pushNamed(context, "Profile");
+          },
+          child: Icon(
+            Icons.person,
+            size: 28,
+            color: Color(0xff0095FF),
+          ),
+        ),
         const SizedBox(width: 10),
       ],
     );

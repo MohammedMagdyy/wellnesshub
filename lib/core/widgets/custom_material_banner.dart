@@ -23,6 +23,5 @@ class buildCustomMaterialbar extends StatelessWidget {
       ),
       actions: const [SizedBox.shrink()],
     );
-    ;
   }
 }

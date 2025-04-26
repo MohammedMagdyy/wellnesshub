@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomToggleSwitch extends StatefulWidget {
-  CustomToggleSwitch({super.key});
+  const CustomToggleSwitch({super.key});
   static const routeName = 'CustomToggleSwitch';
   
 

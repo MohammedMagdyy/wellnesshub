@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/core/helper_functions/build_custom_materialBanner.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
-import 'package:wellnesshub/core/widgets/custom_material_banner.dart';
 import 'package:wellnesshub/core/helper_functions/build_customSnackbar.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
 
