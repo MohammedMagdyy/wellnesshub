@@ -33,7 +33,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       title: Text(
-        'Page Title',
+        title,
         style: TextStyle(
           color: Color(0xff0095FF),
           fontWeight: FontWeight.w600,

@@ -81,5 +81,19 @@ class Assets {
   /// Assets for progress page
   /// assets/images/progress.jpg
   static const String assetsImagesProgress = "assets/images/progress.jpg";
+
+  /// Assets for progress page
+  /// assets/images/push_ups.gif
+  static const String assetsPushupsGif = "assets/images/push_ups.gif";
+
+  /// Assets for progress page
+  /// assets/images/squats.gif
+  static const String assetsSquatsGif = "assets/images/squats.gif";
+
+  /// Assets for progress page
+  /// assets/images/plank.gif
+  static const String assetsPlankGif = "assets/images/plank.gif";
+
+  
 }
 
