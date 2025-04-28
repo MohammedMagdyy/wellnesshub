@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/custom_switchtoggle.dart';
 import 'package:wellnesshub/views/about_us_page.dart';
 import 'package:wellnesshub/views/appinfo_page.dart';
+import 'package:wellnesshub/views/challenges/challenge_plank.dart';
+import 'package:wellnesshub/views/challenges/challenge_pushups.dart';
+import 'package:wellnesshub/views/challenges/challenge_squats.dart';
 import 'package:wellnesshub/views/changepassword_page.dart';
 import 'package:wellnesshub/views/main_exercises_page.dart';
 import 'package:wellnesshub/views/facebookLoginPage.dart';
@@ -123,9 +126,15 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => MainExercisesPage());
     case 'SpecificExercisePage':
       return MaterialPageRoute(builder: (context) => SpecificExercisePage(title: " ",));
-      
     case 'ProgressPage':
       return MaterialPageRoute(builder: (context) => ProgressPage());
+    case 'pushUps':
+    return MaterialPageRoute(builder: (context) => ChallengePushups());
+    case 'Squats':
+    return MaterialPageRoute(builder: (context) => ChallengeSquats());
+    case 'Plank':
+    return MaterialPageRoute(builder: (context) => ChallengePlank());
+
 
     default:
       return MaterialPageRoute(
