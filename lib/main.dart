@@ -5,6 +5,7 @@ import 'package:wellnesshub/views/challenges/challenge_pushups.dart';
 import 'package:wellnesshub/views/challenges/challenge_squats.dart';
 import 'package:wellnesshub/views/mainpage.dart';
 
+
 void main() {
   runApp(WellnessHub());
 }
@@ -16,7 +17,7 @@ class WellnessHub extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateRoute: OnGenerateRoute,
-      initialRoute: ChallengePlank.routeName,
+      initialRoute: ChallengePushups.routeName,
       debugShowCheckedModeBanner: false,
     );
   }
