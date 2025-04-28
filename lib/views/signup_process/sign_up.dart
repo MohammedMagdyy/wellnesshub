@@ -5,6 +5,10 @@ import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/helper_functions/build_customSnackbar.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
 
+import '../../core/helper_class/localstorage.dart';
+import '../../core/services/auth/login_service.dart';
+import '../../core/services/auth/signup_service.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
   static const routeName = 'SignUpPage';
@@ -116,70 +120,113 @@ class _Sign_UpState extends State<SignUp> {
                   color: Colors.white,
                   width: double.infinity,
                   name: 'Sign Up',
-                  on_Pressed: () async {
-                    if (formkey.currentState!.validate()) {
-                      setState(() {
-                        _isLoading = true;
-                      });
+                    on_Pressed: () async {
+                      if (formkey.currentState!.validate()) {
+                        setState(() {
+                          _isLoading = true;
+                        });
 
-                      if (!email!.contains('@')) {
-                        final snackBar = buildCustomSnackbar(
-                          backgroundColor: Colors.redAccent,
-                          title: 'Oops!',
-                          message: 'Please enter a valid email address.',
-                          type: ContentType.failure,
-                        );
+                        if (!email!.contains('@')) {
+                          final snackBar = buildCustomSnackbar(
+                            backgroundColor: Colors.redAccent,
+                            title: 'Oops!',
+                            message: 'Please enter a valid email address.',
+                            type: ContentType.failure,
+                          );
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(snackBar);
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          return;
+                        }
 
-                        ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(snackBar);
-                        return;
-                      }
+                        if (password == null || password!.length < 8) {
+                          final snackBar = buildCustomSnackbar(
+                            backgroundColor: Colors.redAccent,
+                            title: 'Oops!',
+                            message: 'Password must be at least 8 characters long',
+                            type: ContentType.failure,
+                          );
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(snackBar);
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          return;
+                        }
 
-                      if (password == null || password!.length < 8) {
-                        final snackBar = buildCustomSnackbar(
-                          backgroundColor: Colors.redAccent,
-                          title: 'Oops!',
-                          message:
-                              'Password must be at least 8 characters long',
-                          type: ContentType.failure,
-                        );
-                        ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(snackBar);
-                        return;
-                      }
+                        if (!RegExp(r'^(?=.*\d)(?=.*[a-zA-Z]).{8,}$').hasMatch(password!)) {
+                          final snackBar = buildCustomSnackbar(
+                            backgroundColor: Colors.amberAccent,
+                            title: 'Oops!',
+                            message: 'Password must contain at least one digit and one letter',
+                            type: ContentType.warning,
+                          );
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(snackBar);
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          return;
+                        }
 
-                      if (!RegExp(r'^(?=.*\d)(?=.*[a-zA-Z]).{8,}$')
-                          .hasMatch(password!)) {
-                        final snackBar = buildCustomSnackbar(
-                          backgroundColor: Colors.amberAccent,
-                          title: 'Oops!',
-                          message:
-                              'Password must contain at least one digit and one letter',
-                          type: ContentType.warning,
-                        );
-                        ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(snackBar);
-                        return;
-                      }
-                      if (password == confirmPassword) {
-                        Navigator.pushNamed(context, "GenderPage");
-                      } else {
-                        final snackBar = buildCustomSnackbar(
-                          backgroundColor: Colors.redAccent,
-                          title: 'Oops!',
-                          message: 'Password Don' 't Match',
-                          type: ContentType.failure,
-                        );
-                        ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(snackBar);
-                        return;
+                        if (password != confirmPassword) {
+                          final snackBar = buildCustomSnackbar(
+                            backgroundColor: Colors.redAccent,
+                            title: 'Oops!',
+                            message: 'Passwords don\'t match',
+                            type: ContentType.failure,
+                          );
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(snackBar);
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          return;
+                        }
+
+                        // ✅ Now proceed to signup
+                        try {
+                          SignupService signupService = SignupService();
+                          final result = await signupService.signup(firstName!, lastName!, email!, password!);
+
+                          if (result['message']=="User had been added successfully!") {
+
+                            Navigator.pushReplacementNamed(context, 'VerifyEmailPage');
+                          } else {
+                            final snackBar = buildCustomSnackbar(
+                              backgroundColor: Colors.redAccent,
+                              title: 'Oops!',
+                              message: result['message'],
+                              type: ContentType.failure,
+                            );
+                            ScaffoldMessenger.of(context)
+                              ..hideCurrentSnackBar()
+                              ..showSnackBar(snackBar);
+                          }
+                        } catch (e) {
+                          final snackBar = buildCustomSnackbar(
+                            backgroundColor: Colors.redAccent,
+                            title: 'Error!',
+                            message: 'An unexpected error occurred.',
+                            type: ContentType.failure,
+                          );
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(snackBar);
+                        } finally {
+                          setState(() {
+                            _isLoading = false;
+                          });
+                        }
                       }
                     }
-                  },
+
                 ),
               ),
               SizedBox(height: 16),

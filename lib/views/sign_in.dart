@@ -7,6 +7,11 @@ import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/widgets/custom_listtile.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
 
+import '../core/helper_class/localstorage.dart';
+import '../core/helper_functions/build_customSnackbar.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import '../core/services/auth/login_service.dart';
+
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
   static const routeName = 'LoginPage';
@@ -84,41 +89,61 @@ class _SignInState extends State<SignInPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 8),
-                      child: _isLoading
-                          ? const Center(child: CircularProgressIndicator())
-                          : CustomButton(
-                              color: Colors.white,
-                              width: double.infinity,
-                              name: 'Sign In',
-                              on_Pressed: () async {
-                                if (formkey.currentState!.validate()) {
-                                  setState(() {
-                                    _isLoading = true;
-                                  });
-                                  //   LoginService loginservice = LoginService();
-                                  //   final success = await loginservice.login(email, password);
-                                  //   if (success) {
-                                  //     Navigator.pushReplacementNamed(context, 'MainPage');
-                                  //   } else {
-                                  //     setState(
-                                  //       () {
-                                  //         error =
-                                  //             'Login failed. Please check your credentials.';
-                                  //       },
-                                  //     );
-                                  //   }
-                                  // }
-                                  // Simulate login delay or call real login service
-                                  await Future.delayed(
-                                      const Duration(milliseconds: 300));
-                                  Navigator.pushReplacementNamed(
-                                      context, 'MainPage');
-                                  setState(() {
-                                    _isLoading = false;
-                                  });
+                      child: CustomButton(
+                        color: Colors.white,
+                        width: double.infinity,
+                        name: 'Sign In',
+                        on_Pressed: () async {
+                          if (formkey.currentState!.validate()) {
+                            setState(() {
+                              _isLoading = true;
+                            });
+
+                            try {
+                              LoginService loginService = LoginService();
+                              final result = await loginService.login(email, password);
+
+                              if (result['success']) {
+                                String? token = await LocalStorage.getToken();
+                                print('Access token: $token');
+                                Navigator.pushReplacementNamed(context, 'MainPage');
+                              } else {
+
+                                final result = await loginService.login(email, password);
+
+                                if (result['success']) {
+                                  Navigator.pushReplacementNamed(context, 'MainPage');
+                                } else {
+                                  final snackBar = buildCustomSnackbar(
+                                    backgroundColor: Colors.redAccent,
+                                    title: 'Oops!',
+                                    message: result['message'],
+                                    type: ContentType.failure,
+                                  );
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                 }
-                              },
-                            ),
+
+
+                              }
+                            } catch (e) {
+                              final snackBar = buildCustomSnackbar(
+                                backgroundColor: Colors.redAccent,
+                                title: 'Error!',
+                                message: 'An unexpected error occurred.',
+                                type: ContentType.failure,
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            } finally {
+                              setState(() {
+                                _isLoading = false;
+                              });
+                            }
+                          }
+                        },
+
+
+
+                      ),
                     ),
                     const SizedBox(height: 16),
                     Row(
@@ -154,9 +179,8 @@ class _SignInState extends State<SignInPage> {
                           try {
                             final googleLogin = GoogleLoginService();
                             await googleLogin.loginWithGoogle(context);
-                          } catch (e, stack) {
-                            debugPrint('❌ Google login error: $e');
-                            debugPrint('📌 Stack trace: $stack');
+                          } catch (e) {
+                            print(e.toString());
                           }
                         },
                         text: "Sign In Using Google",
@@ -171,9 +195,8 @@ class _SignInState extends State<SignInPage> {
                           try {
                             final fbLogin = FacebookLoginService();
                             await fbLogin.loginWithFacebook(context);
-                          } catch (e, stack) {
-                            debugPrint('❌ Facebook login error: $e');
-                            debugPrint('📌 Stack trace: $stack');
+                          } catch (e) {
+                            print(e.toString());
                           }
                         },
                         text: "Sign In With Facebook",

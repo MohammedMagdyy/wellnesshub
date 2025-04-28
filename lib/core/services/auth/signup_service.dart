@@ -2,24 +2,23 @@ import 'package:dio/dio.dart';
 import 'package:wellnesshub/core/helper_class/api.dart';
 import 'package:wellnesshub/core/helper_class/localstorage.dart';
 
-class LoginService {
-  Future<Map<String, dynamic>> login(String email, String password) async {
+class SignupService {
+  Future<Map<String, dynamic>> signup(String fname,String lname,String email, String password) async {
     try {
       final response = await API().post(
-        url: 'http://10.0.2.2:8080/login',
-        data: {'email': email, 'password': password},
+        url: 'http://10.0.2.2:8080/register',
+        data: {'firstName': fname,'lastName': lname,'email': email, 'password': password},
         token: null,
       );
 
       // If the response contains an access token, login is successful.
-      if (response != null && response['accessToken'] != null) {
-        await LocalStorage.saveToken(response['accessToken']);
-        return {'success': true, 'message': 'Login successful'};
+      if (response != null && response['message'] != null) {
+        return {'success': true, 'message': response['message']};
       } else {
         // If response does not contain access token, but there is a message, return the message.
         return {
           'success': false,
-          'message': response['message'] ?? 'Login failed'
+          'message': response['message'] ?? 'SignUp failed'
         };
       }
     } on DioException catch (e) {
@@ -50,7 +49,7 @@ class LoginService {
 /*
  try {
       final response = await _dio.post(
-        'https://your-backend.com/api/login', 
+        'https://your-backend.com/api/login',
         data: {'email': email, 'password': password},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );

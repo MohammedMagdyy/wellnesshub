@@ -162,6 +162,9 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
               timerEnd?
               InkWell(
                 onTap: () {
+                  //Active
+
+
                   
                 },
                 child: Text(

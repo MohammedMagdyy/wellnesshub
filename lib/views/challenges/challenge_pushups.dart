@@ -80,10 +80,10 @@ class _ChallengePushupsState extends State<ChallengePushups> {
                 child: Container(
                   // width: 300,
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.blue,
-                      // width: 2
-                    )
+                     border: Border.all(
+                       color: Colors.blue,
+                       // width: 2
+                     )
                   ),
                   child: Image.asset(Assets.assetsPushupsGif , fit: BoxFit.cover,)
                   ),
@@ -115,7 +115,7 @@ class _ChallengePushupsState extends State<ChallengePushups> {
                       fontWeight: FontWeight.bold
                     ),
                   ),
-                  radius: 150.0,
+                  radius: 140.0,
                   lineWidth: 10.0,
                   percent: progress,
                   center: Text(
@@ -128,9 +128,9 @@ class _ChallengePushupsState extends State<ChallengePushups> {
                     ),
                   backgroundColor: const Color.fromARGB(103, 158, 158, 158),
                   progressColor: Colors.blue,
-                  animation: true,
+                  animation: false,
                   circularStrokeCap: CircularStrokeCap.round,
-                  restartAnimation: true,
+                  restartAnimation: false,
                   footer: Text(
                     "You can press here by using your nose when push up",
                     textAlign: TextAlign.center,
