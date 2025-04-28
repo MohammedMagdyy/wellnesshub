@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/helper_functions/on_generate_route.dart';
+import 'package:wellnesshub/views/progress.dart';
+import 'package:wellnesshub/views/sign_in.dart';
 import 'package:wellnesshub/views/challenges/challenge_plank.dart';
 import 'package:wellnesshub/views/challenges/challenge_pushups.dart';
 import 'package:wellnesshub/views/challenges/challenge_squats.dart';

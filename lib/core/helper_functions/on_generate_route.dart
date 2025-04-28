@@ -134,7 +134,7 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
     return MaterialPageRoute(builder: (context) => ChallengeSquats());
     case 'Plank':
     return MaterialPageRoute(builder: (context) => ChallengePlank());
-    
+
 
     default:
       return MaterialPageRoute(
