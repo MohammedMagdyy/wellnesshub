@@ -69,6 +69,7 @@ class _ChallengePushupsState extends State<ChallengePushups> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CustomAppbar(title: "Push Ups Challenge"),
       body: SafeArea(
         child: Column(
@@ -78,14 +79,20 @@ class _ChallengePushupsState extends State<ChallengePushups> {
               child: SizedBox(
                 width: double.infinity,
                 child: Container(
+                  margin: EdgeInsets.all(10),
                   // width: 300,
                   decoration: BoxDecoration(
-                     border: Border.all(
-                       color: Colors.blue,
-                       // width: 2
-                     )
+                    border: Border.all(
+                      color: Colors.blue
+                    ),
+                  borderRadius: BorderRadius.circular(10)
                   ),
-                  child: Image.asset(Assets.assetsPushupsGif , fit: BoxFit.cover,)
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      Assets.assetsPushupsGif , fit: BoxFit.fill,
+                    )
+                  )
                   ),
               ),
             ),
@@ -108,14 +115,19 @@ class _ChallengePushupsState extends State<ChallengePushups> {
                   });
                 },
                 child: CircularPercentIndicator(
-                  header: Text(
-                    "Press Here" ,
-                    style: TextStyle(
-                      fontSize: 30 ,
-                      fontWeight: FontWeight.bold
-                    ),
+                  header: Column(
+                    children: [
+                      Text(
+                        "Press Here" ,
+                        style: TextStyle(
+                          fontSize: 30 ,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                    ],
                   ),
-                  radius: 140.0,
+                  radius: 150.0,
                   lineWidth: 10.0,
                   percent: progress,
                   center: Text(
@@ -131,9 +143,14 @@ class _ChallengePushupsState extends State<ChallengePushups> {
                   animation: false,
                   circularStrokeCap: CircularStrokeCap.round,
                   restartAnimation: false,
-                  footer: Text(
-                    "You can press here by using your nose when push up",
-                    textAlign: TextAlign.center,
+                  footer: Column(
+                    children: [
+                      SizedBox(height: 25,),
+                      Text(
+                        "You can press here by using your nose when push up",
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
                 ),
               ),

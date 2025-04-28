@@ -8,6 +8,7 @@ import 'package:wellnesshub/views/challenges/challenge_squats.dart';
 import 'package:wellnesshub/views/mainpage.dart';
 import 'package:wellnesshub/views/signup_process/sign_up.dart';
 
+
 void main() {
   runApp(WellnessHub());
 }
