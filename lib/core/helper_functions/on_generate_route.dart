@@ -123,7 +123,7 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => MainExercisesPage());
     case 'SpecificExercisePage':
       return MaterialPageRoute(builder: (context) => SpecificExercisePage(title: " ",));
-      return MaterialPageRoute(builder: (context) => WorkoutDaysPage());  
+      
     case 'ProgressPage':
       return MaterialPageRoute(builder: (context) => ProgressPage());
 

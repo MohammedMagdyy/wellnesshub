@@ -17,7 +17,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
+  final List<Widget> _pages = const [
     HomePage(),
     ProgressPage(),
     FavoritesPage(),
@@ -42,40 +42,34 @@ class _MainPageState extends State<MainPage> {
             ),
           ],
         ),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: SafeArea(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
-              child: Padding(
-                
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: GNav(
+                rippleColor: Colors.blueGrey,
+                hoverColor: Colors.blue,
+                backgroundColor: Colors.white,
+                gap: 4,
+                activeColor: Colors.white,
+                iconSize: 24,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
-                child: GNav(
-                  rippleColor: Colors.blueGrey,
-                  hoverColor:  Colors.blue,
-                  backgroundColor: Colors.white,
-                  gap: 4,
-                  activeColor: Colors.white,
-                  iconSize: 24,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  duration: const Duration(milliseconds: 400),
-                  tabBackgroundColor: Colors.blue,
-                  color: Colors.blueAccent,
-                  tabs: const [
-                    GButton(icon: Icons.home, text: 'Home'),
-                    GButton(icon: Icons.show_chart, text: 'Progress'),
-                    GButton(icon: Icons.favorite, text: 'Favourites'),
-                    GButton(icon: Icons.calculate, text: 'BMI'),
-                    GButton(icon: Icons.settings, text: 'Settings'),
-                  ],
-                  selectedIndex: _selectedIndex,
-                  onTabChange: (index) {
-                    setState(() => _selectedIndex = index);
-                  },
-                ),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                duration: const Duration(milliseconds: 400),
+                tabBackgroundColor: Colors.blue,
+                color: Colors.blueAccent,
+                tabs: const [
+                  GButton(icon: Icons.home, text: 'Home'),
+                  GButton(icon: Icons.show_chart, text: 'Progress'),
+                  GButton(icon: Icons.favorite, text: 'Favourites'),
+                  GButton(icon: Icons.calculate, text: 'BMI'),
+                  GButton(icon: Icons.settings, text: 'Settings'),
+                ],
+                selectedIndex: _selectedIndex,
+                onTabChange: (index) {
+                  setState(() => _selectedIndex = index);
+                },
               ),
             ),
           ),

@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
-  CustomButton({super.key, required this.name, this.on_Pressed, required this.width, required this.color});
+  CustomButton(
+      {super.key,
+      required this.name,
+      this.on_Pressed,
+      required this.width,
+      required this.color});
   final String name;
   VoidCallback? on_Pressed;
   final double width;
@@ -11,6 +16,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      height: 50,
       //padding: const EdgeInsets.symmetric(horizontal: 8),
       width: width,
       //color: Colors.blue,

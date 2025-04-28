@@ -13,6 +13,7 @@ class AppinfoPage extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: const [
+
             CustomSettingwidget(
               title: "Version Info",
               icon: Icons.insert_drive_file_outlined,
