@@ -2,25 +2,19 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 class API {
-  static Dio dio = Dio();
+  static final Dio dio = Dio();
 
   Future<dynamic> get({required String url, @required String? token}) async {
-    Map<String, dynamic> headers = {};
+    final headers = <String, dynamic>{};
     if (token != null) {
       headers['Authorization'] = 'Bearer $token';
     }
 
     try {
       final response = await dio.get(url, options: Options(headers: headers));
-      if (response.statusCode == 200) {
-        return response.data;
-      }
+      return response.data;
     } on DioException catch (e) {
-      if (e.response != null) {
-        throw Exception("Failed to find Data :${e.response?.statusCode}");
-      } else {
-        throw Exception("Failed to find Data :${e.message}");
-      }
+      throw e;
     }
   }
 
@@ -29,23 +23,22 @@ class API {
     @required String? token,
     @required dynamic data,
   }) async {
-    Map<String, dynamic> headers = {};
+    final headers = <String, dynamic>{
+      'Content-Type': 'application/json',
+    };
     if (token != null) {
       headers['Authorization'] = 'Bearer $token';
     }
 
     try {
-      final response =
-          await dio.post(url, options: Options(headers: headers), data: data);
-      if (response.statusCode == 200) {
-        return response.data;
-      }
+      final response = await dio.post(
+        url,
+        data: data,
+        options: Options(headers: headers),
+      );
+      return response.data;
     } on DioException catch (e) {
-      if (e.response != null) {
-        throw Exception("Failed to Post Data :${e.response?.statusCode}");
-      } else {
-        throw Exception("Failed to Post Data :${e.message}");
-      }
+      throw e;
     }
   }
 
@@ -54,24 +47,22 @@ class API {
     @required String? token,
     @required dynamic data,
   }) async {
-    Map<String, dynamic> headers = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    final headers = <String, dynamic>{
+      'Content-Type': 'application/json',
+    };
     if (token != null) {
       headers['Authorization'] = 'Bearer $token';
     }
 
     try {
-      final response =
-          await dio.put(url, options: Options(headers: headers), data: data);
-      if (response.statusCode == 200) {
-        return response.data;
-      }
+      final response = await dio.put(
+        url,
+        data: data,
+        options: Options(headers: headers),
+      );
+      return response.data;
     } on DioException catch (e) {
-      if (e.response != null) {
-        throw Exception("Failed to Post Data :${e.response?.statusCode}");
-      } else {
-        throw Exception("Failed to Post Data :${e.message}");
-      }
+      throw e;
     }
   }
 }

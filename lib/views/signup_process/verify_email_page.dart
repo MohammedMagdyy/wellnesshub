@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
+import 'package:wellnesshub/core/widgets/custom_appbar.dart';
+import '../../core/helper_class/userInfo_local.dart';
+import '../../core/services/auth/send_otp.dart';
+import '../../core/utils/global_var.dart';
 
 class VerifyEmailPage extends StatefulWidget {
   const VerifyEmailPage({super.key});
@@ -11,17 +15,19 @@ class VerifyEmailPage extends StatefulWidget {
 }
 
 class _VerifyEmailPageState extends State<VerifyEmailPage> {
-  late final TextEditingController pinController;
-  late final FocusNode focusNode;
-  late final GlobalKey<FormState> formKey;
-  bool timerEnd = false ;
+  final TextEditingController pinController = TextEditingController();
+  final FocusNode focusNode = FocusNode();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  bool timerEnd = false;
+  String otp_code = '';
+  late DateTime timerEndTime;
 
   @override
   void initState() {
     super.initState();
-    formKey = GlobalKey<FormState>();
-    pinController = TextEditingController();
-    focusNode = FocusNode();
+    timerEndTime = DateTime.now().add(const Duration(seconds: 45));
+    _receiveOTP();
   }
 
   @override
@@ -31,158 +37,152 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     super.dispose();
   }
 
+  Future<void> _receiveOTP() async {
+    final userData = await storage.getUserData();
+    String? email = userData['email'];
+    String? fname = userData['fname'];
+    String? lname = userData['lname'];
+    String username = '$fname $lname';
 
+    try {
+      OTP otp = OTP();
+      String response = await otp.activeOtp(email: email!, username: username);
+      setState(() {
+        otp_code = response;
+        timerEndTime = DateTime.now().add(const Duration(seconds: 10));
+        timerEnd = false;
+      });
+      print("OTP received: $otp_code");
+    } catch (e) {
+      print("Error receiving OTP: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Failed to receive OTP. Try again.")),
+      );
+    }
+  }
+
+  void _submitOtp() {
+    if (pinController.text == otp_code) {
+      Navigator.pushReplacementNamed(context, 'AgePage');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Invalid OTP entered.")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          SizedBox(height: 15,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Email Verification",
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
+      appBar: const CustomAppbar(title: 'Email Verification'),
+      body: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20),
+            const Text(
+              "Email Verification",
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              "Enter the OTP sent to your email inbox",
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 50),
+            Pinput(
+              controller: pinController,
+              focusNode: focusNode,
+              length: 6,
+              defaultPinTheme: PinTheme(
+                height: 60,
+                width: 60,
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(70, 189, 189, 200),
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: const Color(0xff80C9FC)),
                 ),
               ),
-            ],
-          ) ,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Enter the OTP sent to your email inbox",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey,
+              submittedPinTheme: PinTheme(
+                height: 60,
+                width: 60,
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(70, 189, 189, 200),
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: const Color.fromARGB(255, 32, 255, 32)),
                 ),
               ),
-            ],
-          ),
-          SizedBox(height: 80,),
-          Pinput(
-            controller: pinController,
-            focusNode: focusNode,
-            defaultPinTheme: PinTheme(
-              height: 60,
-              width: 60,
-              decoration: BoxDecoration(
-                color: Color.fromARGB(70, 189, 189, 200),
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: Color(0xff80C9FC))
-              ),
-            ),
-            closeKeyboardWhenCompleted: true,
-            errorPinTheme: PinTheme(
-              height: 60,
-              width: 60,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: Colors.redAccent)
-              ),
-            ),
-            errorText: "invalid OTP",
-            errorTextStyle: TextStyle(
-              color: Colors.red,
-              fontSize: 10
-            ),
-            focusedPinTheme: PinTheme(
-              height: 60,
-              width: 60,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: Color(0xff80C9FC))
-              ),
-            ),
-            length: 5,
-            submittedPinTheme: PinTheme(
-              height: 60,
-              width: 60,
-              decoration: BoxDecoration(
-                color: Color.fromARGB(70, 189, 189, 200),
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: Color.fromARGB(255, 32, 255, 32))
-              )
-            ),
-            pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-            onTapOutside: (event) {
-              focusNode.unfocus();
-            },
-            scrollPadding: EdgeInsets.all(10),
-            showCursor: false,
-            validator: (value) {
-              return value == "11111" ? null : "";
-            },
-            onCompleted: (value) {
-              print("completed");
-            },
-
-          ),
-          SizedBox(height: 30,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(width: 20,),
-              Text(
-                "Resend OTP in  "
-              ),
-              TimerCountdown(
-                endTime: DateTime.now().add(Duration(
-                  minutes: 1
-                )),
-                enableDescriptions: false,
-                format: CountDownTimerFormat.minutesSeconds,
-                timeTextStyle: TextStyle(
-                  color: Color(0xff80C9FC)
-                ),
-                onEnd: () {
-                  setState(() {
-                  timerEnd = true ;
-                  });
-                },
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              SizedBox(width: 20,),
-              Text(
-                "Didn't receive OTP ?",
-                style: TextStyle(
-                  color: Colors.grey
+              focusedPinTheme: PinTheme(
+                height: 60,
+                width: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: const Color(0xff80C9FC)),
                 ),
               ),
-              SizedBox(width: 10,),
-              timerEnd?
-              InkWell(
-                onTap: () {
-                  //Active
-
-
-                  
-                },
-                child: Text(
-                  "Resend OTP",
-                  style: TextStyle(
-                    color: Colors.blue
+              validator: (value) {
+                return value == otp_code ? null : 'Invalid OTP';
+              },
+              onCompleted: (value) => _submitOtp(),
+              showCursor: false,
+              pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+              onTapOutside: (_) => focusNode.unfocus(),
+            ),
+            const SizedBox(height: 30),
+            TimerCountdown(
+              endTime: timerEndTime,
+              enableDescriptions: false,
+              format: CountDownTimerFormat.minutesSeconds,
+              timeTextStyle: const TextStyle(color: Color(0xff80C9FC)),
+              onEnd: () {
+                setState(() {
+                  pinController.clear();
+                  timerEnd = true;
+                });
+              },
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Didn't receive OTP?", style: TextStyle(color: Colors.grey)),
+                const SizedBox(width: 10),
+                timerEnd
+                    ? GestureDetector(
+                  onTap: () {
+                    if (timerEnd) {
+                      pinController.clear(); // Clear OTP input field
+                      _receiveOTP();         // Get new OTP
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Please wait for the timer to end before resending.")),
+                      );
+                    }
+                  },
+                  child: Text(
+                    "Resend OTP",
+                    style: TextStyle(color: timerEnd ? Colors.blue : Colors.grey),
                   ),
-                ),
-              ) :
-              Text(
-                "Resend OTP",
-                style: TextStyle(
-                  color: Colors.grey
-                ),
-              ) ,
-            ],
-          )
-        ],
+                ): const Text("Resend OTP", style: TextStyle(color: Colors.grey)),
+              ],
+            ),
+            const SizedBox(height: 50),
+            ElevatedButton(
+              onPressed: _submitOtp,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+              ),
+              child: const Text(
+                "Verify",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

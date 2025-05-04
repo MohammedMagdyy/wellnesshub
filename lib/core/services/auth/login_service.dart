@@ -11,33 +11,24 @@ class LoginService {
         token: null,
       );
 
-      // If the response contains an access token, login is successful.
       if (response != null && response['accessToken'] != null) {
-        await LocalStorage.saveToken(response['accessToken']);
+        await LocalStorageAccessToken.saveToken(response['accessToken']);
         return {'success': true, 'message': 'Login successful'};
-      } else {
-        // If response does not contain access token, but there is a message, return the message.
-        return {
-          'success': false,
-          'message': response['message'] ?? 'Login failed'
-        };
       }
+
+      return {
+        'success': false,
+        'message': response['message'] ?? 'Invalid credentials'
+      };
     } on DioException catch (e) {
-      // Handle error response properly in case of failure.
-      if (e.response != null) {
-        // If response contains a message, return it.
-        return {
-          'success': false,
-          'message': e.response?.data['message'] ?? 'An error occurred. Please try again.'
-        };
-      } else {
-        // If there's no response, it means network issue or other error.
-        return {'success': false, 'message': 'An error occurred. Please try again.'};
-      }
+      return {
+        'success': false,
+        'message': e.response?.data['message'] ??
+            'Login failed due to a server error.'
+      };
     } catch (e) {
-      // General catch for unexpected errors.
       print('Unexpected error: $e');
-      return {'success': false, 'message': 'An error occurred. Please try again.'};
+      return {'success': false, 'message': 'Unexpected error occurred'};
     }
   }
 }

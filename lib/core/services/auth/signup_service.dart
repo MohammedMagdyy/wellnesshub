@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:wellnesshub/core/helper_class/api.dart';
-import 'package:wellnesshub/core/helper_class/localstorage.dart';
+
 
 class SignupService {
   Future<Map<String, dynamic>> signup(String fname,String lname,String email, String password) async {

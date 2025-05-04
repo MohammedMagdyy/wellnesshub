@@ -1,6 +1,12 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/meal_plan_section.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
+
+import '../../core/helper_functions/build_customSnackbar.dart';
+import '../../core/services/auth/signup_service.dart';
+import '../../core/utils/global_var.dart';
+import '../../core/widgets/custom_appbar.dart';
 
 class MealPlan extends StatefulWidget {
   const MealPlan({super.key});
@@ -17,6 +23,7 @@ class _MealPlanState extends State<MealPlan> {
   String? selectedCaloricGoal;
   String? selectedCookingTime;
   String? selectedServings;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +31,8 @@ class _MealPlanState extends State<MealPlan> {
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text("Meal Plan"),
-        centerTitle: true,
+      appBar: CustomAppbar(
+        title: "",
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -80,13 +82,54 @@ class _MealPlanState extends State<MealPlan> {
                 onChanged: (value) => setState(() => selectedServings = value),
               ),
               SizedBox(height: height * 0.04),
+
               Center(
                 child: CustomButton(
                   width: width * 0.6,
                   color: Colors.black,
                   name: 'Continue',
-                  on_Pressed: () {
-                    Navigator.pushNamed(context, "HomePage");
+                  on_Pressed: ()async {
+                    final userinfo=await storage.getUserData();
+
+                    try {
+                      SignupService signupService = SignupService();
+                      final result = await signupService.signup(
+                          userinfo['fname']!, userinfo['lname']!, userinfo['email']!, userinfo['password']!);
+
+                      if (result['success'] == true && userinfo['email'] != null) {
+
+
+
+                        Navigator.pushNamed(
+                            context, 'HomePage');
+                      } else {
+                        final snackBar = buildCustomSnackbar(
+                          backgroundColor: Colors.redAccent,
+                          title: 'Oops!',
+                          message: result['message'],
+                          type: ContentType.failure,
+                        );
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(snackBar);
+                      }
+                    } catch (e) {
+                      final snackBar = buildCustomSnackbar(
+                        backgroundColor: Colors.redAccent,
+                        title: 'Error!',
+                        message: 'An unexpected error occurred.',
+                        type: ContentType.failure,
+                      );
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(snackBar);
+                    } finally {
+                      setState(() {
+                        _isLoading = false;
+                      });
+                    }
+
+
                   },
                 ),
               ),

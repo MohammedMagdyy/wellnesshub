@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/checkbox_button.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 
+import '../../core/utils/global_var.dart';
+import '../../core/widgets/custom_appbar.dart';
+
 class InjuriesPage extends StatefulWidget {
   const InjuriesPage({super.key});
   static const routeName = 'InjuriesPage';
@@ -19,11 +22,8 @@ class _InjuriesPageState extends State<InjuriesPage> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
+      appBar: CustomAppbar(
+        title: "",
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -69,7 +69,10 @@ class _InjuriesPageState extends State<InjuriesPage> {
                 name: 'Continue',
                 on_Pressed: selectedGoal == null
                     ? null
-                    : () => Navigator.pushNamed(context, "ActivityPage"),
+                    : () async{
+                  await storage.saveUserInjury(selectedGoal!);
+                  Navigator.pushNamed(context, "MealPlan");
+                }
               ),
             ),
             SizedBox(height: height * 0.04),

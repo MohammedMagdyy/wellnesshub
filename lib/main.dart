@@ -6,7 +6,10 @@ import 'package:wellnesshub/views/challenges/challenge_plank.dart';
 import 'package:wellnesshub/views/challenges/challenge_pushups.dart';
 import 'package:wellnesshub/views/challenges/challenge_squats.dart';
 import 'package:wellnesshub/views/mainpage.dart';
+import 'package:wellnesshub/views/signup_process/activity_page.dart';
+import 'package:wellnesshub/views/signup_process/meal_plan.dart';
 import 'package:wellnesshub/views/signup_process/sign_up.dart';
+import 'package:wellnesshub/views/signup_process/verify_email_page.dart';
 
 
 void main() {
@@ -20,7 +23,7 @@ class WellnessHub extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateRoute: OnGenerateRoute,
-      initialRoute: SignUp.routeName,
+      initialRoute: VerifyEmailPage.routeName,
       debugShowCheckedModeBanner: false,
     );
   }

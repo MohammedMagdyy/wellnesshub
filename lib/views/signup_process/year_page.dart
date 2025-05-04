@@ -3,6 +3,9 @@ import 'package:numberpicker/numberpicker.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 
+import '../../core/utils/global_var.dart';
+import '../../core/widgets/custom_appbar.dart';
+
 class YearPage extends StatefulWidget {
   const YearPage({super.key});
   static const routeName = 'AgePage';
@@ -17,14 +20,7 @@ class _YearPageState extends State<YearPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Back icon
-          onPressed: () {
-            Navigator.pop(context); // Go back to the previous page
-          },
-        ),
-      ),
+      appBar: CustomAppbar(title: "",),
       body: Column(
       children: [
         Row(
@@ -84,7 +80,8 @@ class _YearPageState extends State<YearPage> {
           ),
         ),
         SizedBox(height: 100,),
-        CustomButton(name: "Continue", width: 200, color: Colors.black , on_Pressed: () {
+        CustomButton(name: "Continue", width: 200, color: Colors.black , on_Pressed: () async{
+          await storage.saveUserAge(_age);
           Navigator.pushNamed(context, 'WeightPage');
         },)
       ],

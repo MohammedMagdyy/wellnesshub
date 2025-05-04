@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
+import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/widgets/special_checkboxbutton.dart';
+
+import '../../core/utils/global_var.dart';
 
 class ActivityPage extends StatefulWidget {
   const ActivityPage({super.key});
@@ -20,12 +23,7 @@ class _ActivityPageState extends State<ActivityPage> {
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+      appBar: CustomAppbar(title: "Activity Page"),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -64,6 +62,7 @@ class _ActivityPageState extends State<ActivityPage> {
                     onTap: () {
                       setState(() {
                         selectedGoal = option[0];
+                        print(selectedGoal);
                       });
                     },
                   ),
@@ -82,8 +81,9 @@ class _ActivityPageState extends State<ActivityPage> {
                   name: 'Continue',
                   on_Pressed: selectedGoal == null
                       ? null
-                      : () {
-                          Navigator.pushNamed(context, "MealPlan");
+                      : () async{
+                          await storage.saveUserActivityLevel(selectedGoal!);
+                          Navigator.pushNamed(context, "WorkoutDaysPage");
                         },
                 ),
               ),

@@ -3,6 +3,9 @@ import 'package:numberpicker/numberpicker.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 
+import '../../core/utils/global_var.dart';
+import '../../core/widgets/custom_appbar.dart';
+
 class WeightPage extends StatefulWidget {
   const WeightPage({super.key});
   static const routeName = 'WeightPage';
@@ -16,14 +19,7 @@ class _WeightPageState extends State<WeightPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Back icon
-          onPressed: () {
-            Navigator.pop(context); // Go back to the previous page
-          },
-        ),
-      ),
+      appBar: CustomAppbar(title: "",),
       body: Column(
       children: [
         Row(
@@ -83,7 +79,8 @@ class _WeightPageState extends State<WeightPage> {
           ),
         ),
         SizedBox(height: 100,),
-        CustomButton(name: "Continue", width: 200, color: Colors.black , on_Pressed: () {
+        CustomButton(name: "Continue", width: 200, color: Colors.black , on_Pressed: () async{
+          await storage.saveUserWeight(_weight);
           Navigator.pushNamed(context, 'HeightPage');
         },)
       ],

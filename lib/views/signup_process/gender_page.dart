@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/widgets/custom_gendericon.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
+
+import '../../core/utils/global_var.dart';
 
 class GenderPage extends StatefulWidget {
   const GenderPage({super.key});
@@ -16,13 +19,8 @@ class _Gender_PageState extends State<GenderPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back), // Back icon
-            onPressed: () {
-              Navigator.pop(context); // Go back to the previous page
-            },
-          ),
+        appBar: CustomAppbar(
+          title: "Gender Selection",
         ),
         body: SafeArea(
           child: ListView(
@@ -106,7 +104,8 @@ class _Gender_PageState extends State<GenderPage> {
                   name: 'Continue',
                   on_Pressed: selectedGender == null
                       ? null // Disable button if no gender is selected
-                      : () {
+                      : () async{
+                    await storage.saveUserActivityLevel(selectedGender!);
                           Navigator.pushNamed(context, "AgePage");
                           
                         },

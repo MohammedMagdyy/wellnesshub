@@ -3,6 +3,9 @@ import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/checkbox_button.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 
+import '../../core/utils/global_var.dart';
+import '../../core/widgets/custom_appbar.dart';
+
 class ExperienceLevelPage extends StatefulWidget {
   const ExperienceLevelPage({super.key});
   static const routeName = 'ExperienceLevelPage';
@@ -20,11 +23,8 @@ class _ExperienceLevelPageState extends State<ExperienceLevelPage> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
+      appBar: CustomAppbar(
+        title: "Experience Level",
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -70,7 +70,11 @@ class _ExperienceLevelPageState extends State<ExperienceLevelPage> {
                 name: 'Continue',
                 on_Pressed: selectedGoal == null
                     ? null
-                    : () => Navigator.pushNamed(context, "WorkoutDaysPage"),
+                    : () async{
+                  await storage.saveUserExperienceLevel(selectedGoal!);
+                  Navigator.pushNamed(context, "Activity Page");
+
+                }
               ),
               SizedBox(height: height * 0.05),
             ],

@@ -4,10 +4,13 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/helper_functions/build_customSnackbar.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
-
-import '../../core/helper_class/localstorage.dart';
-import '../../core/services/auth/login_service.dart';
 import '../../core/services/auth/signup_service.dart';
+import '../../core/utils/global_var.dart';
+
+import 'package:bcrypt/bcrypt.dart';
+
+
+
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -158,7 +161,8 @@ class _Sign_UpState extends State<SignUp> {
                           return;
                         }
 
-                        if (!RegExp(r'^(?=.*\d)(?=.*[a-zA-Z]).{8,}$').hasMatch(password!)) {
+                        if (!RegExp(r'^(?=.*\d)(?=.*[a-zA-Z]).{8,}$').hasMatch(
+                            password!)) {
                           final snackBar = buildCustomSnackbar(
                             backgroundColor: Colors.amberAccent,
                             title: 'Oops!',
@@ -190,40 +194,51 @@ class _Sign_UpState extends State<SignUp> {
                           return;
                         }
 
-                        // ✅ Now proceed to signup
-                        try {
-                          SignupService signupService = SignupService();
-                          final result = await signupService.signup(firstName!, lastName!, email!, password!);
-
-                          if (result['message']=="User had been added successfully!") {
-
-                            Navigator.pushReplacementNamed(context, 'VerifyEmailPage');
-                          } else {
-                            final snackBar = buildCustomSnackbar(
-                              backgroundColor: Colors.redAccent,
-                              title: 'Oops!',
-                              message: result['message'],
-                              type: ContentType.failure,
-                            );
-                            ScaffoldMessenger.of(context)
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(snackBar);
-                          }
-                        } catch (e) {
-                          final snackBar = buildCustomSnackbar(
-                            backgroundColor: Colors.redAccent,
-                            title: 'Error!',
-                            message: 'An unexpected error occurred.',
-                            type: ContentType.failure,
-                          );
-                          ScaffoldMessenger.of(context)
-                            ..hideCurrentSnackBar()
-                            ..showSnackBar(snackBar);
-                        } finally {
-                          setState(() {
-                            _isLoading = false;
-                          });
-                        }
+                        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                        String hashedPassword = BCrypt.hashpw(password!, BCrypt.gensalt());
+                        await storage.saveUserData(email:email!,fname: firstName!,
+                              lname:  lastName!,password:hashedPassword);
+                        Navigator.pushNamed(
+                            context, 'VerifyEmailPage');
+                        // try {
+                        //   SignupService signupService = SignupService();
+                        //   final result = await signupService.signup(
+                        //       firstName!, lastName!, email!, password!);
+                        //
+                        //   if (result['success'] == true && email != null) {
+                        //
+                        //     await storage.saveUserData(email:email!,fname: firstName!,
+                        //        lname:  lastName!,password:password!);
+                        //
+                        //
+                        //     Navigator.pushNamed(
+                        //         context, 'VerifyEmailPage');
+                        //   } else {
+                        //     final snackBar = buildCustomSnackbar(
+                        //       backgroundColor: Colors.redAccent,
+                        //       title: 'Oops!',
+                        //       message: result['message'],
+                        //       type: ContentType.failure,
+                        //     );
+                        //     ScaffoldMessenger.of(context)
+                        //       ..hideCurrentSnackBar()
+                        //       ..showSnackBar(snackBar);
+                        //   }
+                        // } catch (e) {
+                        //   final snackBar = buildCustomSnackbar(
+                        //     backgroundColor: Colors.redAccent,
+                        //     title: 'Error!',
+                        //     message: 'An unexpected error occurred.',
+                        //     type: ContentType.failure,
+                        //   );
+                        //   ScaffoldMessenger.of(context)
+                        //     ..hideCurrentSnackBar()
+                        //     ..showSnackBar(snackBar);
+                        // } finally {
+                        //   setState(() {
+                        //     _isLoading = false;
+                        //   });
+                        // }
                       }
                     }
 

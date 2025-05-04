@@ -95,51 +95,38 @@ class _SignInState extends State<SignInPage> {
                         name: 'Sign In',
                         on_Pressed: () async {
                           if (formkey.currentState!.validate()) {
-                            setState(() {
-                              _isLoading = true;
-                            });
+                            setState(() => _isLoading = true);
 
                             try {
-                              LoginService loginService = LoginService();
-                              final result = await loginService.login(email, password);
+                              final result = await LoginService().login(email, password);
 
                               if (result['success']) {
-                                String? token = await LocalStorage.getToken();
-                                print('Access token: $token');
+                                final token = await LocalStorageAccessToken.getToken();
+                                debugPrint('Access token: $token');
                                 Navigator.pushReplacementNamed(context, 'MainPage');
                               } else {
-
-                                final result = await loginService.login(email, password);
-
-                                if (result['success']) {
-                                  Navigator.pushReplacementNamed(context, 'MainPage');
-                                } else {
-                                  final snackBar = buildCustomSnackbar(
-                                    backgroundColor: Colors.redAccent,
-                                    title: 'Oops!',
-                                    message: result['message'],
-                                    type: ContentType.failure,
-                                  );
-                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                }
-
-
+                                final snackBar = buildCustomSnackbar(
+                                  backgroundColor: Colors.redAccent,
+                                  title: 'Login Failed!',
+                                  message: result['message'],
+                                  type: ContentType.failure,
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
                               }
                             } catch (e) {
                               final snackBar = buildCustomSnackbar(
                                 backgroundColor: Colors.redAccent,
                                 title: 'Error!',
-                                message: 'An unexpected error occurred.',
+                                message: 'Something went wrong. Please try again.',
                                 type: ContentType.failure,
                               );
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             } finally {
-                              setState(() {
-                                _isLoading = false;
-                              });
+                              setState(() => _isLoading = false);
                             }
                           }
                         },
+
 
 
 
