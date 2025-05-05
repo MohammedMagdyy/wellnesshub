@@ -42,18 +42,19 @@ class _BMICalculatorState extends State<BMICalculator> {
     return Scaffold(
       appBar: CustomAppbar(title: "BMI Calculator"),
       body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 70 , horizontal: 10),
-                margin: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  color: isDark? Color(0xff9DCEFF) : Color.fromARGB(127, 157, 206, 255),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                child:
+        child:SingleChildScrollView(
+          child:Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 70 , horizontal: 10),
+                  margin: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: isDark? Color(0xff9DCEFF) : Color.fromARGB(127, 157, 206, 255),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child:
                   Column(
                     children: [
                       SizedBox(height: 10,),
@@ -64,8 +65,8 @@ class _BMICalculatorState extends State<BMICalculator> {
                       BMIBar(bmi: bmi),
                       SizedBox(height: 10),
                       Divider(
-                      color: Colors.grey,
-                      thickness: 1,
+                        color: Colors.grey,
+                        thickness: 1,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -78,16 +79,17 @@ class _BMICalculatorState extends State<BMICalculator> {
                       ),
                     ],
                   ),
-              ),
-              CustomButton(
-                name: "Show Fitness Plan",
-                width: 300,
-                color: Colors.white,
-                on_Pressed: () {
-                  Navigator.pushNamed(context, 'FitnessPlanPage');
-                },
                 ),
-            ],
+                CustomButton(
+                  name: "Show Fitness Plan",
+                  width: 300,
+                  color: Colors.white,
+                  on_Pressed: () {
+                    Navigator.pushNamed(context, 'FitnessPlanPage');
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

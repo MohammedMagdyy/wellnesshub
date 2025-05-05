@@ -13,14 +13,29 @@ class CommunityPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<CommunityPage> {
-  final List<Map<String, dynamic>> _messages = [
-    {'text': "Hi, how can I help you today?", 'isCoach': true},
-  ];
+  final List<Map<String, dynamic>> _messages = [];
+
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeClient();
+  }
+
+  Future<void> _initializeClient() async {
+    await GeminiService.initClientData(); // Load user info from SharedPreferences
+    final firstReply = await GeminiService.sendMessage("");
+    if (!mounted) return;
+    setState(() {
+      _messages.add({'text': firstReply, 'isCoach': true});
+      _isLoading = false;
+    });
+  }
 
   void _handleSend(String message) async {
     if (message.trim().isEmpty) return;
 
-    if (!mounted) return;
     setState(() {
       _messages.add({'text': message, 'isCoach': false});
     });
@@ -46,7 +61,9 @@ class _ChatPageState extends State<CommunityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(title: "AI Coach Chat"),
-      body: Column(
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Column(
         children: [
           Expanded(
             child: ListView.builder(
