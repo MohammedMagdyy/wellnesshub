@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:simple_ruler_picker/simple_ruler_picker.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 
+import '../../core/utils/global_var.dart';
+import '../../core/widgets/custom_appbar.dart';
+
 class HeightPage extends StatefulWidget {
   const HeightPage({super.key});
    static const routeName = 'HeightPage';
@@ -16,13 +19,8 @@ class _HeightPageState extends State<HeightPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Back icon
-          onPressed: () {
-            Navigator.pop(context); // Go back to the previous page
-          },
-        ),
+      appBar: CustomAppbar(
+        title: "Height Selection",
       ),
 
       body: SingleChildScrollView(
@@ -78,7 +76,8 @@ class _HeightPageState extends State<HeightPage> {
             ),
           ),
           SizedBox(height: 10,),
-          CustomButton(name: "Continue", width: 200, color: Colors.black , on_Pressed: () {
+          CustomButton(name: "Continue", width: 200, color: Colors.black , on_Pressed: ()async {
+            await storage.saveUserHeight(_height);
             Navigator.pushNamed(context, 'GoalPage');
           },)
           ],

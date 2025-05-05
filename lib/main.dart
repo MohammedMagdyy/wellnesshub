@@ -11,6 +11,10 @@ import 'package:wellnesshub/views/challenges/challenge_squats.dart';
 import 'package:wellnesshub/views/mainpage.dart';
 import 'package:wellnesshub/views/signup_process/meal_plan.dart';
 import 'package:wellnesshub/views/signup_process/verify_email_page.dart';
+import 'package:wellnesshub/views/signup_process/activity_page.dart';
+import 'package:wellnesshub/views/signup_process/meal_plan.dart';
+import 'package:wellnesshub/views/signup_process/sign_up.dart';
+import 'package:wellnesshub/views/signup_process/verify_email_page.dart';
 
 
 void main() {

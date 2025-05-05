@@ -1,5 +1,7 @@
+import '../helper_class/userInfo_local.dart';
 import 'package:flutter/foundation.dart';
 
+final storage = UserInfoLocalStorage();
 
 
 class GlobalVar {

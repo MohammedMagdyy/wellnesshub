@@ -3,6 +3,9 @@ import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/checkbox_button.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 
+import '../../core/utils/global_var.dart';
+import '../../core/widgets/custom_appbar.dart';
+
 class GoalPage extends StatefulWidget {
   const GoalPage({super.key});
   static const routeName = 'GoalPage';
@@ -20,11 +23,8 @@ class _GoalPageState extends State<GoalPage> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
+      appBar: CustomAppbar(
+        title: "Goal Page",
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -70,7 +70,10 @@ class _GoalPageState extends State<GoalPage> {
                 name: 'Continue',
                 on_Pressed: selectedGoal == null
                     ? null
-                    : () => Navigator.pushNamed(context, "ExperienceLevelPage"),
+                    : () async{
+                  await storage.saveUserGoal(selectedGoal!);
+                 Navigator.pushNamed(context, "ExperienceLevelPage");
+                }
               ),
               SizedBox(height: height * 0.05),
             ],

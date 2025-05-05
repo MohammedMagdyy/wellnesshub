@@ -28,7 +28,6 @@ import 'package:wellnesshub/views/signup_process/goal_page.dart';
 import 'package:wellnesshub/views/signup_process/height_page.dart';
 import 'package:wellnesshub/views/signup_process/injuries_page.dart';
 import 'package:wellnesshub/views/signup_process/meal_plan.dart';
-import 'package:wellnesshub/views/signup_process/physical_page.dart';
 import 'package:wellnesshub/views/signup_process/sign_up.dart';
 import 'package:wellnesshub/views/signup_process/verify_email_page.dart';
 import 'package:wellnesshub/views/signup_process/weight_page.dart';
@@ -56,8 +55,7 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => GenderPage());
     case 'GoalPage':
       return MaterialPageRoute(builder: (context) => GoalPage());
-    case 'PhysicalPage':
-      return MaterialPageRoute(builder: (context) => PhysicalPage());
+
     case 'InjuriesPage':
       return MaterialPageRoute(builder: (context) => InjuriesPage());
     case 'ActivityPage':

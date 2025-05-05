@@ -3,18 +3,40 @@ import 'package:wellnesshub/core/helper_class/api.dart';
 import 'package:wellnesshub/core/helper_class/localstorage.dart';
 
 class LoginService {
-  final Dio _dio = Dio();
+  Future<Map<String, dynamic>> login(String email, String password) async {
+    try {
+      final response = await API().post(
+        url: 'http://10.0.2.2:8080/login',
+        data: {'email': email, 'password': password},
+        token: null,
+      );
 
-  Future<bool> login(String email, String password) async {
-    final response = await API()
-        .post(url: 'url', data: {'email': email, 'password': password});
-    if (response.statusCode == 200 && response.data['token'] != null) {
-      LocalStorage.saveToken(response.data['token']);
-      return true;
+      if (response != null && response['accessToken'] != null) {
+        await LocalStorageAccessToken.saveToken(response['accessToken']);
+        return {'success': true, 'message': 'Login successful'};
+      }
+
+      return {
+        'success': false,
+        'message': response['message'] ?? 'Invalid credentials'
+      };
+    } on DioException catch (e) {
+      return {
+        'success': false,
+        'message': e.response?.data['message'] ??
+            'Login failed due to a server error.'
+      };
+    } catch (e) {
+      print('Unexpected error: $e');
+      return {'success': false, 'message': 'Unexpected error occurred'};
     }
-    return false;
   }
 }
+
+
+
+
+
 
 /*
  try {
