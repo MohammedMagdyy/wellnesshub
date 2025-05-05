@@ -6,7 +6,7 @@ import 'package:wellnesshub/core/services/ai_coach/ai_service.dart';
 
 class CommunityPage extends StatefulWidget {
   const CommunityPage({super.key});
-  static const routeName = 'Chat';
+  static const routeName = 'CommunityPage';
 
   @override
   State<CommunityPage> createState() => _ChatPageState();
@@ -46,7 +46,6 @@ class _ChatPageState extends State<CommunityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(title: "AI Coach Chat"),
-      backgroundColor: Colors.black,
       body: Column(
         children: [
           Expanded(

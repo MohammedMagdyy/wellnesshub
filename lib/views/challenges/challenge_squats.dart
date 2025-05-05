@@ -77,12 +77,19 @@ double progress = 0 ;
               child: SizedBox(
                 width: double.infinity,
                 child: Container(
+                  margin: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.blue,
-                    )
+                    ),
+                    borderRadius: BorderRadius.circular(10)
                   ),
-                  child: Image.asset(Assets.assetsSquatsGif , fit: BoxFit.fill,)
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      Assets.assetsSquatsGif , fit: BoxFit.fill,
+                      )
+                    )
                   ),
               ),
             ),
@@ -105,12 +112,17 @@ double progress = 0 ;
                   });
                 },
                 child: CircularPercentIndicator(
-                  header: Text(
-                    "Press Here" ,
-                    style: TextStyle(
-                      fontSize: 30 ,
-                      fontWeight: FontWeight.bold
-                    ),
+                  header: Column(
+                    children: [
+                      Text(
+                        "Press Here" ,
+                        style: TextStyle(
+                          fontSize: 30 ,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                    ],
                   ),
                   radius: 150.0,
                   lineWidth: 10.0,

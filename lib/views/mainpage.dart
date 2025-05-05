@@ -17,7 +17,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = const [
+  final List<Widget> _pages = [
     HomePage(),
     ProgressPage(),
     FavoritesPage(),
@@ -27,6 +27,8 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
@@ -34,7 +36,7 @@ class _MainPageState extends State<MainPage> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: isDark ? Colors.black : Colors.white, // change in dark mode
           boxShadow: [
             BoxShadow(
               blurRadius: 20,
@@ -50,7 +52,7 @@ class _MainPageState extends State<MainPage> {
               child: GNav(
                 rippleColor: Colors.blueGrey,
                 hoverColor: Colors.blue,
-                backgroundColor: Colors.white,
+                backgroundColor: isDark ? Colors.black : Colors.white, // change in dark mode
                 gap: 4,
                 activeColor: Colors.white,
                 iconSize: 24,

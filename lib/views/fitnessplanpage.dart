@@ -14,7 +14,7 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(title: "Fitness Plan"),
+      appBar: CustomAppbar(title: "Fitness Plan"),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(12.0),

@@ -117,7 +117,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
             scrollPadding: EdgeInsets.all(10),
             showCursor: false,
             validator: (value) {
-              return value == "11111" ? null : "";
+              return value == "12345" ? null : "";
             },
             onCompleted: (value) {
               print("completed");

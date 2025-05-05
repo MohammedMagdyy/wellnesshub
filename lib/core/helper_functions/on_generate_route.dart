@@ -113,7 +113,7 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
     case 'ProfilesettingsPage':
       return MaterialPageRoute(builder: (context) => ProfilesettingsPage());
     case 'CustomToggleSwitch':
-      return MaterialPageRoute(builder: (context) => CustomToggleSwitch());
+      return MaterialPageRoute(builder: (context) => CustomToggleSwitch(isDarkModeSwitch: false,));
     case 'WorkoutReminder':
       return MaterialPageRoute(builder: (context) => WorkoutReminderPage());
     case 'FacebookLoginPage':

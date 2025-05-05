@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_settingwidget.dart';
+import 'package:wellnesshub/core/utils/global_var.dart';
 
-class SettingPage extends StatelessWidget {
-  const SettingPage({super.key});
+// ignore: must_be_immutable
+class SettingPage extends StatefulWidget {
+  SettingPage({super.key});
   static const routeName = 'SettingPage';
+
+  @override
+  State<SettingPage> createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +62,7 @@ class SettingPage extends StatelessWidget {
                 switchcheck: true,
                 onTapFunc: 3,
                 pageName: "SettingPage",
+                isDarkModeSwitch: true,
               ),
               CustomSettingwidget(
                 title: "Privacy Policy",
