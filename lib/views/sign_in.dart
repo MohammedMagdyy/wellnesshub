@@ -7,7 +7,7 @@ import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/widgets/custom_listtile.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
 
-import '../core/helper_class/localstorage.dart';
+import '../core/helper_class/accesstoken_storage.dart';
 import '../core/helper_functions/build_customSnackbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import '../core/services/auth/login_service.dart';

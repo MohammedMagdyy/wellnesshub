@@ -3,9 +3,9 @@ import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/main_exercisecard.dart';
 
-class MainExercisesPage extends StatelessWidget {
-  const MainExercisesPage({super.key});
-  static const routeName = 'MainExercisesPage';
+class FullBodyExercisePage extends StatelessWidget {
+  const FullBodyExercisePage({super.key});
+  static const routeName = 'FullBodyExercisePage';
 
   @override
   Widget build(BuildContext context) {

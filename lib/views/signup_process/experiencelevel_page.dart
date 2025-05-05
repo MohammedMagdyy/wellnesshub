@@ -72,7 +72,7 @@ class _ExperienceLevelPageState extends State<ExperienceLevelPage> {
                     ? null
                     : () async{
                   await storage.saveUserExperienceLevel(selectedGoal!);
-                  Navigator.pushNamed(context, "Activity Page");
+                  Navigator.pushNamed(context, "ActivityPage");
 
                 }
               ),

@@ -62,9 +62,12 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   }
 
   void _submitOtp() {
-    if (pinController.text == otp_code) {
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    print(pinController.text);
+    if (pinController.text == otp_code&&otp_code!='') {
       Navigator.pushReplacementNamed(context, 'AgePage');
-    } else {
+    }
+    else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Invalid OTP entered.")),
       );

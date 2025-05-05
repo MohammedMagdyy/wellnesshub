@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/views/community_page.dart';
-import 'package:wellnesshub/views/main_exercises_page.dart';
+import 'package:wellnesshub/views/fullbodyexercise_page.dart';
 import 'package:wellnesshub/views/nutrition_page.dart';
 import 'package:wellnesshub/views/progress.dart';
 
@@ -15,7 +15,7 @@ class Categories extends StatelessWidget {
         _CategoryItem(
             icon: Icons.fitness_center,
             label: "Exercises",
-            page: const MainExercisesPage()),
+            page: const FullBodyExercisePage()),
         _CategoryItem(
             icon: Icons.show_chart,
             label: "Progress",

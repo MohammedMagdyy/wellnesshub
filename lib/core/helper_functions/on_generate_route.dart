@@ -6,7 +6,7 @@ import 'package:wellnesshub/views/challenges/challenge_plank.dart';
 import 'package:wellnesshub/views/challenges/challenge_pushups.dart';
 import 'package:wellnesshub/views/challenges/challenge_squats.dart';
 import 'package:wellnesshub/views/changepassword_page.dart';
-import 'package:wellnesshub/views/main_exercises_page.dart';
+import 'package:wellnesshub/views/fullbodyexercise_page.dart';
 import 'package:wellnesshub/views/facebookLoginPage.dart';
 import 'package:wellnesshub/views/fitnessplanpage.dart';
 import 'package:wellnesshub/views/mainpage.dart';
@@ -120,8 +120,8 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => ExperienceLevelPage());
     case 'WorkoutDaysPage':
       return MaterialPageRoute(builder: (context) => WorkoutDaysPage());
-    case 'MainExercisesPage':
-      return MaterialPageRoute(builder: (context) => MainExercisesPage());
+    case 'FullBodyExercisePage':
+      return MaterialPageRoute(builder: (context) => FullBodyExercisePage());
     case 'SpecificExercisePage':
       return MaterialPageRoute(builder: (context) => SpecificExercisePage(title: " ",));
     case 'ProgressPage':
