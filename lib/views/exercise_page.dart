@@ -12,7 +12,6 @@ class ExercisePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 178, 189, 223),
         appBar: CustomAppbar(title: "Exercise"),
         body: Padding(
           padding: const EdgeInsets.only(right: 10, left: 10, top: 16),

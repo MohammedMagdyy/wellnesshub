@@ -113,6 +113,8 @@ class _ProgressPageState extends State<ProgressPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: CustomAppbar(title: "Progress Tracker"),
       body: SafeArea(
@@ -163,7 +165,7 @@ class _ProgressPageState extends State<ProgressPage> {
                 width: double.infinity,
                 margin: EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
-                  color: Color(0xFFB7B9BB),
+                  color: isDark ? Colors.grey[800] : Color(0xFFB7B9BB),
                   borderRadius: BorderRadius.circular(15)
                 ),
                 child: Column(
@@ -183,6 +185,7 @@ class _ProgressPageState extends State<ProgressPage> {
                               'Steps',
                               style: TextStyle(fontSize: 20
                               , fontWeight: FontWeight.bold,
+                              color: Colors.black
                               ),
                             ),
                             Divider(
@@ -210,42 +213,70 @@ class _ProgressPageState extends State<ProgressPage> {
                         child: Column(
                           children: [
                             Expanded(
-                              child: SfCartesianChart(
-                                primaryYAxis: CategoryAxis(
-                                  title: AxisTitle(text: "Number of Exercises" ,
-                                  textStyle: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.blue
-                                  )
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: SfCartesianChart(
+                                  primaryYAxis: NumericAxis(
+                                    majorGridLines: MajorGridLines(
+                                      color: Colors.grey[300]
+                                    ),
+                                    interval: 1,
+                                    title: AxisTitle(
+                                      text: "Number of Exercises",
+                                      textStyle: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.blue
+                                    )
+                                    ),
+                                    labelStyle: TextStyle(
+                                      color: Colors.black
+                                    ),
                                   ),
-                                ),
-                                primaryXAxis: CategoryAxis(
-                                  title: AxisTitle(text: "Day" , textStyle: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.blue
-                                  )),
-                                  initialVisibleMinimum: data.length > 10 ?
-                                  data.length -10 : 0,
-                                  initialVisibleMaximum: data.length - 1,
-                                ),
-                                zoomPanBehavior: _zoomPanBehavior,
-                                title: ChartTitle(
-                                  text: 'Your Progress' ,
-                                  textStyle: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  )
+                                  primaryXAxis: CategoryAxis(
+                                    title: AxisTitle(text: "Day" , textStyle: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.blue
+                                    )),
+                                    interval: 1,
+                                    labelPlacement: LabelPlacement.onTicks,
+                                    majorGridLines: MajorGridLines(
+                                      color: Colors.grey[300]
+                                    ),
+                                    initialVisibleMinimum: data.length > 10 ?
+                                    data.length -10 : 0,
+                                    initialVisibleMaximum: data.length - 1,
+                                    labelStyle: TextStyle(
+                                      color: Colors.black
+                                    ),
                                   ),
+                                  zoomPanBehavior: _zoomPanBehavior,
+                                  title: ChartTitle(
+                                    text: 'Your Progress' ,
+                                    textStyle: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.black
+                                    )
+                                    ),
                                   legend: Legend(isVisible: false),
                                   tooltipBehavior: TooltipBehavior(enable: true),
+                                  palette: [Colors.blue],
+                                  plotAreaBorderColor: Colors.grey,
+                                  borderColor: Colors.grey,
                                   series: <CartesianSeries<_progressData, String>>[
-                                  LineSeries<_progressData, String>(
-                                      dataSource: data,
-                                      xValueMapper: (_progressData data, _) => data.day,
-                                      yValueMapper: (_progressData data, _) => data.workout,
-                                      name: 'number of workout',
-                                      dataLabelSettings: DataLabelSettings(isVisible: true))
-                                ]
+                                    LineSeries<_progressData, String>(
+                                        dataSource: data,
+                                        xValueMapper: (_progressData data, _) => data.day,
+                                        yValueMapper: (_progressData data, _) => data.workout,
+                                        name: 'number of workout',
+                                        dataLabelSettings: DataLabelSettings(
+                                          isVisible: false ,
+                                          textStyle: TextStyle(
+                                            color: Colors.black
+                                          )
+                                          ))
+                                  ]
+                                ),
                               ),
                             )
                           ],

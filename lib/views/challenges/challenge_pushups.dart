@@ -69,7 +69,6 @@ class _ChallengePushupsState extends State<ChallengePushups> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: CustomAppbar(title: "Push Ups Challenge"),
       body: SafeArea(
         child: Column(

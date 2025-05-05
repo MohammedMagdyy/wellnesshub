@@ -46,7 +46,6 @@ class _ChatPageState extends State<CommunityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(title: "AI Coach Chat"),
-      backgroundColor: Colors.white,
       body: Column(
         children: [
           Expanded(

@@ -37,6 +37,7 @@ class _BMICalculatorState extends State<BMICalculator> {
   @override
   Widget build(BuildContext context) {
     double bmi = calculateBMI(height, weight);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       appBar: CustomAppbar(title: "BMI Calculator"),
@@ -49,14 +50,14 @@ class _BMICalculatorState extends State<BMICalculator> {
                 padding: EdgeInsets.symmetric(vertical: 70 , horizontal: 10),
                 margin: EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(127, 157, 206, 255),
+                  color: isDark? Color(0xff9DCEFF) : Color.fromARGB(127, 157, 206, 255),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
                 child:
                   Column(
                     children: [
                       SizedBox(height: 10,),
-                      Text("Your BMI :" , style: TextStyle(fontSize: 16 , fontWeight: FontWeight.bold),),
+                      Text("Your BMI :" , style: TextStyle(fontSize: 20 , fontWeight: FontWeight.bold),),
                       SizedBox(height: 10,),
                       Text(bmi.toStringAsFixed(1) , style: TextStyle(fontSize: 64 , color: Color(0xff0957DE) , fontWeight: FontWeight.bold),),
                       SizedBox(height: 10,),

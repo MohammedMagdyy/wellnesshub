@@ -20,109 +20,104 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(title: ""),
-      backgroundColor: const Color(0xFF7F9CF5),
+      appBar: CustomAppbar(title: "Fitness Plan"),
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: <Widget>[
-            const SliverAppBar(
-              automaticallyImplyLeading: false,
-              pinned: true,
-              expandedHeight: 120.0,
-              backgroundColor: Color(0xFF7F9CF5),
-              flexibleSpace: FlexibleSpaceBar(
-                titlePadding: EdgeInsets.only(left: 20, bottom: 16),
-                title: Text(
-                  'Your Fitness Plan!',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Your Workouts For Today",
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 15),
+              SizedBox(
+                height: 150,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return const Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: WorkoutCard_Plan(),
+                    );
+                  },
                 ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Week",
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 10),
-                    CustomSelectableListBar(
-                      title: "Week",
-                      onSelected: (int x){},
-                      totalIndex: 4,
-                      animationDuration: const Duration(milliseconds: 400),
-                      initialSelectedIndex: 0,
-                      selectedColor: Colors.blue,
-                      unselectedColor: Colors.white,
-                      selectedTextColor: Colors.white,
-                      textColor: Colors.blue,
-                    ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      "Day",
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 10),
-                    CustomSelectableListBar(
-                      title: "Day",
-                      onSelected: (int x){},
-                      totalIndex: 5,
-                      animationDuration: const Duration(milliseconds: 400),
-                      initialSelectedIndex: 0,
-                      selectedColor: Colors.blue,
-                      unselectedColor: Colors.white,
-                      selectedTextColor: Colors.white,
-                      textColor: Colors.blue,
-                    ),
-                    const SizedBox(height: 40),
-                    MainExerciseCard(
-                      title: "Full Body Workout",
-                      duration: "45 minutes",
-                      level: "Medium",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: false,
-                    ),
-                    const SizedBox(height: 10),
-                    MainExerciseCard(
-                      title: "Lower body & balance",
-                      duration: "30 minutes",
-                      level: "Hard",
-                      imagePath: Assets.assetsImagesBackkExercise,
-                      page: false,
-                    ),
-                    MainExerciseCard(
-                      title: "Full Body Workout",
-                      duration: "45 minutes",
-                      level: "Medium",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: false,
-                    ),
-                    const SizedBox(height: 10),
-                    MainExerciseCard(
-                      title: "Lower body & balance",
-                      duration: "30 minutes",
-                      level: "Hard",
-                      imagePath: Assets.assetsImagesBackkExercise,
-                      page: false,
-                    ),
-                  ],
-                ),
+              const SizedBox(height: 20),
+              const Text(
+                "History",
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
               ),
-            ),
-          ],
+              const SizedBox(height: 15),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 20,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 15,
+                    ),
+                    itemBuilder: (context, index) {
+                      return const WorkoutCard_Plan();
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
+class MyCustomCard extends StatelessWidget {
+  const MyCustomCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 160,
+      decoration: BoxDecoration(
+        color: Colors.lightGreen,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: const Center(child: Text("Magdy")),
+    );
+  }
+}
+
+
+/*
+ we need Custom Widget To Contain Above Widget
+ -->
+ FutureBuilder<List<ExercisesModel>>(
+ future: ExerciseService().getExercisesData(),
+ builder:(context,snapshot){
+ if(snapshot.hasData){
+ List<ExerciseModel>exercises=snapshot.data!;
+ return GridView.builder(
+ 
+ 
+ );
+ 
+ }else{
+ return CircularProgressIndicator();
+ }
+ }
+ 
+ )
+
+*/
