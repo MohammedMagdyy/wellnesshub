@@ -3,7 +3,7 @@ import 'package:wellnesshub/core/widgets/bmi_bar.dart';
 import 'package:wellnesshub/core/widgets/bmi_infos.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
-
+import '../core/utils/global_var.dart';
 
 class BMICalculator extends StatefulWidget {
   const BMICalculator({super.key});
@@ -13,25 +13,41 @@ class BMICalculator extends StatefulWidget {
 }
 
 class _BMICalculatorState extends State<BMICalculator> {
-  double height = 180;
-  double weight = 70;
+  int height = 180;
+  int weight = 70;
   bool gender = true ;
   int age = 23 ;
 
 
-  double calculateBMI(double height, double weight) {
+  double calculateBMI(int height, int weight) {
     return weight / ((height / 100) * (height / 100));
   }
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 5), () {
+    _loadUserData();
+    // Future.delayed(Duration(seconds: 5), () {
+    //   setState(() {
+    //     height = 180;
+    //     weight = 50;
+    //   });
+    // });
+  }
+  Future<void> _loadUserData() async {
+    final userAge = await storage.getUserAge();
+    final userHeight = await storage.getUserHeight();
+    final userWeight = await storage.getUserWeight();
+    final userGender = await storage.getUserGender();
+
+    if (mounted) {
       setState(() {
-        height = 180;
-        weight = 50;
+        age = userAge ?? 0;
+        height = userHeight ?? 170;
+        weight = userWeight ?? 80;
+        gender = userGender == "male" ? true : false;
       });
-    });
+    }
   }
 
   @override

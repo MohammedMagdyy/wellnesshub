@@ -1,34 +1,50 @@
 import 'package:flutter/material.dart';
 
-class CustomTextfield extends StatelessWidget {
-  const CustomTextfield(
-      {super.key,
-      required this.name,
-      this.onChanged,
-      this.keyboardtype,
-      this.obscureText = false});
+class CustomTextField extends StatefulWidget {
+  CustomTextField({
+    super.key,
+    required this.name,
+    this.onChanged,
+    this.keyboardType,
+    this.obscureText = false,
+    this.isProfile = false,
+  });
 
   final String name;
   final Function(String)? onChanged;
-  final TextInputType? keyboardtype;
+  final TextInputType? keyboardType;
   final bool obscureText;
+  final bool isProfile;
+
+
+  @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  late bool _obscureText;
+
+  @override
+  void initState() {
+    super.initState();
+    _obscureText = widget.obscureText;
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       validator: (value) {
-        if (value!.isEmpty) {
+        if (value == null || value.isEmpty) {
           return 'Field is required';
         }
         return null;
       },
-      onChanged: onChanged,
-      keyboardType: keyboardtype,
-      obscureText: obscureText,
 
-      //keyboardAppearance: Brightness.dark,
+      onChanged: widget.onChanged,
+      keyboardType: widget.keyboardType,
+      obscureText: _obscureText,
       decoration: InputDecoration(
-        labelText: name,
+        labelText: widget.name,
         labelStyle: const TextStyle(color: Colors.grey),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50),
@@ -46,6 +62,18 @@ class CustomTextfield extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
           borderSide: const BorderSide(color: Colors.blue, width: 1),
         ),
+        suffixIcon: widget.obscureText
+            ? IconButton(
+          icon: Icon(
+            _obscureText ? Icons.visibility_off : Icons.visibility,
+          ),
+          onPressed: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
+        )
+            : null,
       ),
     );
   }

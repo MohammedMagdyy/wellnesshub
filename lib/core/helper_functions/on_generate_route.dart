@@ -43,6 +43,9 @@ import 'package:wellnesshub/views/exercise_page.dart';
 import 'package:wellnesshub/views/versioninfo_page.dart';
 import 'package:wellnesshub/views/workout_reminder_page.dart';
 
+import '../../views/find_your_account.dart';
+import '../../views/forgetpassword_page.dart';
+
 Route<dynamic> OnGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case 'StartUp':
@@ -100,8 +103,12 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => SplashScreen());
     case 'AboutUsPage':
       return MaterialPageRoute(builder: (context) => AboutUsPage());
-    case 'ChangepasswordPage':
-      return MaterialPageRoute(builder: (context) => ChangepasswordPage());
+    case 'ChangePasswordPage':
+      return MaterialPageRoute(builder: (context) => ChangePasswordPage());
+    case 'ForgetPasswordPage':
+      return MaterialPageRoute(builder: (context) => ForgetPasswordPage());
+    case 'FindYourAccount':
+      return MaterialPageRoute(builder: (context) => FindYourAccount());
     case 'RateAppPage':
       return MaterialPageRoute(builder: (context) => RateAppPage());
     case 'AppinfoPage':

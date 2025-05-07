@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
-import '../core/helper_functions/build_customSnackbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import '../core/helper_functions/build_customSnackbar.dart';
+import 'find_your_account.dart';
 
-class ChangePasswordPage extends StatefulWidget {
-  ChangePasswordPage({super.key});
-  static const String routeName = 'ChangePasswordPage';
+class ForgetPasswordPage extends StatefulWidget {
+  ForgetPasswordPage({super.key});
+  static const String routeName = 'ForgetPasswordPage';
 
   @override
-  State<ChangePasswordPage> createState() => _ChangePasswordPageState();
+  State<ForgetPasswordPage> createState() => _ForgetPasswordPageState();
 }
 
-class _ChangePasswordPageState extends State<ChangePasswordPage> {
+class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   String? currentPassword;
   String? newPassword;
   String? confirmPassword;
@@ -22,7 +23,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(title: "Change Password"),
+      appBar: CustomAppbar(title: "Forget Password"),
       body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -39,19 +40,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   flex: 3,
                 ),
                 CustomTextField(
-                  name: "Enter Current Password",
-                  obscureText: true,
-                  keyboardType: TextInputType.visiblePassword,
-                  onChanged: (value) {
-                    setState(() {
-                      currentPassword = value;
-                    });
-                  },
-                ),
-                Spacer(
-                  flex: 1,
-                ),
-                CustomTextField(
+
                   name: "Enter New Password",
                   obscureText: true,
                   keyboardType: TextInputType.visiblePassword,
@@ -65,6 +54,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   flex: 1,
                 ),
                 CustomTextField(
+
                   name: "Confirm New Password",
                   obscureText: true,
                   keyboardType: TextInputType.visiblePassword,
@@ -139,6 +129,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     setState(() {
                       _isLoading = false;
                     });
+                   // Navigator.pushNamed(context, FindYourAccount.routeName);
                   },
                 ),
                 Spacer(
