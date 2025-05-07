@@ -11,6 +11,7 @@ import '../core/helper_class/accesstoken_storage.dart';
 import '../core/helper_functions/build_customSnackbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import '../core/services/auth/login_service.dart';
+import 'find_your_account.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -66,9 +67,9 @@ class _SignInState extends State<SignInPage> {
                     const SizedBox(height: 30),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: CustomTextfield(
+                      child: CustomTextField(
                         name: "Email",
-                        keyboardtype: TextInputType.emailAddress,
+                        keyboardType: TextInputType.emailAddress,
                         onChanged: (value) {
                           email = value;
                         },
@@ -77,7 +78,7 @@ class _SignInState extends State<SignInPage> {
                     const SizedBox(height: 18),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: CustomTextfield(
+                      child: CustomTextField(
                         name: "Password",
                         obscureText: true,
                         onChanged: (value) {
@@ -85,7 +86,25 @@ class _SignInState extends State<SignInPage> {
                         },
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(onPressed: (){
+                              Navigator.pushNamed(context, FindYourAccount.routeName);
+                            },
+                              child: Text(
+                                "Forget Password?",
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                ),
+                              ),),
+                          ],
+                        ),
+
+                    ),
+                    const SizedBox(height: 5),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 8),
@@ -132,6 +151,7 @@ class _SignInState extends State<SignInPage> {
 
                       ),
                     ),
+
                     const SizedBox(height: 16),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

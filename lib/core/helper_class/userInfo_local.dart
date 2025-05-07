@@ -136,4 +136,11 @@ class UserInfoLocalStorage {
     final prefs = await _prefs;
     return prefs.getString('otp');
   }
+
+  /// Clear all stored user data (for delete account or logout)
+  Future<void> clearAllUserData() async {
+    final prefs = await _prefs;
+    await prefs.clear();
+  }
+
 }

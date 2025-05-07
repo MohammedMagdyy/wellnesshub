@@ -4,9 +4,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/helper_functions/build_customSnackbar.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
-import '../../core/services/auth/signup_service.dart';
 import '../../core/utils/global_var.dart';
-
 import 'package:bcrypt/bcrypt.dart';
 
 
@@ -63,7 +61,7 @@ class _Sign_UpState extends State<SignUp> {
               const SizedBox(height: 5),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: CustomTextfield(
+                child: CustomTextField(
                   name: "First Name",
                   onChanged: (value) {
                     firstName = value;
@@ -73,7 +71,7 @@ class _Sign_UpState extends State<SignUp> {
               const SizedBox(height: 18),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: CustomTextfield(
+                child: CustomTextField(
                   name: "Last Name",
                   onChanged: (value) {
                     lastName = value;
@@ -83,36 +81,36 @@ class _Sign_UpState extends State<SignUp> {
               const SizedBox(height: 18),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: CustomTextfield(
+                child: CustomTextField(
                   name: "Email",
                   onChanged: (value) {
                     email = value;
                   },
-                  keyboardtype: TextInputType.emailAddress,
+                  keyboardType: TextInputType.emailAddress,
                 ),
               ),
               const SizedBox(height: 18),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: CustomTextfield(
+                child: CustomTextField(
                   obscureText: true,
                   name: "Password",
                   onChanged: (value) {
                     password = value;
                   },
-                  keyboardtype: TextInputType.visiblePassword,
+                  keyboardType: TextInputType.visiblePassword,
                 ),
               ),
               const SizedBox(height: 18),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: CustomTextfield(
+                child: CustomTextField(
                   obscureText: true,
                   name: "Confirm Password",
                   onChanged: (value) {
                     confirmPassword = value;
                   },
-                  keyboardtype: TextInputType.visiblePassword,
+                  keyboardType: TextInputType.visiblePassword,
                 ),
               ),
               const SizedBox(height: 40),

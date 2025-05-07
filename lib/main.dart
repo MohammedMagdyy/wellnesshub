@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/helper_functions/on_generate_route.dart';
 import 'package:wellnesshub/core/utils/global_var.dart';
+import 'package:wellnesshub/views/changepassword_page.dart';
 import 'package:wellnesshub/views/exercise_page.dart';
+import 'package:wellnesshub/views/find_your_account.dart';
+import 'package:wellnesshub/views/forgetpassword_page.dart';
 import 'package:wellnesshub/views/progress.dart';
 import 'package:wellnesshub/views/sign_in.dart';
 import 'package:wellnesshub/views/challenges/challenge_plank.dart';
@@ -39,7 +42,7 @@ class WellnessHub extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: OnGenerateRoute,
-          initialRoute: MainPage.routeName,
+          initialRoute:MainPage.routeName,
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
             brightness: Brightness.light

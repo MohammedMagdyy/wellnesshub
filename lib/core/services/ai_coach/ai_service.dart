@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../../helper_class/userInfo_local.dart';
+import '../../utils/global_var.dart';
 
 
 class GeminiService {
@@ -24,7 +25,7 @@ class GeminiService {
 
   /// 🔥 Load real user data from SharedPreferences
   static Future<void> initClientData() async {
-    final localStorage = UserInfoLocalStorage();
+    final localStorage = storage;
 
     final userData = await localStorage.getUserData();
     final height = await localStorage.getUserHeight();
