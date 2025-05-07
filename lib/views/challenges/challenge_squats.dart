@@ -82,7 +82,7 @@ double progress = 0 ;
                     border: Border.all(
                       color: Colors.blue,
                     ),
-                    borderRadius: BorderRadius.circular(10)
+                    borderRadius: BorderRadius.circular(20)
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
@@ -137,9 +137,9 @@ double progress = 0 ;
                     ),
                   backgroundColor: const Color.fromARGB(103, 158, 158, 158),
                   progressColor: Colors.blue,
-                  animation: true,
+                  animation: false,
                   circularStrokeCap: CircularStrokeCap.round,
-                  restartAnimation: true,
+                  restartAnimation: false,
                 ),
               ),
             )

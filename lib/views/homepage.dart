@@ -63,7 +63,11 @@ class HomePage extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(12))
                           ),
                           width: 260,
-                          child: MainpageCard(title: "Push Ups", image: Assets.assetsPushupsGif),
+                          child: MainpageCard(
+                            title: "Push Ups",
+                            image: Assets.assetsPushupsGif,
+                            nextPage: "pushUps",
+                          ),
                         ),
                         SizedBox(width: 12),
                         Container(
@@ -71,7 +75,11 @@ class HomePage extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(12))
                           ),
                           width: 260,
-                          child: MainpageCard(title: "Plank", image: Assets.assetsPlankGif),
+                          child: MainpageCard(
+                            title: "Plank",
+                            image: Assets.assetsPlankGif,
+                            nextPage: "Plank",
+                          ),
                         ),
                         SizedBox(width: 12),
                         Container(
@@ -79,7 +87,11 @@ class HomePage extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(12))
                           ),
                           width: 260,
-                          child: MainpageCard(title: "Squats", image: Assets.assetsSquatsGif),
+                          child: MainpageCard(
+                            title: "Squats",
+                            nextPage: "Squats",
+                            image: Assets.assetsSquatsGif,
+                          ),
                         ),
                         SizedBox(width: 12),
                       ],
@@ -122,7 +134,11 @@ class HomePage extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(12))
                           ),
                           width: 260,
-                          child: MainpageCard(title: "Push Ups", image: Assets.assetsPushupsGif),
+                          child: MainpageCard(
+                            title: "Push Ups",
+                            image: Assets.assetsPushupsGif,
+                            nextPage: "pushUps",
+                          ),
                         ),
                         SizedBox(width: 12),
                         Container(
@@ -130,7 +146,11 @@ class HomePage extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(12))
                           ),
                           width: 260,
-                          child: MainpageCard(title: "Plank", image: Assets.assetsPlankGif),
+                          child: MainpageCard(
+                            title: "Plank",
+                            image: Assets.assetsPlankGif,
+                            nextPage: "Plank",
+                          ),
                         ),
                         SizedBox(width: 12),
                         Container(
@@ -138,7 +158,11 @@ class HomePage extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(12))
                           ),
                           width: 260,
-                          child: MainpageCard(title: "Squats", image: Assets.assetsSquatsGif),
+                          child: MainpageCard(
+                            title: "Squats",
+                            nextPage: "Squats",
+                            image: Assets.assetsSquatsGif,
+                          ),
                         ),
                         SizedBox(width: 12),
                       ],
@@ -181,7 +205,11 @@ class HomePage extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(12))
                           ),
                           width: 260,
-                          child: MainpageCard(title: "Push Ups", image: Assets.assetsPushupsGif),
+                          child: MainpageCard(
+                            title: "Push Ups",
+                            image: Assets.assetsPushupsGif,
+                            nextPage: "pushUps",
+                          ),
                         ),
                         SizedBox(width: 12),
                         Container(
@@ -189,7 +217,11 @@ class HomePage extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(12))
                           ),
                           width: 260,
-                          child: MainpageCard(title: "Plank", image: Assets.assetsPlankGif),
+                          child: MainpageCard(
+                            title: "Plank",
+                            image: Assets.assetsPlankGif,
+                            nextPage: "Plank",
+                          ),
                         ),
                         SizedBox(width: 12),
                         Container(
@@ -197,7 +229,11 @@ class HomePage extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(12))
                           ),
                           width: 260,
-                          child: MainpageCard(title: "Squats", image: Assets.assetsSquatsGif),
+                          child: MainpageCard(
+                            title: "Squats",
+                            nextPage: "Squats",
+                            image: Assets.assetsSquatsGif,
+                          ),
                         ),
                         SizedBox(width: 12),
                       ],

@@ -84,7 +84,7 @@ class _ChallengePushupsState extends State<ChallengePushups> {
                     border: Border.all(
                       color: Colors.blue
                     ),
-                  borderRadius: BorderRadius.circular(10)
+                  borderRadius: BorderRadius.circular(20)
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
