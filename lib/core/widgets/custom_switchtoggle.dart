@@ -29,17 +29,18 @@ class _CustomToggleSwitchState extends State<CustomToggleSwitch> {
 
     return Switch(
       value: isToggled,
-      onChanged: (value) {
-        setState(() {
-          isToggled = value;
-          
+      onChanged: (value)async {
+        
           if(widget.isDarkModeSwitch){
-            GlobalVar().isDarkModeNotifier.value = value;
+            await GlobalVar().toggleDarkMode();
             print(GlobalVar().isDarkModeNotifier.value);
           }
           else {
             // implement the notification
           }
+
+        setState((){
+          isToggled = value;
         });
       },
       activeColor: Colors.white, // Thumb color when ON
