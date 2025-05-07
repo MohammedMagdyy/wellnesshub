@@ -17,10 +17,13 @@ import 'package:wellnesshub/views/fitnessplanpage.dart';
 import 'package:wellnesshub/views/fullbodyexercise_page.dart';
 import 'package:wellnesshub/views/setting_page.dart';
 import 'package:wellnesshub/views/signup_process/verify_email_page.dart';
+import 'package:wellnesshub/views/test.dart';
 
 
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await GlobalVar().loadDarkMode();
   runApp(WellnessHub());
 }
 
@@ -29,7 +32,7 @@ class WellnessHub extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
+    return ValueListenableBuilder<bool>(
       valueListenable: GlobalVar().isDarkModeNotifier,
       builder: (context, value, child) {
         final bool isDarkMode = value;

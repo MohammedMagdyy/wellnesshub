@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/homepage_header.dart';
+import 'package:wellnesshub/core/widgets/mainpage_card.dart';
 import 'package:wellnesshub/core/widgets/search_bar.dart';
 import 'package:wellnesshub/core/widgets/categories.dart';
 
@@ -57,18 +59,27 @@ class HomePage extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       children: [
                         Container(
-                          color: Colors.red,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(12))
+                          ),
                           width: 260,
+                          child: MainpageCard(title: "Push Ups", image: Assets.assetsPushupsGif),
                         ),
                         SizedBox(width: 12),
                         Container(
-                          color: Colors.red,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(12))
+                          ),
                           width: 260,
+                          child: MainpageCard(title: "Plank", image: Assets.assetsPlankGif),
                         ),
                         SizedBox(width: 12),
                         Container(
-                          color: Colors.red,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(12))
+                          ),
                           width: 260,
+                          child: MainpageCard(title: "Squats", image: Assets.assetsSquatsGif),
                         ),
                         SizedBox(width: 12),
                       ],
@@ -107,18 +118,27 @@ class HomePage extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       children: [
                         Container(
-                          color: Colors.red,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(12))
+                          ),
                           width: 260,
+                          child: MainpageCard(title: "Push Ups", image: Assets.assetsPushupsGif),
                         ),
                         SizedBox(width: 12),
                         Container(
-                          color: Colors.red,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(12))
+                          ),
                           width: 260,
+                          child: MainpageCard(title: "Plank", image: Assets.assetsPlankGif),
                         ),
                         SizedBox(width: 12),
                         Container(
-                          color: Colors.red,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(12))
+                          ),
                           width: 260,
+                          child: MainpageCard(title: "Squats", image: Assets.assetsSquatsGif),
                         ),
                         SizedBox(width: 12),
                       ],
@@ -157,18 +177,27 @@ class HomePage extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       children: [
                         Container(
-                          color: Colors.red,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(12))
+                          ),
                           width: 260,
+                          child: MainpageCard(title: "Push Ups", image: Assets.assetsPushupsGif),
                         ),
                         SizedBox(width: 12),
                         Container(
-                          color: Colors.red,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(12))
+                          ),
                           width: 260,
+                          child: MainpageCard(title: "Plank", image: Assets.assetsPlankGif),
                         ),
                         SizedBox(width: 12),
                         Container(
-                          color: Colors.red,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(12))
+                          ),
                           width: 260,
+                          child: MainpageCard(title: "Squats", image: Assets.assetsSquatsGif),
                         ),
                         SizedBox(width: 12),
                       ],
