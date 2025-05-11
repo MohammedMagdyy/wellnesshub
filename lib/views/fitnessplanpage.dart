@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
-import 'package:wellnesshub/core/widgets/workout_card.dart';
-import '../core/utils/appimages.dart';
+import '../core/models/fitness_plan/planexercises_model.dart';
+import '../core/services/workout_plan/workoutplan_service.dart';
 import '../core/widgets/custom_selectable_listbar.dart';
 import '../core/widgets/main_exercisecard.dart';
+
 
 class FitnessPlanPage extends StatefulWidget {
   const FitnessPlanPage({super.key});
@@ -16,6 +17,13 @@ class FitnessPlanPage extends StatefulWidget {
 class _FitnessPlanPageState extends State<FitnessPlanPage> {
   int selectedWeek = 0; // Default: Week 1
   int selectedDay = 0;  // Default: Day 1
+  late Future<ExercisePlan> _exercisePlanFuture;
+
+  @override
+  void initState()  {
+    super.initState();
+    _exercisePlanFuture = WorkoutPlanService().fetchUserPlan();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,117 +31,113 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
       backgroundColor: const Color(0xFF7F9CF5),
       appBar: CustomAppbar(title: ""),
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: <Widget>[
-            const SliverAppBar(
-              automaticallyImplyLeading: false,
-              pinned: true,
-              expandedHeight: 140.0,
-              backgroundColor: Color(0xFF7F9CF5),
-              flexibleSpace: FlexibleSpaceBar(
-                titlePadding: EdgeInsets.only(left: 20, bottom: 16),
-                title: Text(
-                  'Your Fitness Plan!',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
+        child: FutureBuilder<ExercisePlan>(
+          future: _exercisePlanFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.weeks.isEmpty) {
+              return const Center(child: Text('No fitness plan found.'));
+            }
+
+            final plan = snapshot.data!;
+            final weeks = plan.weeks;
+
+            // Handle bounds (in case fewer than 5 weeks/days)
+            final week = weeks[selectedWeek < weeks.length ? selectedWeek : 0];
+            final days = week.days;
+            final day = days[selectedDay < days.length ? selectedDay : 0];
+
+            return CustomScrollView(
+              slivers: <Widget>[
+                const SliverAppBar(
+                  automaticallyImplyLeading: false,
+                  pinned: true,
+                  expandedHeight: 140.0,
+                  backgroundColor: Color(0xFF7F9CF5),
+                  flexibleSpace: FlexibleSpaceBar(
+                    titlePadding: EdgeInsets.only(left: 20, bottom: 16),
+                    title: Text(
+                      'Your Fitness Plan!',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+                SliverToBoxAdapter(
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Week",
+                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 10),
+                        CustomSelectableListBar(
+                          title: "Week",
+                          onSelected: (int x) {
+                            setState(() {
+                              selectedWeek = x;
+                              selectedDay = 0; // reset to Day 1 when changing week
+                            });
+                          },
+                          totalIndex: weeks.length,
+                          animationDuration: const Duration(milliseconds: 400),
+                          initialSelectedIndex: selectedWeek,
+                          selectedColor: Colors.blue,
+                          unselectedColor: Colors.white,
+                          selectedTextColor: Colors.white,
+                          textColor: Colors.blue,
+                        ),
+                        const SizedBox(height: 20),
+                        const Text(
+                          "Day",
+                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 10),
+                        CustomSelectableListBar(
+                          title: "Day",
+                          onSelected: (int x) {
+                            setState(() {
+                              selectedDay = x;
+                            });
+                          },
+                          totalIndex: days.length,
+                          animationDuration: const Duration(milliseconds: 400),
+                          initialSelectedIndex: selectedDay,
+                          selectedColor: Colors.blue,
+                          unselectedColor: Colors.white,
+                          selectedTextColor: Colors.white,
+                          textColor: Colors.blue,
+                        ),
+                        const SizedBox(height: 30),
+                        ...day.exercises.map((exercise) => MainExerciseCard(
+                          exercise: exercise,
+                          page: false,
+                        ),),
+                      ],
+                    ),
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Week",
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 10),
-                    CustomSelectableListBar(
-                      title: "Week",
-                      onSelected: (int x) {
-                        setState(() {
-                          selectedWeek = x;
-                        });
-                      },
-                      totalIndex: 4,
-                      animationDuration: const Duration(milliseconds: 400),
-                      initialSelectedIndex: selectedWeek,
-                      selectedColor: Colors.blue,
-                      unselectedColor: Colors.white,
-                      selectedTextColor: Colors.white,
-                      textColor: Colors.blue,
-                    ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      "Day",
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 10),
-                    CustomSelectableListBar(
-                      title: "Day",
-                      onSelected: (int x) {
-                        setState(() {
-                          selectedDay = x;
-                        });
-                      },
-                      totalIndex: 5,
-                      animationDuration: const Duration(milliseconds: 400),
-                      initialSelectedIndex: selectedDay,
-                      selectedColor: Colors.blue,
-                      unselectedColor: Colors.white,
-                      selectedTextColor: Colors.white,
-                      textColor: Colors.blue,
-                    ),
-                    const SizedBox(height: 40),
-                    MainExerciseCard(
-                      title: "Full Body Workout",
-                      duration: "45 minutes",
-                      level: "Medium",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: false,
-                    ),
-                    const SizedBox(height: 10),
-                    MainExerciseCard(
-                      title: "Lower body & balance",
-                      duration: "30 minutes",
-                      level: "Hard",
-                      imagePath: Assets.assetsImagesBackkExercise,
-                      page: false,
-                    ),
-                    const SizedBox(height: 10),
-                    MainExerciseCard(
-                      title: "Full Body Workout",
-                      duration: "45 minutes",
-                      level: "Medium",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: false,
-                    ),
-                    const SizedBox(height: 10),
-                    MainExerciseCard(
-                      title: "Lower body & balance",
-                      duration: "30 minutes",
-                      level: "Hard",
-                      imagePath: Assets.assetsImagesBackkExercise,
-                      page: false,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+              ],
+            );
+          },
         ),
       ),
     );
   }
+
 }
 
 class MyCustomCard extends StatelessWidget {

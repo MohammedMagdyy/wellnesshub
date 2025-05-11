@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/helper_functions/on_generate_route.dart';
 import 'package:wellnesshub/core/utils/global_var.dart';
-import 'package:wellnesshub/views/changepassword_page.dart';
+import 'package:wellnesshub/views/settings/changepassword_page.dart';
 import 'package:wellnesshub/views/exercise_page.dart';
-import 'package:wellnesshub/views/find_your_account.dart';
-import 'package:wellnesshub/views/forgetpassword_page.dart';
+import 'package:wellnesshub/views/login_process/find_your_account.dart';
+import 'package:wellnesshub/views/login_process/forgetpassword_page.dart';
 import 'package:wellnesshub/views/progress.dart';
-import 'package:wellnesshub/views/sign_in.dart';
+import 'package:wellnesshub/views/login_process/sign_in.dart';
 import 'package:wellnesshub/views/challenges/challenge_plank.dart';
 import 'package:wellnesshub/views/challenges/challenge_pushups.dart';
 import 'package:wellnesshub/views/challenges/challenge_squats.dart';
@@ -18,16 +18,16 @@ import 'package:wellnesshub/views/signup_process/meal_plan.dart';
 import 'package:wellnesshub/views/signup_process/sign_up.dart';
 import 'package:wellnesshub/views/fitnessplanpage.dart';
 import 'package:wellnesshub/views/fullbodyexercise_page.dart';
-import 'package:wellnesshub/views/setting_page.dart';
+import 'package:wellnesshub/views/settings/setting_page.dart';
 import 'package:wellnesshub/views/signup_process/verify_email_page.dart';
 import 'package:wellnesshub/views/test.dart';
 
 
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await GlobalVar().loadDarkMode();
-  runApp(WellnessHub());
+  await GlobalVar().init();
+  runApp(const WellnessHub());
 }
 
 class WellnessHub extends StatelessWidget {

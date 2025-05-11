@@ -41,41 +41,14 @@ class FullBodyExercisePage extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    MainExerciseCard(
-                      title: "Full Body Workout",
-                      duration: "45 minutes",
-                      level: "Medium",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: true,
-                    ),
-                    MainExerciseCard(
-                      title: "Lower body & balance",
-                      duration: "30 minutes",
-                      level: "Hard",
-                      imagePath: Assets.assetsImagesBackkExercise,
-                      page: true,
-                    ),
-                    MainExerciseCard(
-                      title: "Cardio Blast",
-                      duration: "20 minutes",
-                      level: "Easy",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: true,
-                    ),
-                    MainExerciseCard(
-                      title: "Stretching & Mobility",
-                      duration: "15 minutes",
-                      level: "Beginner",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: true,
-                    ),
-                    MainExerciseCard(
-                      title: "Upper body & core",
-                      duration: "25 minutes",
-                      level: "Medium",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: true,
-                    ),
+                    // MainExerciseCard(
+                    //   title: "Full Body Workout",
+                    //   targetMuscle: "45 minutes",
+                    //   sets: "Medium",
+                    //   imagePath: Assets.assetsImagesBigshowman,
+                    //   page: true,
+                    // ),
+
                   ],
                 ),
               ),

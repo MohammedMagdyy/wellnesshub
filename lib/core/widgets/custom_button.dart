@@ -1,32 +1,42 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
-  CustomButton(
-      {super.key,
-      required this.name,
-      this.on_Pressed,
-      required this.width,
-      required this.color});
+  const CustomButton({
+    super.key,
+    required this.name,
+    required this.on_Pressed,
+    required this.width,
+    required this.color,
+    this.isLoading = false,
+  });
+
   final String name;
-  VoidCallback? on_Pressed;
+  final VoidCallback? on_Pressed;
   final double width;
   final Color color;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
-      //padding: const EdgeInsets.symmetric(horizontal: 8),
       width: width,
-      //color: Colors.blue,
-
       child: ElevatedButton(
-        onPressed: on_Pressed,
+        onPressed: isLoading ? null : on_Pressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blue, // Set background color to blue
+          backgroundColor: Colors.blue,
+          disabledBackgroundColor: Colors.blue.shade200,
         ),
-        child: Text(
+        child: isLoading
+            ? const SizedBox(
+          height: 24,
+          width: 24,
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            strokeWidth: 3,
+          ),
+        )
+            : Text(
           name,
           style: TextStyle(
             fontSize: 18,

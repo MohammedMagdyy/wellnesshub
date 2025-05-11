@@ -53,13 +53,15 @@ dependencies:
   omni_datetime_picker: ^2.1.1
   audioplayers: ^6.4.0
   package_info_plus: ^8.3.0
+  chewie: ^1.7.4
+  video_player: ^2.8.2
 
   pedometer: ^4.1.1
   syncfusion_flutter_charts: ^29.1.38
   permission_handler: ^12.0.0+1
   gif_view: ^0.3.1
   percent_indicator: ^4.2.5
-  bcrypt: ^1.1.3
+
 dev_dependencies:
   flutter_launcher_icons: "^0.14.3"
   flutter_test:

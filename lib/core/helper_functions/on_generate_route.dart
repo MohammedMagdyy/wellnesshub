@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/custom_switchtoggle.dart';
-import 'package:wellnesshub/views/about_us_page.dart';
+import 'package:wellnesshub/views/settings/about_us_page.dart';
 import 'package:wellnesshub/views/appinfo_page.dart';
 import 'package:wellnesshub/views/challenges/challenge_plank.dart';
 import 'package:wellnesshub/views/challenges/challenge_pushups.dart';
 import 'package:wellnesshub/views/challenges/challenge_squats.dart';
-import 'package:wellnesshub/views/changepassword_page.dart';
+import 'package:wellnesshub/views/settings/changepassword_page.dart';
 import 'package:wellnesshub/views/fullbodyexercise_page.dart';
 import 'package:wellnesshub/views/facebookLoginPage.dart';
 import 'package:wellnesshub/views/fitnessplanpage.dart';
@@ -14,13 +14,13 @@ import 'package:wellnesshub/views/community_page.dart';
 import 'package:wellnesshub/views/favorites.dart';
 import 'package:wellnesshub/views/homepage.dart';
 import 'package:wellnesshub/views/nutrition_page.dart';
-import 'package:wellnesshub/views/privacypolicy.dart';
-import 'package:wellnesshub/views/profile.dart';
-import 'package:wellnesshub/views/profilesettings_page.dart';
-import 'package:wellnesshub/views/rate_app.dart';
+import 'package:wellnesshub/views/settings/privacypolicy.dart';
+import 'package:wellnesshub/views/settings/profile.dart';
+import 'package:wellnesshub/views/settings/profilesettings_page.dart';
+import 'package:wellnesshub/views/settings/rate_app.dart';
 import 'package:wellnesshub/views/progress.dart';
-import 'package:wellnesshub/views/setting_page.dart';
-import 'package:wellnesshub/views/sign_in.dart';
+import 'package:wellnesshub/views/settings/setting_page.dart';
+import 'package:wellnesshub/views/login_process/sign_in.dart';
 import 'package:wellnesshub/views/signup_process/activity_page.dart';
 import 'package:wellnesshub/views/signup_process/experiencelevel_page.dart';
 import 'package:wellnesshub/views/signup_process/gender_page.dart';
@@ -40,11 +40,13 @@ import 'package:wellnesshub/views/splash_screen.dart';
 import 'package:wellnesshub/views/startup.dart';
 import 'package:wellnesshub/views/test.dart';
 import 'package:wellnesshub/views/exercise_page.dart';
-import 'package:wellnesshub/views/versioninfo_page.dart';
-import 'package:wellnesshub/views/workout_reminder_page.dart';
+import 'package:wellnesshub/views/settings/versioninfo_page.dart';
+import 'package:wellnesshub/views/settings/workout_reminder_page.dart';
 
-import '../../views/find_your_account.dart';
-import '../../views/forgetpassword_page.dart';
+import '../../views/login_process/find_your_account.dart';
+import '../../views/login_process/forgetpassword_page.dart';
+import '../../views/login_process/restorepassword_otp.dart';
+import '../models/fitness_plan/exercises_model.dart';
 
 Route<dynamic> OnGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -76,7 +78,10 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
     case 'NutritionPage':
       return MaterialPageRoute(builder: (context) => NutritionPage());
     case 'ExercisePage':
-      return MaterialPageRoute(builder: (context) => ExercisePage());
+      final Exercise args = settings.arguments as Exercise; // Extract args
+      return MaterialPageRoute(
+        builder: (context) => ExercisePage(exercise: args), // Pass to constructor
+      );
     case 'SettingPage':
       return MaterialPageRoute(builder: (context) => SettingPage());
     case 'Favorites':
@@ -139,6 +144,8 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
     return MaterialPageRoute(builder: (context) => ChallengeSquats());
     case 'Plank':
     return MaterialPageRoute(builder: (context) => ChallengePlank());
+    case 'RestorePasswordOtp':
+      return MaterialPageRoute(builder: (context) => RestorePasswordOtp());
 
 
     default:

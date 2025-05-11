@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/profile_info_card.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
-import '../core/utils/global_var.dart';
-import '../core/widgets/custom_profile_textfield.dart';
+import '../../core/utils/global_var.dart';
+import '../../core/widgets/custom_profile_textfield.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

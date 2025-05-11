@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:wellnesshub/core/models/weeks_model.dart';
+import 'package:wellnesshub/core/models/fitness_plan/weeks_model.dart';
 
 class ExercisePlan {
   int id;

@@ -3,10 +3,26 @@ import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/main_exercisecard.dart';
 
-class SpecificExercisePage extends StatelessWidget {
+import '../core/models/fitness_plan/planexercises_model.dart';
+import '../core/services/workout_plan/workoutplan_service.dart';
+
+class SpecificExercisePage extends StatefulWidget {
   const SpecificExercisePage({super.key, required this.title});
   static const routeName = 'SpecificExercisePage';
   final String title;
+
+  @override
+  State<SpecificExercisePage> createState() => _SpecificExercisePageState();
+}
+
+
+class _SpecificExercisePageState extends State<SpecificExercisePage> {
+
+
+  @override
+  initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +40,7 @@ class SpecificExercisePage extends StatelessWidget {
               flexibleSpace: FlexibleSpaceBar(
                 titlePadding: EdgeInsets.only(left: 20, bottom: 16),
                 title: Text(
-                  title,
+                  widget.title,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 22,
@@ -42,41 +58,14 @@ class SpecificExercisePage extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    MainExerciseCard(
-                      title: "Full Body Workout",
-                      duration: "45 minutes",
-                      level: "Medium",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: false,
-                    ),
-                    MainExerciseCard(
-                      title: "Lower body & balance",
-                      duration: "30 minutes",
-                      level: "Hard",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: false,
-                    ),
-                    MainExerciseCard(
-                      title: "Cardio Blast",
-                      duration: "20 minutes",
-                      level: "Easy",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: false,
-                    ),
-                    MainExerciseCard(
-                      title: "Stretching & Mobility",
-                      duration: "15 minutes",
-                      level: "Beginner",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: false,
-                    ),
-                    MainExerciseCard(
-                      title: "Upper body & core",
-                      duration: "25 minutes",
-                      level: "Medium",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: false,
-                    ),
+                    // MainExerciseCard(
+                    //   title: "Full Body Workout",
+                    //   sets: "45 minutes",
+                    //   targetMuscle: "Medium",
+                    //   imagePath: Assets.assetsImagesBigshowman,
+                    //   page: false,
+                    // ),
+
                   ],
                 ),
               ),

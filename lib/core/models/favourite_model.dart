@@ -1,4 +1,4 @@
-class ExercisePlan {
+class FavoriteExercisePlan {
   int id;
   String name;
   String description;
@@ -10,7 +10,7 @@ class ExercisePlan {
   String femaleVideoUrl;
   int similarGroupId;
 
-  ExercisePlan({
+  FavoriteExercisePlan({
     required this.id,
     required this.name,
     required this.description,
@@ -23,7 +23,7 @@ class ExercisePlan {
     required this.similarGroupId,
   });
 
-  factory ExercisePlan.fromJson(Map<String, dynamic> json) => ExercisePlan(
+  factory FavoriteExercisePlan.fromJson(Map<String, dynamic> json) => FavoriteExercisePlan(
     id: json["id"],
     name: json["name"],
     description: json["description"],

@@ -106,7 +106,7 @@ class _Gender_PageState extends State<GenderPage> {
                       ? null // Disable button if no gender is selected
                       : () async{
                     await storage.saveUserActivityLevel(selectedGender!);
-                          Navigator.pushNamed(context, "AgePage");
+                          Navigator.pushNamed(context, "GoalPage");
                           
                         },
                 ),

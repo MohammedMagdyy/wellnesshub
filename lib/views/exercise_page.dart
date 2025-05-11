@@ -1,107 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/core/services/workout_plan/workoutplan_service.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/widgets/videos.dart';
-import 'package:wellnesshub/core/utils/appimages.dart';
 
+import '../core/models/fitness_plan/exercises_model.dart';
+import '../core/widgets/exercise_details.dart';
+import '../core/widgets/video_widget.dart';
+
+// class ExercisePage extends StatefulWidget {
+//   const ExercisePage({super.key});
+//   static const routeName = 'ExercisePage';
+//
+//   @override
+//   State<ExercisePage> createState() => _ExercisePageState();
+// }
+//
+// class _ExercisePageState extends State<ExercisePage> {
+//   Future<Exercise?>? _exerciseFuture;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _exerciseFuture = _loadFirstExercise();
+//   }
+//
+//   Future<Exercise?> _loadFirstExercise() async {
+//     final plan = await WorkoutPlanService().fetchUserPlan();
+//     if (plan.weeks.isNotEmpty &&
+//         plan.weeks[0].days.isNotEmpty &&
+//         plan.weeks[0].days[0].exercises.isNotEmpty) {
+//       return plan.weeks[0].days[0].exercises[0];
+//     }
+//     return null;
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//       child: Scaffold(
+//         appBar: CustomAppbar(title: "Exercise"),
+//         body: FutureBuilder<Exercise?>(
+//           future: _exerciseFuture,
+//           builder: (context, snapshot) {
+//             if (snapshot.connectionState == ConnectionState.waiting) {
+//               return const Center(child: CircularProgressIndicator());
+//             } else if (snapshot.hasError) {
+//               return Center(child: Text('Error: ${snapshot.error}'));
+//             } else if (!snapshot.hasData) {
+//               return const Center(child: Text('No exercise found.'));
+//             }
+//
+//             final exercise = snapshot.data!;
+//             return ExerciseDetails(exercise: exercise);
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
 class ExercisePage extends StatelessWidget {
-  const ExercisePage({super.key});
   static const routeName = 'ExercisePage';
+  final Exercise exercise;
+  const ExercisePage({super.key, required this.exercise});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: CustomAppbar(title: "Exercise"),
-        body: Padding(
-          padding: const EdgeInsets.only(right: 10, left: 10, top: 16),
-          child: SingleChildScrollView(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(32),
-                  topRight: Radius.circular(32.0),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const FavoriteItem(
-                    imagePath: Assets.assetsImagesIntrobackground,
-                    title: 'Full Body Workout',
-                  ),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Squat Exercise",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                            color: Colors.blue,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          children: [
-                            Icon(Icons.timer, size: 16, color: Colors.blue),
-                            SizedBox(width: 10),
-                            Text(
-                              "12 Minutes",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 5),
-                        Row(
-                          children: [
-                            Icon(Icons.local_fire_department,
-                                size: 16, color: Colors.blue),
-                            SizedBox(width: 10),
-                            Text(
-                              "120 Kcal",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 20),
-                        const Text(
-                          "This workout is designed to target your entire body in just 12 minutes. "
-                          "Make sure to warm up before you begin, and stay hydrated throughout the session. "
-                          "Push yourself, but always listen to your body."
-                          "This workout is designed to target your entire body in just 12 minutes. "
-                          "Make sure to warm up before you begin, and stay hydrated throughout the session. "
-                          "Push yourself, but always listen to your body.",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: 70),
-                        CustomButton(
-                          name: "Exercise Done",
-                          width: double.infinity,
-                          color: Colors.white,
-                          on_Pressed: () {},
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+        body: ExerciseDetails(exercise: exercise),
       ),
     );
   }

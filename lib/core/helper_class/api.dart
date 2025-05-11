@@ -65,4 +65,27 @@ class API {
       throw e;
     }
   }
+
+  Future<dynamic> delete({
+    required String url,
+    @required String? token,
+  }) async {
+    final headers = <String, dynamic>{
+      'Content-Type': 'application/json',
+    };
+    if (token != null) {
+      headers['Authorization'] = 'Bearer $token';
+    }
+
+    try {
+      final response = await dio.delete(
+        url,
+        options: Options(headers: headers),
+      );
+      return response.data;
+    } on DioException catch (e) {
+      throw e;
+    }
+  }
+
 }

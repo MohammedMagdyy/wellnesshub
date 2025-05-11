@@ -96,12 +96,16 @@ class _MealPlanState extends State<MealPlan> {
                       final result = await signupService.signup(
                           userinfo['fname']!, userinfo['lname']!, userinfo['email']!, userinfo['password']!);
 
+
                       if (result['success'] == true && userinfo['email'] != null) {
 
 
 
-                        Navigator.pushNamed(
-                            context, 'HomePage');
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          'MainPage',
+                              (Route<dynamic> route) => false,
+                        );
                       } else {
                         final snackBar = buildCustomSnackbar(
                           backgroundColor: Colors.redAccent,

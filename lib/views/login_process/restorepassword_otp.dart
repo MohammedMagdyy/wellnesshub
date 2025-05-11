@@ -2,26 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
-import '../../core/helper_class/userInfo_local.dart';
-import '../../core/services/auth/send_otp.dart';
+import '../../core/services/auth/restorepassword_otp_service.dart';
 import '../../core/utils/global_var.dart';
 
-class VerifyEmailPage extends StatefulWidget {
-  const VerifyEmailPage({super.key});
-  static const routeName = 'VerifyEmailPage';
+class RestorePasswordOtp extends StatefulWidget {
+  const RestorePasswordOtp({super.key});
+  static const routeName = 'RestorePasswordOtp';
 
   @override
-  State<VerifyEmailPage> createState() => _VerifyEmailPageState();
+  State<RestorePasswordOtp> createState() => _RestorePasswordOtpState();
 }
 
-class _VerifyEmailPageState extends State<VerifyEmailPage> {
+class _RestorePasswordOtpState extends State<RestorePasswordOtp> {
   final TextEditingController pinController = TextEditingController();
   final FocusNode focusNode = FocusNode();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   bool timerEnd = false;
   String otp_code = '';
+  String? email;
   late DateTime timerEndTime;
+  bool _isVerifying = false;
 
   @override
   void initState() {
@@ -38,22 +39,24 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   }
 
   Future<void> _receiveOTP() async {
-    final userData = await storage.getUserData();
-    String? email = userData['email'];
-    String? fname = userData['fname'];
-    String? lname = userData['lname'];
-    String username = '$fname $lname';
+    GlobalVar globalVar = GlobalVar();
+    email = await globalVar.getEmailForRestoredPassword();
 
     try {
-      OTP otp = OTP();
-      // Assuming the response is a map, you will now extract the OTP correctly
-      Map<String, dynamic> response = await otp.activeOtp(email: email! , username:  username!);
+      RestorePasswordService restorePasswordService = RestorePasswordService();
+      Map<String, dynamic> response = await restorePasswordService.restorePassword(email!);
       setState(() {
-        // Extract OTP from the response map (assuming the OTP key is 'otp')
-        otp_code = response['otp'] ?? '';  // Default to empty string if 'otp' key doesn't exist
-        timerEndTime = DateTime.now().add(const Duration(seconds: 10));
+        // Extract OTP from the response map
+        otp_code = response['otp'] ?? '';  // Ensure you have a default value if the OTP key is missing
+        print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        print(response);
+        print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        timerEndTime = DateTime.now().add(const Duration(seconds: 45));
         timerEnd = false;
       });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("OTP has been resent.")),
+      );
       print("OTP received: $otp_code");
     } catch (e) {
       print("Error receiving OTP: $e");
@@ -63,16 +66,30 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     }
   }
 
+
   void _submitOtp() {
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-    print(pinController.text);
+    setState(() {
+      _isVerifying = true;
+    });
+
     if (pinController.text == otp_code && otp_code != '') {
-      Navigator.pushReplacementNamed(context, 'AgePage');
+      Navigator.pushReplacementNamed(context, 'ForgetPasswordPage');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Invalid OTP entered.")),
       );
     }
+
+    setState(() {
+      _isVerifying = false;
+    });
+  }
+
+  String maskEmail(String? email) {
+    if (email == null || !email.contains("@")) return "";
+    final parts = email.split("@");
+    final prefix = parts[0].substring(0, 2);
+    return "$prefix***@${parts[1]}";
   }
 
   @override
@@ -91,9 +108,9 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
-            const Text(
-              "Enter the OTP sent to your email inbox",
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+            Text(
+              "Enter the OTP sent to your email inbox ${maskEmail(email)}",
+              style: const TextStyle(fontSize: 16, color: Colors.grey),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 50),
@@ -158,24 +175,22 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                     ? GestureDetector(
                   onTap: () {
                     if (timerEnd) {
-                      pinController.clear(); // Clear OTP input field
-                      _receiveOTP();         // Get new OTP
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Please wait for the timer to end before resending.")),
-                      );
+                      pinController.clear();
+                      _receiveOTP();
                     }
                   },
-                  child: Text(
+                  child: const Text(
                     "Resend OTP",
-                    style: TextStyle(color: timerEnd ? Colors.blue : Colors.grey),
+                    style: TextStyle(color: Colors.blue),
                   ),
                 )
                     : const Text("Resend OTP", style: TextStyle(color: Colors.grey)),
               ],
             ),
             const SizedBox(height: 50),
-            ElevatedButton(
+            _isVerifying
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
               onPressed: _submitOtp,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
