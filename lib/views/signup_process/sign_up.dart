@@ -4,6 +4,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/helper_functions/build_customSnackbar.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
+import '../../core/services/auth/signup_service.dart';
 import '../../core/utils/global_var.dart';
 
 class SignUp extends StatefulWidget {
@@ -17,7 +18,6 @@ class SignUp extends StatefulWidget {
 class _Sign_UpState extends State<SignUp> {
   GlobalKey<FormState> formkey = GlobalKey();
   bool _isLoading = false;
-  // ignore: non_constant_identifier_names
   String? firstName;
   String? lastName;
   String? email;
@@ -82,76 +82,128 @@ class _Sign_UpState extends State<SignUp> {
                     onChanged: (value) => confirmPassword = value,
                   ),
                   const SizedBox(height: 40),
-                  CustomButton(
-                    color: Colors.white,
+                  SizedBox(
                     width: double.infinity,
-                    name: 'Sign Up',
-                    on_Pressed: () async {
-                      if (formkey.currentState!.validate()) {
-                        setState(() => _isLoading = true);
+                    height: 50, // Match your button height
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: _isLoading
+                          ? null
+                          : () async {
+                        if (formkey.currentState!.validate()) {
+                          setState(() => _isLoading = true);
 
-                        if (!email!.contains('@')) {
-                          ScaffoldMessenger.of(context)
-                            ..hideCurrentSnackBar()
-                            ..showSnackBar(buildCustomSnackbar(
-                              backgroundColor: Colors.redAccent,
-                              title: 'Oops!',
-                              message: 'Please enter a valid email address.',
-                              type: ContentType.failure,
-                            ));
-                          setState(() => _isLoading = false);
-                          return;
+                          try {
+                            if (!email!.contains('@')) {
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(buildCustomSnackbar(
+                                  backgroundColor: Colors.redAccent,
+                                  title: 'Oops!',
+                                  message: 'Please enter a valid email address.',
+                                  type: ContentType.failure,
+                                ));
+                              setState(() => _isLoading = false);
+                              return;
+                            }
+
+                            if (password == null || password!.length < 8) {
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(buildCustomSnackbar(
+                                  backgroundColor: Colors.redAccent,
+                                  title: 'Oops!',
+                                  message: 'Password must be at least 8 characters long',
+                                  type: ContentType.failure,
+                                ));
+                              setState(() => _isLoading = false);
+                              return;
+                            }
+
+                            if (!RegExp(r'^(?=.*\d)(?=.*[a-zA-Z]).{8,}$').hasMatch(password!)) {
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(buildCustomSnackbar(
+                                  backgroundColor: Colors.amberAccent,
+                                  title: 'Oops!',
+                                  message: 'Password must contain at least one digit and one letter',
+                                  type: ContentType.warning,
+                                ));
+                              setState(() => _isLoading = false);
+                              return;
+                            }
+
+                            if (password != confirmPassword) {
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(buildCustomSnackbar(
+                                  backgroundColor: Colors.redAccent,
+                                  title: 'Oops!',
+                                  message: 'Passwords don\'t match',
+                                  type: ContentType.failure,
+                                ));
+                              setState(() => _isLoading = false);
+                              return;
+                            }
+
+                            await storage.saveUserData(
+                              email: email!,
+                              fname: firstName!,
+                              lname: lastName!,
+                              password: password!,
+                            );
+
+                            SignupService signupService = SignupService();
+                            final signupResult = await signupService.signup(
+                              firstName!,
+                              lastName!,
+                              email!,
+                              password!,
+                            );
+
+                            if (!signupResult['success']) {
+                              throw Exception(
+                                  signupResult['message'] ?? 'Signup failed');
+                            }
+
+                            Navigator.pushNamed(context, 'VerifyEmailPage');
+                          } catch (e) {
+                            ScaffoldMessenger.of(context)
+                              ..hideCurrentSnackBar()
+                              ..showSnackBar(buildCustomSnackbar(
+                                backgroundColor: Colors.redAccent,
+                                title: 'Error!',
+                                message: e.toString(),
+                                type: ContentType.failure,
+                              ));
+                          } finally {
+                            setState(() => _isLoading = false);
+                          }
                         }
-
-                        if (password == null || password!.length < 8) {
-                          ScaffoldMessenger.of(context)
-                            ..hideCurrentSnackBar()
-                            ..showSnackBar(buildCustomSnackbar(
-                              backgroundColor: Colors.redAccent,
-                              title: 'Oops!',
-                              message: 'Password must be at least 8 characters long',
-                              type: ContentType.failure,
-                            ));
-                          setState(() => _isLoading = false);
-                          return;
-                        }
-
-                        if (!RegExp(r'^(?=.*\d)(?=.*[a-zA-Z]).{8,}$').hasMatch(password!)) {
-                          ScaffoldMessenger.of(context)
-                            ..hideCurrentSnackBar()
-                            ..showSnackBar(buildCustomSnackbar(
-                              backgroundColor: Colors.amberAccent,
-                              title: 'Oops!',
-                              message: 'Password must contain at least one digit and one letter',
-                              type: ContentType.warning,
-                            ));
-                          setState(() => _isLoading = false);
-                          return;
-                        }
-
-                        if (password != confirmPassword) {
-                          ScaffoldMessenger.of(context)
-                            ..hideCurrentSnackBar()
-                            ..showSnackBar(buildCustomSnackbar(
-                              backgroundColor: Colors.redAccent,
-                              title: 'Oops!',
-                              message: 'Passwords don\'t match',
-                              type: ContentType.failure,
-                            ));
-                          setState(() => _isLoading = false);
-                          return;
-                        }
-
-                        await storage.saveUserData(
-                          email: email!,
-                          fname: firstName!,
-                          lname: lastName!,
-                          password: password!,
-                        );
-
-                        Navigator.pushNamed(context, 'VerifyEmailPage');
-                      }
-                    },
+                      },
+                      child: _isLoading
+                          ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                          strokeWidth: 2,
+                        ),
+                      )
+                          : const Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Row(
@@ -159,7 +211,7 @@ class _Sign_UpState extends State<SignUp> {
                     children: [
                       const Text(
                         "Already have an account?",
-                        style: TextStyle(fontSize: 13,color: Colors.red),
+                        style: TextStyle(fontSize: 13, color: Colors.red),
                       ),
                       TextButton(
                         onPressed: () {
@@ -184,5 +236,4 @@ class _Sign_UpState extends State<SignUp> {
       ),
     );
   }
-
 }

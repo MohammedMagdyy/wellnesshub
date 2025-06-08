@@ -1,21 +1,14 @@
 class UserInfo {
-  String firstName;
-  String lastName;
-  String email;
-  String gender;
-  int age;
-  int weight;
-  double height;
-  String goal;
-  String activityLevel;
-  String experienceLevel;
-  int daysPerWeek;
-  double bmi;
+  final String gender;
+  final int age;
+  final int weight;
+  final int height;
+  final String goal;
+  final String activityLevel;
+  final String experienceLevel;
+  final int daysPerWeek;
 
   UserInfo({
-    required this.firstName,
-    required this.lastName,
-    required this.email,
     required this.gender,
     required this.age,
     required this.weight,
@@ -24,36 +17,53 @@ class UserInfo {
     required this.activityLevel,
     required this.experienceLevel,
     required this.daysPerWeek,
-    required this.bmi,
   });
 
-  factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
-    firstName: json["firstName"],
-    lastName: json["lastName"],
-    email: json["email"],
-    gender: json["gender"],
-    age: json["age"],
-    weight: json["weight"],
-    height: json["height"]?.toDouble(),
-    goal: json["goal"],
-    activityLevel: json["activityLevel"],
-    experienceLevel: json["experienceLevel"],
-    daysPerWeek: json["daysPerWeek"],
-    bmi: json["bmi"]?.toDouble(),
-  );
+  Map<String, dynamic> toJson() {
+    return {
+      'gender': _formatGender(gender),
+      'age': age,
+      'weight': weight,
+      'height': height,
+      'goal': _formatGoal(goal),
+      'activityLevel': _formatActivityLevel(activityLevel),
+      'experienceLevel': _formatExperienceLevel(experienceLevel),
+      'daysPerWeek': daysPerWeek,
+    };
+  }
 
-  Map<String, dynamic> toJson() => {
-    "firstName": firstName,
-    "lastName": lastName,
-    "email": email,
-    "gender": gender,
-    "age": age,
-    "weight": weight,
-    "height": height,
-    "goal": goal,
-    "activityLevel": activityLevel,
-    "experienceLevel": experienceLevel,
-    "daysPerWeek": daysPerWeek,
-    "bmi": bmi,
-  };
+  String _formatGender(String gender) {
+    if (gender.isEmpty) return 'MALE'; // Default
+    return gender.toUpperCase(); // Converts to "MALE" or "FEMALE"
+  }
+
+  String _formatGoal(String goal) {
+    if (goal.isEmpty) return 'WEIGHT_CUT'; // Default
+    // Map to backend enum values
+    return goal
+        .toUpperCase()
+        .replaceAll(' ', '_'); // Converts "weight cut" to "WEIGHT_CUT"
+  }
+
+  String _formatActivityLevel(String level) {
+    if (level.isEmpty) return 'Sedentary'; // Default
+    // Match the exact string values expected by backend
+    switch (level.toLowerCase()) {
+      case 'sedentary':
+        return 'Sedentary';
+      case 'lightly active':
+        return 'Lightly active';
+      case 'moderately active':
+        return 'Moderately active';
+      case 'very active':
+        return 'Very active';
+      default:
+        return 'Sedentary'; // Fallback
+    }
+  }
+
+  String _formatExperienceLevel(String level) {
+    if (level.isEmpty) return 'BEGINNER'; // Default
+    return level.toUpperCase(); // Converts to "BEGINNER", "INTERMEDIATE", etc.
+  }
 }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
+import '../core/helper_functions/simplify_errormessage.dart';
 import '../core/models/fitness_plan/planexercises_model.dart';
 import '../core/services/workout_plan/workoutplan_service.dart';
 import '../core/widgets/custom_selectable_listbar.dart';
+import '../core/widgets/error_widget.dart';
 import '../core/widgets/main_exercisecard.dart';
+import '../core/widgets/server_error_widget.dart';
 
 
 class FitnessPlanPage extends StatefulWidget {
@@ -18,6 +21,12 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
   int selectedWeek = 0; // Default: Week 1
   int selectedDay = 0;  // Default: Day 1
   late Future<ExercisePlan> _exercisePlanFuture;
+
+  Future<void> _retryFetch() async {
+    setState(() {
+      _exercisePlanFuture = WorkoutPlanService().fetchUserPlan();
+    });
+  }
 
   @override
   void initState()  {
@@ -37,9 +46,21 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
+              if (snapshot.error.toString().contains('server')) {
+                return ServerErrorWidget(onRetry: _retryFetch);
+              }
+              // General error handling
+              return ErrorDisplayWidget(
+                errorMessage: simplifyErrorMessage(snapshot.error.toString()),
+                onRetry: _retryFetch,
+              );
             } else if (!snapshot.hasData || snapshot.data!.weeks.isEmpty) {
-              return const Center(child: Text('No fitness plan found.'));
+              return ErrorDisplayWidget(
+                errorMessage: 'No fitness plan found. Please check back later.',
+                onRetry: _retryFetch,
+                icon: Icons.search_off,
+                color: Colors.orange,
+              );
             }
 
             final plan = snapshot.data!;
@@ -71,7 +92,7 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                 ),
                 SliverToBoxAdapter(
                   child: Container(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 2),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
@@ -79,6 +100,9 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(
+                          height: 20,
+                        ),
                         const Text(
                           "Week",
                           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -121,10 +145,12 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                           selectedTextColor: Colors.white,
                           textColor: Colors.blue,
                         ),
-                        const SizedBox(height: 30),
-                        ...day.exercises.map((exercise) => MainExerciseCard(
+                        const SizedBox(height: 20),
+                        ...day.exercises.map((exercise) =>
+                            MainExerciseCardFitnessPlan(
                           exercise: exercise,
-                          page: false,
+                          weekId: week.id,
+                          dayId: day.id,
                         ),),
                       ],
                     ),
@@ -156,33 +182,3 @@ class MyCustomCard extends StatelessWidget {
   }
 }
 
-/*
- we need Custom Widget To Contain Above Widget
- -->
- FutureBuilder<List<ExercisesModel>>(
-   future: ExerciseService().getExercisesData(),
-   builder: (context, snapshot) {
-     if (snapshot.hasData) {
-       List<ExerciseModel> exercises = snapshot.data!;
-       return GridView.builder(
-         itemCount: exercises.length,
-         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-           crossAxisCount: 2,
-           childAspectRatio: 3 / 2,
-         ),
-         itemBuilder: (context, index) {
-           return MainExerciseCard(
-             title: exercises[index].title,
-             duration: exercises[index].duration,
-             level: exercises[index].level,
-             imagePath: exercises[index].imagePath,
-             page: false,
-           );
-         },
-       );
-     } else {
-       return const Center(child: CircularProgressIndicator());
-     }
-   },
- )
- */

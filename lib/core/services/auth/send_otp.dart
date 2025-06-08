@@ -6,7 +6,7 @@ class OTP {
   Future<Map<String, dynamic>> activeOtp({required String email, required String username}) async {
     try {
       final response = await API().post(
-        url: 'http://10.0.2.2:8080/active?email=$email&username=$username',
+        url: 'http://10.0.2.2:8080/active?email=$email&userName=$username',
         token: null,
         data: null,
       );

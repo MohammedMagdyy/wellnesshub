@@ -163,7 +163,7 @@ class _ChallengePlankState extends State<ChallengePlank> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child:
-                  Image.asset(Assets.assetsPlankGif , fit: BoxFit.fill,))
+                  Image.asset(Assets.assetsImagesPlank , fit: BoxFit.fill,))
                   ),
               ),
             ),

@@ -87,7 +87,7 @@ double progress = 0 ;
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.asset(
-                      Assets.assetsSquatsGif , fit: BoxFit.fill,
+                      Assets.assetsImagesSquats , fit: BoxFit.fill,
                       )
                     )
                   ),

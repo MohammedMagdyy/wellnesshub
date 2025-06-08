@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/helper_functions/on_generate_route.dart';
 import 'package:wellnesshub/core/utils/global_var.dart';
 import 'package:wellnesshub/views/settings/changepassword_page.dart';
-import 'package:wellnesshub/views/exercise_page.dart';
+import 'package:wellnesshub/views/exercisedetails_page.dart';
 import 'package:wellnesshub/views/login_process/find_your_account.dart';
 import 'package:wellnesshub/views/login_process/forgetpassword_page.dart';
 import 'package:wellnesshub/views/progress.dart';
@@ -22,11 +22,15 @@ import 'package:wellnesshub/views/settings/setting_page.dart';
 import 'package:wellnesshub/views/signup_process/verify_email_page.dart';
 import 'package:wellnesshub/views/test.dart';
 
+import 'core/helper_class/Dio_Interceptor _Handling401.dart';
+
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GlobalVar().init();
+  final dioInterceptor = DioInterceptorHandlingError();
+  dioInterceptor.setupDio();
   runApp(const WellnessHub());
 }
 
@@ -41,6 +45,7 @@ class WellnessHub extends StatelessWidget {
         final bool isDarkMode = value;
         return MaterialApp(
           debugShowCheckedModeBanner: false,
+          navigatorKey: navigatorKey,
           onGenerateRoute: OnGenerateRoute,
           initialRoute:MainPage.routeName,
           theme: ThemeData(

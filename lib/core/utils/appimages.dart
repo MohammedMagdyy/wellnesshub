@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
+  
+  /// Assets for assetsImagesArmImg
+  /// assets/images/Arm_Img.jpeg
+  static const String assetsImagesArmImg = "assets/images/Arm_Img.jpeg";
 
   /// Assets for assetsImagesArrow
   /// assets/images/arrow.png
@@ -8,12 +12,19 @@ class Assets {
 
   /// Assets for assetsImagesBackExercise
   /// assets/images/BackExercise.png
-  static const String assetsImagesBackkExercise =
-      "assets/images/BackExercise.png";
+  static const String assetsImagesBackExercise = "assets/images/BackExercise.png";
+
+  /// Assets for assetsImagesBackImg
+  /// assets/images/Back_Img.jpeg
+  static const String assetsImagesBackImg = "assets/images/Back_Img.jpeg";
 
   /// Assets for assetsImagesBigshowman
   /// assets/images/bigshowman.png
   static const String assetsImagesBigshowman = "assets/images/bigshowman.png";
+
+  /// Assets for assetsImagesChestIMg
+  /// assets/images/chestI_mg.jpeg
+  static const String assetsImagesChestIMg = "assets/images/chestI_mg.jpeg";
 
   /// Assets for assetsImagesCommingsoon
   /// assets/images/commingsoon.png
@@ -23,14 +34,25 @@ class Assets {
   /// assets/images/Community.jpeg
   static const String assetsImagesCommunity = "assets/images/Community.jpeg";
 
+  /// Assets for assetsImagesDone
+  /// assets/images/done.png
+  static const String assetsImagesDone = "assets/images/done.png";
+
+  /// Assets for assetsImagesErrorImg
+  /// assets/images/errorImg.png
+  static const String assetsImagesErrorImg = "assets/images/errorImg.png";
+
   /// Assets for assetsImagesFacebookLogo
   /// assets/images/Facebook_logo.png
-  static const String assetsImagesFacebookLogo =
-      "assets/images/Facebook_logo.png";
+  static const String assetsImagesFacebookLogo = "assets/images/Facebook_logo.png";
 
   /// Assets for assetsImagesFemaleL
   /// assets/images/FemaleL.png
   static const String assetsImagesFemaleL = "assets/images/FemaleL.png";
+
+  /// Assets for assetsImagesFitnessImg
+  /// assets/images/Fitness_Img.jpeg
+  static const String assetsImagesFitnessImg = "assets/images/Fitness_Img.jpeg";
 
   /// Assets for assetsImagesGoogleLogo
   /// assets/images/GoogleLogo.png
@@ -46,8 +68,11 @@ class Assets {
 
   /// Assets for assetsImagesIntrobackground
   /// assets/images/introbackground.jpg
-  static const String assetsImagesIntrobackground =
-      "assets/images/introbackground.jpg";
+  static const String assetsImagesIntrobackground = "assets/images/introbackground.jpg";
+
+  /// Assets for assetsImagesLegImg
+  /// assets/images/Leg_Img.jpeg
+  static const String assetsImagesLegImg = "assets/images/Leg_Img.jpeg";
 
   /// Assets for assetsImagesMale
   /// assets/images/Male.png
@@ -66,12 +91,24 @@ class Assets {
   static const String assetsImagesPhysical = "assets/images/Physical.png";
 
   /// Assets for assetsImagesPlank
-  /// assets/images/plank.jpg
-  static const String assetsImagesPlank = "assets/images/plank.jpg";
+  /// assets/images/plank.gif
+  static const String assetsImagesPlank = "assets/images/plank.gif";
+
+  /// Assets for assetsImagesProgress
+  /// assets/images/progress.jpg
+  static const String assetsImagesProgress = "assets/images/progress.jpg";
+
+  /// Assets for assetsImagesPushUps
+  /// assets/images/push_ups.gif
+  static const String assetsImagesPushUps = "assets/images/push_ups.gif";
+
+  /// Assets for assetsImagesShoulderImg
+  /// assets/images/shoulder_Img.jpeg
+  static const String assetsImagesShoulderImg = "assets/images/shoulder_Img.jpeg";
 
   /// Assets for assetsImagesSquats
-  /// assets/images/squats.jpg
-  static const String assetsImagesSquats = "assets/images/squats.jpg";
+  /// assets/images/squats.gif
+  static const String assetsImagesSquats = "assets/images/squats.gif";
 
   /// Assets for assetsImagesStretches
   /// assets/images/stretches.jpg
@@ -79,8 +116,7 @@ class Assets {
 
   /// Assets for assetsImagesWelcomephoto
   /// assets/images/welcomephoto.png
-  static const String assetsImagesWelcomephoto =
-      "assets/images/welcomephoto.png";
+  static const String assetsImagesWelcomephoto = "assets/images/welcomephoto.png";
 
   /// Assets for assetsImagesWomen
   /// assets/images/Women.png
@@ -89,22 +125,5 @@ class Assets {
   /// Assets for assetsImagesWorkout1
   /// assets/images/Workout_1.png
   static const String assetsImagesWorkout1 = "assets/images/Workout_1.png";
-
-  /// Assets for progress page
-  /// assets/images/progress.jpg
-  static const String assetsImagesProgress = "assets/images/progress.jpg";
-
-  /// Assets for progress page
-  /// assets/images/push_ups.gif
-  static const String assetsPushupsGif = "assets/images/push_ups.gif";
-
-  /// Assets for progress page
-  /// assets/images/squats.gif
-  static const String assetsSquatsGif = "assets/images/squats.gif";
-
-  /// Assets for progress page
-  /// assets/images/plank.gif
-  static const String assetsPlankGif = "assets/images/plank.gif";
-
-  
 }
+

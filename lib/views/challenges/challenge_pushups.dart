@@ -89,7 +89,7 @@ class _ChallengePushupsState extends State<ChallengePushups> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.asset(
-                      Assets.assetsPushupsGif , fit: BoxFit.fill,
+                      Assets.assetsImagesPushUps , fit: BoxFit.fill,
                     )
                   )
                   ),

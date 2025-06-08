@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
                           width: 260,
                           child: MainpageCard(
                             title: "Push Ups",
-                            image: Assets.assetsPushupsGif,
+                            image: Assets.assetsImagesPushUps,
                             nextPage: "pushUps",
                           ),
                         ),
@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
                           width: 260,
                           child: MainpageCard(
                             title: "Plank",
-                            image: Assets.assetsPlankGif,
+                            image: Assets.assetsImagesPlank,
                             nextPage: "Plank",
                           ),
                         ),
@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
                           child: MainpageCard(
                             title: "Squats",
                             nextPage: "Squats",
-                            image: Assets.assetsSquatsGif,
+                            image: Assets.assetsImagesSquats,
                           ),
                         ),
                         SizedBox(width: 12),
@@ -136,7 +136,7 @@ class HomePage extends StatelessWidget {
                           width: 260,
                           child: MainpageCard(
                             title: "Push Ups",
-                            image: Assets.assetsPushupsGif,
+                            image: Assets.assetsImagesPushUps,
                             nextPage: "pushUps",
                           ),
                         ),
@@ -148,7 +148,7 @@ class HomePage extends StatelessWidget {
                           width: 260,
                           child: MainpageCard(
                             title: "Plank",
-                            image: Assets.assetsPlankGif,
+                            image: Assets.assetsImagesPlank,
                             nextPage: "Plank",
                           ),
                         ),
@@ -161,7 +161,7 @@ class HomePage extends StatelessWidget {
                           child: MainpageCard(
                             title: "Squats",
                             nextPage: "Squats",
-                            image: Assets.assetsSquatsGif,
+                            image: Assets.assetsImagesSquats,
                           ),
                         ),
                         SizedBox(width: 12),
@@ -207,7 +207,7 @@ class HomePage extends StatelessWidget {
                           width: 260,
                           child: MainpageCard(
                             title: "Push Ups",
-                            image: Assets.assetsPushupsGif,
+                            image: Assets.assetsImagesPushUps,
                             nextPage: "pushUps",
                           ),
                         ),
@@ -219,7 +219,7 @@ class HomePage extends StatelessWidget {
                           width: 260,
                           child: MainpageCard(
                             title: "Plank",
-                            image: Assets.assetsPlankGif,
+                            image: Assets.assetsImagesPlank,
                             nextPage: "Plank",
                           ),
                         ),
@@ -232,7 +232,7 @@ class HomePage extends StatelessWidget {
                           child: MainpageCard(
                             title: "Squats",
                             nextPage: "Squats",
-                            image: Assets.assetsSquatsGif,
+                            image: Assets.assetsImagesSquats,
                           ),
                         ),
                         SizedBox(width: 12),

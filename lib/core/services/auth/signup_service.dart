@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:wellnesshub/core/helper_class/api.dart';
+import 'package:wellnesshub/core/models/userinfo_model.dart';
 
 
 class SignupService {
@@ -39,6 +40,49 @@ class SignupService {
       return {'success': false, 'message': 'An error occurred. Please try again.'};
     }
   }
+  Future<Map<String, dynamic>> saveUserInfo(String email, UserInfo userinfo) async {
+    try {
+      // Convert UserInfo to JSON
+      final userInfoJson = userinfo.toJson();
+      print('Sending user info: $userInfoJson'); // Debug log
+
+      final response = await API().post(
+        url: 'http://10.0.2.2:8080/saveUserInfo?userEmail=$email',
+        data: userInfoJson, // Send JSON instead of raw object
+         // Use the token from login
+      );
+
+      print('API Response: $response'); // Debug log
+
+      if (response != null) {
+        if (response['status'] == 'success') {
+          return {'success': true, 'message': response['message'] ?? 'User info saved successfully'};
+        } else {
+          return {
+            'success': false,
+            'message': response['message'] ?? 'Failed to save user info',
+            'statusCode': response['statusCode'] // Include status code if available
+          };
+        }
+      }
+      return {'success': false, 'message': 'No response from server'};
+    } on DioException catch (e) {
+      print('DioError: ${e.response?.statusCode} - ${e.response?.data}');
+      return {
+        'success': false,
+        'message': e.response?.data['message'] ??
+            'Server error (${e.response?.statusCode})',
+        'statusCode': e.response?.statusCode
+      };
+    } catch (e, stackTrace) {
+      print('Error saving user info: $e\n$stackTrace');
+      return {
+        'success': false,
+        'message': 'Failed to save user info: ${e.toString()}'
+      };
+    }
+  }
+
 }
 
 

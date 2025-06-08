@@ -1,5 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/userinfo_model.dart';
+
 class UserInfoLocalStorage {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
@@ -9,6 +11,7 @@ class UserInfoLocalStorage {
     required String fname,
     required String lname,
     required String password,
+
   }) async {
     final prefs = await _prefs;
     await prefs.setString('email', email);
@@ -116,14 +119,14 @@ class UserInfoLocalStorage {
   }
 
   /// Save & Get Workout Days
-  Future<void> saveUserWorkoutDays(String workoutDays) async {
+  Future<void> saveUserWorkoutDays(int workoutDays) async {
     final prefs = await _prefs;
-    await prefs.setString('workoutDays', workoutDays);
+    await prefs.setInt('workoutDays', workoutDays);
   }
 
-  Future<String?> getUserWorkoutDays() async {
+  Future<int?> getUserWorkoutDays() async {
     final prefs = await _prefs;
-    return prefs.getString('workoutDays');
+    return prefs.getInt('workoutDays');
   }
 
   /// Save & Get OTP
@@ -141,6 +144,21 @@ class UserInfoLocalStorage {
   Future<void> clearAllUserData() async {
     final prefs = await _prefs;
     await prefs.clear();
+  }
+
+  Future<UserInfo> getUserInfoModel() async {
+    final prefs = await _prefs;
+
+    return UserInfo(
+      gender: prefs.getString('gender') ?? '', // Provide default if null
+      age: prefs.getInt('age') ?? 30,          // Provide default if null
+      weight: prefs.getInt('weight') ?? 70,     // Provide default if null
+      height: prefs.getInt('height') ?? 175,     // Provide default if null
+      goal: prefs.getString('goal') ?? '',     // Provide default if null
+      activityLevel: prefs.getString('activityLevel') ?? '',
+      experienceLevel: prefs.getString('experienceLevel') ?? '',
+      daysPerWeek: prefs.getInt('workoutDays') ?? 3,
+    );
   }
 
 }
