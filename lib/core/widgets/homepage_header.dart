@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/utils/global_var.dart';
+import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Header extends StatefulWidget {
   const Header({super.key});
@@ -11,10 +13,13 @@ class Header extends StatefulWidget {
 class _HeaderState extends State<Header> {
   String _name = "User"; // Use _name for private variable
 
+  File? _profileImage;
+
   @override
   void initState() {
     super.initState();
     _loadUserName();
+    _loadProfileImage();
   }
 
   Future<void> _loadUserName() async {
@@ -25,8 +30,17 @@ class _HeaderState extends State<Header> {
           _name = userData['fname'] ?? "User";
         });
       }
-
   }
+
+  Future<void> _loadProfileImage() async {
+  final prefs = await SharedPreferences.getInstance();
+  final path = prefs.getString('profile_image_path');
+  if (path != null && mounted) {
+    setState(() {
+      _profileImage = File(path);
+    });
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +50,23 @@ class _HeaderState extends State<Header> {
       padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: screenWidth * 0.07,
-            backgroundColor: Colors.grey,
-            child: Icon(
-              Icons.person,
-              size: screenWidth * 0.07,
-              color: Colors.white,
-            ),
-          ),
+          ValueListenableBuilder<File?>(
+          valueListenable: profileImageNotifier,
+          builder: (context, imageFile, _) {
+            return CircleAvatar(
+              radius: screenWidth * 0.07,
+              backgroundColor: Colors.grey,
+              backgroundImage: imageFile != null ? FileImage(imageFile) : null,
+              child: imageFile == null
+                  ? Icon(
+                      Icons.person,
+                      size: screenWidth * 0.07,
+                      color: Colors.white,
+                    )
+                  : null,
+            );
+          },
+        ),
           SizedBox(width: screenWidth * 0.03),
           Expanded(
             child: Column(

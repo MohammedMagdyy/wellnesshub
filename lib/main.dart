@@ -27,6 +27,7 @@ import 'package:wellnesshub/views/test.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await GlobalVar().loadDarkMode();
+  await GlobalVar().loadProfileImage();
   runApp(WellnessHub());
 }
 
