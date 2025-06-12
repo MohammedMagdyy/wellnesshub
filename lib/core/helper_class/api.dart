@@ -4,14 +4,18 @@ import 'package:flutter/foundation.dart';
 class API {
   static final Dio dio = Dio();
 
-  Future<dynamic> get({required String url, @required String? token}) async {
+  Future<dynamic> get({
+    required String url,
+    @required String? token,
+    @required dynamic data,
+    }) async {
     final headers = <String, dynamic>{};
     if (token != null) {
       headers['Authorization'] = 'Bearer $token';
     }
 
     try {
-      final response = await dio.get(url, options: Options(headers: headers));
+      final response = await dio.get(url, options: Options(headers: headers),data: data);
       return response.data;
     } on DioException catch (e) {
       throw e;
@@ -65,4 +69,27 @@ class API {
       throw e;
     }
   }
+
+  Future<dynamic> delete({
+    required String url,
+    @required String? token,
+  }) async {
+    final headers = <String, dynamic>{
+      'Content-Type': 'application/json',
+    };
+    if (token != null) {
+      headers['Authorization'] = 'Bearer $token';
+    }
+
+    try {
+      final response = await dio.delete(
+        url,
+        options: Options(headers: headers),
+      );
+      return response.data;
+    } on DioException catch (e) {
+      throw e;
+    }
+  }
+
 }

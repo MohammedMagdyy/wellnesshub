@@ -88,7 +88,7 @@ class _SettingPageState extends State<SettingPage> {
                   title: "Logout",
                   icon: Icons.logout,
                   switchcheck: false,
-                  onTapFunc: 0,
+                  onTapFunc: 3,
                   pageName: "LoginPage"),
             ],
           ),

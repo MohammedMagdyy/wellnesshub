@@ -4,7 +4,7 @@ import 'package:wellnesshub/views/bmi_calculator.dart';
 import 'package:wellnesshub/views/favorites.dart';
 import 'package:wellnesshub/views/homepage.dart';
 import 'package:wellnesshub/views/progress.dart';
-import 'package:wellnesshub/views/setting_page.dart';
+import 'package:wellnesshub/views/settings/setting_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

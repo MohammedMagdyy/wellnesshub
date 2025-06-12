@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/profile_info_card.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
-import '../core/utils/global_var.dart';
-import '../core/widgets/custom_profile_textfield.dart';
+import 'package:wellnesshub/core/utils/global_var.dart';
+import 'package:wellnesshub/core/widgets/custom_profile_textfield.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wellnesshub/core/utils/global_var.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

@@ -3,6 +3,8 @@ import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/main_exercisecard.dart';
 
+import '../core/widgets/custom_exercise_cateogory.dart';
+
 class FullBodyExercisePage extends StatelessWidget {
   const FullBodyExercisePage({super.key});
   static const routeName = 'FullBodyExercisePage';
@@ -23,9 +25,9 @@ class FullBodyExercisePage extends StatelessWidget {
               flexibleSpace: FlexibleSpaceBar(
                 titlePadding: EdgeInsets.only(left: 20, bottom: 16),
                 title: Text(
-                  'Choose Your Exercise!',
+                  'BE STRONGER!',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.amberAccent,
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
@@ -41,41 +43,37 @@ class FullBodyExercisePage extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    MainExerciseCard(
-                      title: "Full Body Workout",
-                      duration: "45 minutes",
-                      level: "Medium",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: true,
+                    CustomExerciseCategory(
+                      name: "CHEST",
+                      imagePath: Assets.assetsImagesChestIMg,
+                      details: "11 MINS • 11 EXERCISES",
                     ),
-                    MainExerciseCard(
-                      title: "Lower body & balance",
-                      duration: "30 minutes",
-                      level: "Hard",
-                      imagePath: Assets.assetsImagesBackkExercise,
-                      page: true,
+                    CustomExerciseCategory(
+                      name: "BACK",
+                      imagePath: Assets.assetsImagesBackImg,
+                      details: "11 MINS • 11 EXERCISES",
                     ),
-                    MainExerciseCard(
-                      title: "Cardio Blast",
-                      duration: "20 minutes",
-                      level: "Easy",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: true,
+                    CustomExerciseCategory(
+                      name: "SHOULDER",
+                      imagePath: Assets.assetsImagesShoulderImg,
+                      details: "11 MINS • 11 EXERCISES",
                     ),
-                    MainExerciseCard(
-                      title: "Stretching & Mobility",
-                      duration: "15 minutes",
-                      level: "Beginner",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: true,
+                    CustomExerciseCategory(
+                      name: "ARM",
+                      imagePath: Assets.assetsImagesArmImg,
+                      details: "11 MINS • 11 EXERCISES",
                     ),
-                    MainExerciseCard(
-                      title: "Upper body & core",
-                      duration: "25 minutes",
-                      level: "Medium",
-                      imagePath: Assets.assetsImagesBigshowman,
-                      page: true,
+                    CustomExerciseCategory(
+                      name: "LEG",
+                      imagePath: Assets.assetsImagesLegImg,
+                      details: "11 MINS • 11 EXERCISES",
                     ),
+                    CustomExerciseCategory(
+                      name: "CARDIO",
+                      imagePath: Assets.assetsImagesFitnessImg,
+                      details: "11 MINS • 11 EXERCISES",
+                    ),
+
                   ],
                 ),
               ),

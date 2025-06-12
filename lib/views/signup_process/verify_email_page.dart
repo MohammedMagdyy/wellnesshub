@@ -46,9 +46,11 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
     try {
       OTP otp = OTP();
-      String response = await otp.activeOtp(email: email!, username: username);
+      // Assuming the response is a map, you will now extract the OTP correctly
+      Map<String, dynamic> response = await otp.activeOtp(email: email! , username:  username!);
       setState(() {
-        otp_code = response;
+        // Extract OTP from the response map (assuming the OTP key is 'otp')
+        otp_code = response['otp'] ?? '';  // Default to empty string if 'otp' key doesn't exist
         timerEndTime = DateTime.now().add(const Duration(seconds: 10));
         timerEnd = false;
       });
@@ -64,10 +66,9 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   void _submitOtp() {
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     print(pinController.text);
-    if (pinController.text == otp_code&&otp_code!='') {
+    if (pinController.text == otp_code && otp_code != ''){
       Navigator.pushReplacementNamed(context, 'AgePage');
-    }
-    else {
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Invalid OTP entered.")),
       );
@@ -169,7 +170,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                     "Resend OTP",
                     style: TextStyle(color: timerEnd ? Colors.blue : Colors.grey),
                   ),
-                ): const Text("Resend OTP", style: TextStyle(color: Colors.grey)),
+                )
+                    : const Text("Resend OTP", style: TextStyle(color: Colors.grey)),
               ],
             ),
             const SizedBox(height: 50),

@@ -78,7 +78,7 @@ class _HeightPageState extends State<HeightPage> {
           SizedBox(height: 10,),
           CustomButton(name: "Continue", width: 200, color: Colors.black , on_Pressed: ()async {
             await storage.saveUserHeight(_height);
-            Navigator.pushNamed(context, 'GoalPage');
+            Navigator.pushNamed(context, 'GenderPage');
           },)
           ],
         ),

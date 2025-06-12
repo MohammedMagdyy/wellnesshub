@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/checkbox_button.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
-
 import '../../core/utils/global_var.dart';
 import '../../core/widgets/custom_appbar.dart';
 
@@ -17,6 +16,20 @@ class GoalPage extends StatefulWidget {
 class _GoalPageState extends State<GoalPage> {
   String? selectedGoal;
 
+  // Maps frontend goal text to backend enum values
+  String _getBackendGoalValue(String? frontendGoal) {
+    switch (frontendGoal?.toLowerCase()) {
+      case 'weight cut':
+        return 'WEIGHT_CUT';
+      case 'muscles gain':
+        return 'BUILD_MUSCLE'; // Matches backend enum
+      case 'increasing strength':
+        return 'INCREASE_STRENGTH'; // Matches backend enum
+      default:
+        return 'WEIGHT_CUT'; // Default value
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -28,7 +41,7 @@ class _GoalPageState extends State<GoalPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0), // Safe padding
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -70,10 +83,12 @@ class _GoalPageState extends State<GoalPage> {
                 name: 'Continue',
                 on_Pressed: selectedGoal == null
                     ? null
-                    : () async{
-                  await storage.saveUserGoal(selectedGoal!);
-                 Navigator.pushNamed(context, "ExperienceLevelPage");
-                }
+                    : () async {
+                  // Save the properly formatted goal value for backend
+                  await storage.saveUserGoal(
+                      _getBackendGoalValue(selectedGoal));
+                  Navigator.pushNamed(context, "ExperienceLevelPage");
+                },
               ),
               SizedBox(height: height * 0.05),
             ],

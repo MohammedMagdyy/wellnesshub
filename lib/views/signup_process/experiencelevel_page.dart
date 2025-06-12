@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/checkbox_button.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
-
 import '../../core/utils/global_var.dart';
 import '../../core/widgets/custom_appbar.dart';
 
@@ -15,7 +14,21 @@ class ExperienceLevelPage extends StatefulWidget {
 }
 
 class _ExperienceLevelPageState extends State<ExperienceLevelPage> {
-  String? selectedGoal;
+  String? selectedExperience;
+
+  // Maps frontend selection to backend enum values
+  String _getBackendExperienceValue(String? frontendExperience) {
+    switch (frontendExperience?.toLowerCase()) {
+      case 'beginner':
+        return 'BEGINNER';
+      case 'intermediate':
+        return 'INTERMEDIATE';
+      case 'advanced':
+        return 'ADVANCED';
+      default:
+        return 'BEGINNER'; // Default value
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +41,7 @@ class _ExperienceLevelPageState extends State<ExperienceLevelPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0), // Safe padding
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -42,21 +55,21 @@ class _ExperienceLevelPageState extends State<ExperienceLevelPage> {
               ),
               SizedBox(height: height * 0.03),
               CheckboxButton(
-                text: "Begineer",
-                isSelected: selectedGoal == "Begineer",
-                onTap: () => setState(() => selectedGoal = "Begineer"),
+                text: "Beginner", // Fixed typo from "Begineer"
+                isSelected: selectedExperience == "Beginner",
+                onTap: () => setState(() => selectedExperience = "Beginner"),
               ),
               SizedBox(height: height * 0.015),
               CheckboxButton(
                 text: "Intermediate",
-                isSelected: selectedGoal == "Intermediate",
-                onTap: () => setState(() => selectedGoal = "Intermediate"),
+                isSelected: selectedExperience == "Intermediate",
+                onTap: () => setState(() => selectedExperience = "Intermediate"),
               ),
               SizedBox(height: height * 0.015),
               CheckboxButton(
                 text: "Advanced",
-                isSelected: selectedGoal == "Advanced",
-                onTap: () => setState(() => selectedGoal = "Advanced"),
+                isSelected: selectedExperience == "Advanced",
+                onTap: () => setState(() => selectedExperience = "Advanced"),
               ),
               SizedBox(height: height * 0.03),
               Image.asset(
@@ -68,13 +81,13 @@ class _ExperienceLevelPageState extends State<ExperienceLevelPage> {
                 width: width * 0.6,
                 color: Colors.black,
                 name: 'Continue',
-                on_Pressed: selectedGoal == null
+                on_Pressed: selectedExperience == null
                     ? null
-                    : () async{
-                  await storage.saveUserExperienceLevel(selectedGoal!);
+                    : () async {
+                  await storage.saveUserExperienceLevel(
+                      _getBackendExperienceValue(selectedExperience));
                   Navigator.pushNamed(context, "ActivityPage");
-
-                }
+                },
               ),
               SizedBox(height: height * 0.05),
             ],

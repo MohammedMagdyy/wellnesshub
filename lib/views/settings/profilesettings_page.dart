@@ -17,7 +17,7 @@ class ProfilesettingsPage extends StatelessWidget {
               title: "Change Password",
               icon: Icons.password_rounded,
               switchcheck:false,
-              pageName: "ChangepasswordPage",
+              pageName: "ChangePasswordPage",
             ),
             CustomSettingwidget(
               title: "Profile Details",
@@ -29,7 +29,8 @@ class ProfilesettingsPage extends StatelessWidget {
               title: "Delete Account",
               icon: Icons.delete,
               switchcheck:false,
-              pageName: "RateAppPage",
+              onTapFunc: 4,
+              pageName: "LoginPage",
             ),
           ],
         ),
