@@ -5,6 +5,12 @@ import 'package:wellnesshub/core/widgets/custom_button.dart';
 import '../../core/helper_class/userInfo_local.dart';
 import '../../core/utils/global_var.dart';
 import '../../core/widgets/custom_profile_textfield.dart';
+import 'package:wellnesshub/core/utils/global_var.dart';
+import 'package:wellnesshub/core/widgets/custom_profile_textfield.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -28,12 +34,14 @@ class _ProfilePageState extends State<ProfilePage> {
   String email = " ";
   int age = 0;
   int weight = 0;
+  File? _imageFile;
   double height = 0;
 
   @override
   void initState() {
     super.initState();
     _loadUserData();
+    _loadProfileImage();
   }
 
   Future<void> _loadUserData() async {
@@ -71,6 +79,41 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
 
+  Future<void> _loadProfileImage() async {
+  final prefs = await SharedPreferences.getInstance();
+  final path = prefs.getString('profile_image_path');
+  if (path != null && File(path).existsSync()) {
+    setState(() {
+      _imageFile = File(path);
+    });
+  }
+  profileImageNotifier.value = _imageFile;
+}
+
+Future<void> _pickImage() async {
+  final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+  if (pickedFile != null) {
+    final directory = await getApplicationDocumentsDirectory();
+
+    // Give each saved image a unique name using timestamp
+    final imagePath = '${directory.path}/profile_${DateTime.now().millisecondsSinceEpoch}.png';
+
+    final savedImage = await File(pickedFile.path).copy(imagePath);
+
+    // Save path in SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('profile_image_path', savedImage.path);
+
+    // Update notifier
+    profileImageNotifier.value = File(savedImage.path);
+  }
+}
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,10 +122,22 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            const CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.grey,
-              child: Icon(Icons.person, size: 50, color: Colors.white),
+            ValueListenableBuilder(
+              valueListenable: profileImageNotifier,
+              builder: (context,imageFile,_) {
+                return GestureDetector(
+                  onTap: _pickImage,
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundColor: Colors.grey[300],
+                    backgroundImage: imageFile != null ? FileImage(imageFile) :
+                    AssetImage('assets/default_avatar.png') as ImageProvider,
+                    child: imageFile == null
+                        ? const Icon(Icons.person, size: 50, color: Colors.white)
+                        : null,
+                  ),
+                );
+              }
             ),
             const SizedBox(height: 10),
             Text(
@@ -126,6 +181,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                 print(lastNameController);
                 print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                setState(() {
+
+                });
               },
             ),
           ],

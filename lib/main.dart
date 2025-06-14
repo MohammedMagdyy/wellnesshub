@@ -29,6 +29,8 @@ import 'core/helper_class/Dio_Interceptor _Handling401.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GlobalVar().init();
+  await GlobalVar().loadDarkMode();
+  await GlobalVar().loadProfileImage();
   final dioInterceptor = DioInterceptorHandlingError();
   dioInterceptor.setupDio();
   runApp(const WellnessHub());
