@@ -7,6 +7,7 @@ import '../core/utils/global_var.dart';
 
 class BMICalculator extends StatefulWidget {
   const BMICalculator({super.key});
+  static const routeName = 'BMIPage';
 
   @override
   State<BMICalculator> createState() => _BMICalculatorState();

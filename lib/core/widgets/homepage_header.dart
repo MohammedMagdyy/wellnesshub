@@ -3,6 +3,9 @@ import 'package:wellnesshub/core/utils/global_var.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../helper_class/userInfo_local.dart';
+import '../services/getUserInfo_service.dart';
+
 class Header extends StatefulWidget {
   const Header({super.key});
 
@@ -18,16 +21,17 @@ class _HeaderState extends State<Header> {
   @override
   void initState() {
     super.initState();
-    _loadUserName();
+    _loadUserInfo();
     _loadProfileImage();
   }
 
-  Future<void> _loadUserName() async {
+  Future<void> _loadUserInfo() async {
 
-      final userData = await storage.getUserData();
+      final userData = await getUserInfoService().getUserInfo();
+      await UserInfoLocalStorage.saveUserInfoForProfile(userData);
       if (mounted) {
         setState(() {
-          _name = userData['fname'] ?? "User";
+          _name = userData.firstName?? "User";
         });
       }
   }

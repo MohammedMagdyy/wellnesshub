@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/ExerciseCard.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
+import '../core/helper_class/favourite_manager.dart';
 import '../core/helper_functions/simplify_errormessage.dart';
 import '../core/models/fitness_plan/exercises_model.dart';
 import '../core/services/exercises/specificexercise_service.dart';
 import '../core/widgets/error_widget.dart';
 import '../core/widgets/server_error_widget.dart';
-import '../core/widgets/main_exercisecard.dart';
 
 class SpecificExercisePage extends StatefulWidget {
   const SpecificExercisePage({super.key, required this.title});
@@ -116,12 +116,22 @@ class _SpecificExercisePageState extends State<SpecificExercisePage> {
                   delegate: SliverChildBuilderDelegate(
                         (context, index) {
                       final exercise = exercises[index];
+                      final isFav = FavoriteManager.instance.isFavorite(exercise.id);
+
                       return Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        child: ExerciseCard(
+                          isFav: false,
+                          exercise: exercise,
+                          isFavorite: isFav,
+                          onFavoriteToggle: () async {
+                            if (isFav) {
+                              await FavoriteManager.instance.removeFavorite(exercise);
+                            } else {
+                              await FavoriteManager.instance.addFavorite(exercise);
+                            }
+                          },
                         ),
-                        child: ExerciseCard(exercise: exercise)
                       );
                     },
                     childCount: exercises.length,

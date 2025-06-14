@@ -2,19 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
+import '../helper_class/favourite_manager.dart';
 import '../helper_functions/build_customSnackbar.dart';
 import '../models/fitness_plan/exercises_model.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-
 import '../services/workout_plan/done_service.dart';
 
 class ExerciseDetails extends StatefulWidget {
   final Exercise exercise;
   final int? weekId;
   final int? dayId;
+  final bool plan;
+  final bool isFav;
   const ExerciseDetails({
     super.key,
     required this.exercise,
+    required this.plan,
+    required this.isFav,
     this.weekId,
     this.dayId,
   });
@@ -24,25 +28,36 @@ class ExerciseDetails extends StatefulWidget {
 }
 
 class _ExerciseDetailsState extends State<ExerciseDetails> {
+  bool isFavorited = false;
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
   bool _isInitializing = true;
   bool _hasError = false;
 
-
   @override
   void initState() {
     super.initState();
-    print(widget.dayId);
-    print(widget.weekId);
     _initializeVideoPlayer();
+
+    // Initialize favorite status
+    isFavorited = FavoriteManager.instance.isFavorite(widget.exercise.id);
+
+    // Listen for changes in favorites to update UI reactively
+    FavoriteManager.instance.favorites.addListener(_favoritesListener);
+  }
+
+  void _favoritesListener() {
+    final currentlyFavorited = FavoriteManager.instance.isFavorite(widget.exercise.id);
+    if (currentlyFavorited != isFavorited) {
+      setState(() {
+        isFavorited = currentlyFavorited;
+      });
+    }
   }
 
   Future<void> _initializeVideoPlayer() async {
     try {
-      // Use the exercise's video URL or fallback to default
-      final videoUrl = widget.exercise.videoUrl ??
-          widget.exercise.videoUrl;
+      final videoUrl = widget.exercise.videoUrl ?? widget.exercise.videoUrl;
 
       _videoPlayerController = VideoPlayerController.network(videoUrl!);
 
@@ -122,12 +137,14 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
   @override
   void dispose() {
     _disposeVideoControllers();
+    FavoriteManager.instance.favorites.removeListener(_favoritesListener);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final exercise = widget.exercise;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -185,51 +202,92 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
           const SizedBox(height: 10),
           Text("Description:\n${exercise.description ?? 'No description available'}"),
           const SizedBox(height: 20),
-          CustomButton(
-            name: exercise.exerciseDone ?? false ? "Completed" : "Done",
-            color: Colors.white,
-            width: double.infinity,
-              on_Pressed: () async {
-                DoneService doneService = DoneService();
-                try {
-                  final result = await doneService.exerciseDone(
-                    widget.exercise.id,
-                    widget.weekId!,
-                    widget.dayId!,
-                  );
+          Row(
+            children: [
+              Expanded(
+                child: CustomButton(
+                  name:widget.isFav==true?"Back":( exercise.exerciseDone == true ? "Completed" : "Done"),
+                  color: exercise.exerciseDone == true ? Colors.grey : Colors.white,
+                  width: double.infinity,
+                  on_Pressed: exercise.exerciseDone == true ? null : () async {
+                    if (widget.plan == false) {
 
-                  // Show success snackbar
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    buildCustomSnackbar(
-                      title: "Success",
-                      message: result['message'] ?? "Exercise marked as done!",
-                      type: ContentType.success,
-                      backgroundColor: Colors.green,
-                    ),
-                  );
-                  setState(() {
-                     exercise.exerciseDone=true;   // Update local model
-                  });
-                  Navigator.pushReplacementNamed(context, 'FitnessPlanPage');
-                  setState(() {
-                    
-                  });
+                      Navigator.pop(context, true);
+                    } else {
+                      DoneService doneService = DoneService();
+                      if (exercise.exerciseDone != true) {
+                        try {
+                          final result = await doneService.exerciseDone(
+                            widget.exercise.id,
+                            widget.weekId!,
+                            widget.dayId!,
+                          );
 
-                } catch (e) {
-                  // Show error snackbar
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    buildCustomSnackbar(
-                      title: "Error",
-                      message: e.toString(),
-                      type: ContentType.failure,
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                  Navigator.pop(context);
-                }
-              }
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   buildCustomSnackbar(
+                          //     title: "",
+                          //     message: "Exercise marked as done!",
+                          //     type: ContentType.success,
+                          //     backgroundColor: Colors.green,
+                          //   ),
+                          // );
 
-          ),
+                          setState(() {
+                            exercise.exerciseDone = true;
+                          });
+
+                          Navigator.pop(context, true);
+                        } catch (e) {
+                          print("Error marking exercise as done: ${e.toString()}");
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            buildCustomSnackbar(
+                              title: "Error",
+                              message: "Failed to mark exercise as done.",
+                              type: ContentType.failure,
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
+                      } else {
+                        Navigator.pop(context, false);
+                      }
+                    }
+                  },
+                ),
+              ),
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 500),
+                transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
+                child: IconButton(
+                  key: ValueKey<bool>(isFavorited),
+                  icon: Icon(
+                    isFavorited ? Icons.favorite : Icons.favorite_border,
+                    color: isFavorited ? Colors.red : Colors.grey,
+                    size: 40,
+                  ),
+                  onPressed: () async {
+                    try {
+                      if (isFavorited) {
+                        await FavoriteManager.instance.removeFavorite(widget.exercise);
+                      } else {
+                        await FavoriteManager.instance.addFavorite(widget.exercise);
+                      }
+                      // FavoriteManager updates state internally; no manual reload needed
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        buildCustomSnackbar(
+                          title: "Error",
+                          message: e.toString(),
+                          type: ContentType.failure,
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );

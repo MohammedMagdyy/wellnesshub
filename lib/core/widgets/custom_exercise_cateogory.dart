@@ -37,7 +37,6 @@ class CustomExerciseCategory extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                // Background Image - full width
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: ColorFiltered(

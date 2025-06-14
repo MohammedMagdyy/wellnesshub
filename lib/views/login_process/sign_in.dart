@@ -76,7 +76,7 @@ class _SignInState extends State<SignInPage> {
                       child: CustomTextField(
                         name: "Email",
                         keyboardType: TextInputType.emailAddress,
-                        onChanged: (value) => email = value,
+                        onChanged: (value) => email = value.toLowerCase(),
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.04),
@@ -108,7 +108,8 @@ class _SignInState extends State<SignInPage> {
                     SizedBox(height: screenHeight * 0.01),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: screenWidth * 0.04, vertical: screenHeight * 0.01),
+                          horizontal: screenWidth
+                              * 0.04, vertical: screenHeight * 0.01),
                       child: CustomButton(
                         color: Colors.white,
                         width: double.infinity,
@@ -119,9 +120,11 @@ class _SignInState extends State<SignInPage> {
                             try {
                               print(password);
                               print("email");
-                              final result = await LoginService().login(email, password);
+                              final result =
+                              await LoginService().login(email, password);
                               if (result['success']) {
-                                final token = await LocalStorageAccessToken.getToken();
+                                final token =
+                                await LocalStorageAccessToken.getToken();
                                 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                                 debugPrint('Access token: $token');
                                 final snackBar = buildCustomSnackbar(
@@ -130,7 +133,8 @@ class _SignInState extends State<SignInPage> {
                                   message: result['message'],
                                   type: ContentType.success,
                                 );
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                ScaffoldMessenger.of(context).
+                                showSnackBar(snackBar);
                                 Navigator.pushNamedAndRemoveUntil(
                                   context,
                                   'MainPage',
