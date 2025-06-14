@@ -4,7 +4,7 @@ import 'package:wellnesshub/core/widgets/meal_plan_section.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import '../../core/helper_class/accesstoken_storage.dart';
 import '../../core/helper_functions/build_customSnackbar.dart';
-import '../../core/models/userinfo_model.dart';
+import '../../core/models/sign_up/userinfo_model.dart';
 import '../../core/services/auth/login_service.dart';
 import '../../core/services/auth/signup_service.dart';
 import '../../core/utils/global_var.dart';

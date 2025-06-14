@@ -25,17 +25,37 @@ class _MainExerciseCardFitnessPlanState extends State<MainExerciseCardFitnessPla
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        onTap: () {
-          Navigator.pushNamed(
+        onTap: () async {
+          final result = await Navigator.pushNamed(
             context,
             'ExercisePageDetails',
-            arguments:{
+            arguments: {
               'exercise': widget.exercise,
               'weekId': widget.weekId,
               'dayId': widget.dayId,
+              'plan': true,
+              'isFav': false,
             },
           );
+
+          if (result == true) {
+            setState(() {
+              // widget.exercise.exerciseDone = true;
+            });
+          }
         },
+
+        // onTap: () {
+        //   Navigator.pushNamed(
+        //     context,
+        //     'ExercisePageDetails',
+        //     arguments:{
+        //       'exercise': widget.exercise,
+        //       'weekId': widget.weekId,
+        //       'dayId': widget.dayId,
+        //     },
+        //   );
+        // },
         child: SizedBox(
           height: 190,
           child: Container(

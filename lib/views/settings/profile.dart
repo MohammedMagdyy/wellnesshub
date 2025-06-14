@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/profile_info_card.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
+import '../../core/helper_class/userInfo_local.dart';
 import '../../core/utils/global_var.dart';
 import '../../core/widgets/custom_profile_textfield.dart';
 
@@ -27,7 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String email = " ";
   int age = 0;
   int weight = 0;
-  int height = 0;
+  double height = 0;
 
   @override
   void initState() {
@@ -36,19 +37,17 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _loadUserData() async {
-    final userData = await storage.getUserData();
-    final userAge = await storage.getUserAge();
-    final userHeight = await storage.getUserHeight();
-    final userWeight = await storage.getUserWeight();
+    final storedUserData = await UserInfoLocalStorage.getUserInfoForProfile();
+
 
     if (mounted) {
       setState(() {
-        fName = userData['fname'] ?? "User";
-        lName = userData['lname'] ?? " ";
-        email = userData['email'] ?? " ";
-        age = userAge ?? 0;
-        height = userHeight ?? 0;
-        weight = userWeight ?? 0;
+        fName = storedUserData!.firstName ?? "User";
+        lName = storedUserData.lastName ?? " ";
+        email =storedUserData.email ?? " ";
+        age = storedUserData.age ?? 0;
+        height = storedUserData.height ;
+        weight =storedUserData.weight ;
 
         firstNameController.text = fName;
         lastNameController.text = lName;
@@ -135,3 +134,40 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
+
+/*
+on_Pressed: () async {
+  final updatedUser = FullUserInfo(
+    firstName: firstNameController.text,
+    lastName: lastNameController.text,
+    email: emailController.text,
+    age: int.tryParse(ageController.text) ?? 0,
+    weight: int.tryParse(weightController.text) ?? 0,
+    height: int.tryParse(heightController.text) ?? 0,
+    // If your model includes these, provide default/fetched values
+    gender: null,
+    goal: null,
+    activityLevel: null,
+    experienceLevel: null,
+    daysPerWeek: 0,
+    bmi: 0,
+  );
+
+  await UserInfoLocalStorage.saveUserInfo(updatedUser);
+
+  if (mounted) {
+    setState(() {
+      fName = updatedUser.firstName ?? "";
+      lName = updatedUser.lastName ?? "";
+      email = updatedUser.email ?? "";
+      age = updatedUser.age ?? 0;
+      height = updatedUser.height ?? 0;
+      weight = updatedUser.weight ?? 0;
+    });
+  }
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(content: Text('Profile updated successfully!')),
+  );
+},
+ */

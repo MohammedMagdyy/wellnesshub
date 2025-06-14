@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:wellnesshub/core/helper_class/api.dart';
-import 'package:wellnesshub/core/models/userinfo_model.dart';
+import 'package:wellnesshub/core/models/sign_up/userinfo_model.dart';
 
 
 class SignupService {

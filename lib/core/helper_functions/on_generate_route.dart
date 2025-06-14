@@ -76,29 +76,26 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
     case 'NutritionPage':
       return MaterialPageRoute(builder: (context) => NutritionPage());
     case 'ExercisePageDetails':
-      if (settings.arguments is Exercise) {
-        // Case when coming from pages that don't need week/day IDs
-        final Exercise args = settings.arguments as Exercise;
-        return MaterialPageRoute(
-          builder: (context) => ExercisePageDetails(exercise: args),
-        );
-      } else if (settings.arguments is Map<String, dynamic>) {
-        // Case when coming from FitnessPlanPage with week/day IDs
+      if (settings.arguments is Map<String, dynamic>) {
         final args = settings.arguments as Map<String, dynamic>;
+
         return MaterialPageRoute(
           builder: (context) => ExercisePageDetails(
             exercise: args['exercise'] as Exercise,
-            weekId: args['weekId'] as int?,
-            dayId: args['dayId'] as int?,
+            plan: args['plan'] as bool,
+            isFav: args['isFav'] as bool,
+            weekId: args['weekId'] as int?, // optional
+            dayId: args['dayId'] as int?,   // optional
           ),
         );
       }
-      // Fallback for invalid arguments
+
       return MaterialPageRoute(
-        builder: (context) => Scaffold(
+        builder: (context) => const Scaffold(
           body: Center(child: Text('Invalid arguments for ExercisePageDetails')),
         ),
       );
+
     case 'SettingPage':
       return MaterialPageRoute(builder: (context) => SettingPage());
     case 'Favorites':
@@ -109,14 +106,14 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => ProfilePage());
     case 'VerifyEmailPage':
       return MaterialPageRoute(builder: (context) => VerifyEmailPage());
-    case 'BMICalculator':
+    case 'BMIPage':
       return MaterialPageRoute(builder: (context) => BMICalculator());
     case 'Categories':
       return MaterialPageRoute(builder: (context) => Categories());
     case 'HomePage':
       return MaterialPageRoute(builder: (context) => HomePage());
     case 'MainPage':
-      return MaterialPageRoute(builder: (context) => MainPage());
+      return MaterialPageRoute(builder: (context) => MainPage(selectedIndex: 0,));
     case 'FitnessPlanPage':
       return MaterialPageRoute(builder: (context) => FitnessPlanPage());
     case 'Test':

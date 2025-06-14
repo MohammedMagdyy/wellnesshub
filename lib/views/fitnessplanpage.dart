@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
+import 'package:wellnesshub/views/mainpage.dart';
 import '../core/helper_functions/simplify_errormessage.dart';
 import '../core/models/fitness_plan/planexercises_model.dart';
 import '../core/services/workout_plan/workoutplan_service.dart';
@@ -35,10 +36,55 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
   }
 
   @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   final isDark = Theme.of(context).brightness == Brightness.dark;
+
+  @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       backgroundColor: const Color(0xFF7F9CF5),
-      appBar: CustomAppbar(title: ""),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.all(6),
+          child: Container(
+            decoration: BoxDecoration(
+                color: isDark ? Colors.black : const Color(0xFFE0E0E0),
+                borderRadius: BorderRadius.circular(32),
+                border: Border.all(
+                    color: isDark ? Colors.blue : const Color(0xFFE0E0E0)
+                )
+            ),
+            child: IconButton(
+              splashRadius: 24.0,
+              icon: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: Color(0xff0095FF),
+              ),
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(context,
+                  MaterialPageRoute(builder: (_) => MainPage(selectedIndex: 3)),
+                        (Route<dynamic> route) => false,);
+              },
+            ),
+          ),
+        ),
+        centerTitle: true,
+        title: Text(
+          "",
+          style: TextStyle(
+            color: Color(0xff0095FF),
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: FutureBuilder<ExercisePlan>(
           future: _exercisePlanFuture,

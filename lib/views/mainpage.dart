@@ -7,7 +7,8 @@ import 'package:wellnesshub/views/progress.dart';
 import 'package:wellnesshub/views/settings/setting_page.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  const MainPage({super.key, required this.selectedIndex});
+  final int selectedIndex;
   static const routeName = 'MainPage';
 
   @override
@@ -15,7 +16,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
 
   final List<Widget> _pages = [
     HomePage(),
@@ -24,6 +25,12 @@ class _MainPageState extends State<MainPage> {
     BMICalculator(),
     SettingPage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.selectedIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +43,7 @@ class _MainPageState extends State<MainPage> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: isDark ? Colors.black : Colors.white, // change in dark mode
+          color: isDark ? Colors.black : Colors.white,
           boxShadow: [
             BoxShadow(
               blurRadius: 20,
@@ -52,12 +59,11 @@ class _MainPageState extends State<MainPage> {
               child: GNav(
                 rippleColor: Colors.blueGrey,
                 hoverColor: Colors.blue,
-                backgroundColor: isDark ? Colors.black : Colors.white, // change in dark mode
+                backgroundColor: isDark ? Colors.black : Colors.white,
                 gap: 4,
                 activeColor: Colors.white,
                 iconSize: 24,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: const Duration(milliseconds: 400),
                 tabBackgroundColor: Colors.blue,
                 color: Colors.blueAccent,

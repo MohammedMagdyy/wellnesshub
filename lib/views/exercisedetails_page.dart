@@ -6,6 +6,8 @@ import '../core/widgets/exercise_details.dart';
 class ExercisePageDetails extends StatelessWidget {
   static const routeName = 'ExercisePageDetails';
   final Exercise exercise;
+  final bool plan;
+  final bool isFav;
   final int? weekId;
   final int? dayId;
   //final bool isFromFitnessPlan;
@@ -13,7 +15,8 @@ class ExercisePageDetails extends StatelessWidget {
   const ExercisePageDetails({
     super.key,
     required this.exercise,
-    //required this.isFromFitnessPlan,
+    required this.isFav,
+    required this.plan,
     this.weekId,
     this.dayId,
   });
@@ -25,6 +28,8 @@ class ExercisePageDetails extends StatelessWidget {
         appBar: CustomAppbar(title: "Exercise"),
         body:ExerciseDetails(
           exercise: exercise,
+          plan: plan,
+          isFav: isFav,
           dayId: dayId,
           weekId: weekId,
         ),

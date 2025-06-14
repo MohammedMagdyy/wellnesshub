@@ -1,36 +1,94 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/core/widgets/custom_appbar.dart';
-import 'package:wellnesshub/core/widgets/videos.dart';
-import 'package:wellnesshub/core/utils/appimages.dart';
+import '../core/helper_class/favourite_manager.dart';
+import '../core/models/fitness_plan/exercises_model.dart';
+import '../core/widgets/ExerciseCard.dart';
 
-
-class FavoritesPage extends StatelessWidget {
+class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
   static const routeName = 'Favorites';
 
   @override
+  State<FavoritesPage> createState() => _FavoritesPageState();
+}
+
+class _FavoritesPageState extends State<FavoritesPage> {
+  @override
+  void initState() {
+    super.initState();
+    // Load favorites initially
+    FavoriteManager.instance.loadFavorites();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(title: "Favourites"),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: SafeArea(
-          child: Column(
-            children: const [
-              FavoriteItem(imagePath: Assets.assetsImagesSquats, title: "Squat Exercise"),
-              SizedBox(height: 15),
-              FavoriteItem(imagePath: Assets.assetsImagesStretches, title: "Full Body Stretching"),
-              SizedBox(height: 15),
-              FavoriteItem(imagePath: Assets.assetsImagesPlank, title: "Plank With Hip Twist"),
-              SizedBox(height: 15),
-              FavoriteItem(imagePath: Assets.assetsImagesSquats, title: "Push-Ups"),
-              SizedBox(height: 15),
-              FavoriteItem(imagePath: Assets.assetsImagesStretches, title: "Jumping Jacks"),
-              SizedBox(height: 15),
-              FavoriteItem(imagePath: Assets.assetsImagesPlank, title: "Morning Yoga"),
-              SizedBox(height: 15),
-            ],
-          ),
+      backgroundColor:  Colors.black,
+      body: SafeArea(
+        child: ValueListenableBuilder<List<Exercise>>(
+          valueListenable: FavoriteManager.instance.favorites,
+          builder: (context, exercises, child) {
+            if (exercises.isEmpty) {
+              return const Center(
+                child: Text(
+                  'No favourite exercises found.',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            }
+
+            return CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  automaticallyImplyLeading: false,
+                  pinned: true,
+                  expandedHeight: 120.0,
+                  backgroundColor: Colors.black,
+                  flexibleSpace: const FlexibleSpaceBar(
+                    titlePadding: EdgeInsets.only(left: 20, bottom: 16),
+                    title: Text(
+                      'Favourites Exercises',
+                      style: TextStyle(
+                        color: Color(0xFFFCD60D),
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                      final exercise = exercises[index];
+                      final isFav = FavoriteManager.instance.isFavorite(exercise.id);
+
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        child: ExerciseCard(
+                          isFav: true,
+                          exercise: exercise,
+                          isFavorite: isFav,
+                          onFavoriteToggle: () async {
+                            if (isFav) {
+                              await FavoriteManager.instance.removeFavorite(exercise);
+                            } else {
+                              await FavoriteManager.instance.addFavorite(exercise);
+                            }
+                          },
+                        ),
+                      );
+                    },
+                    childCount: exercises.length,
+                  ),
+                ),
+
+              ],
+            );
+          },
         ),
       ),
     );

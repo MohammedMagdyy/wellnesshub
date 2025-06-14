@@ -152,7 +152,7 @@ class _Sign_UpState extends State<SignUp> {
                             }
 
                             await storage.saveUserData(
-                              email: email!,
+                              email: email!.toLowerCase(),
                               fname: firstName!,
                               lname: lastName!,
                               password: password!,

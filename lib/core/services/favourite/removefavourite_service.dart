@@ -1,37 +1,37 @@
 import 'package:dio/dio.dart';
+import 'package:wellnesshub/core/models/fitness_plan/exercises_model.dart';
 import '../../helper_class/accesstoken_storage.dart';
 import '../../helper_class/api.dart';
 import 'dart:io';
 import 'dart:async';
+
 import '../../helper_class/network_exception_class.dart';
 
-class DoneService{
-  Future<Map<String, dynamic>> exerciseDone(int exerciseID,int weekID,int dayID) async {
+class RemoveFromFavouriteService {
+  Future<Map<String,String>>removeFromFav(int exerciseId) async {
     try {
       final token = await LocalStorageAccessToken.getToken();
       final response = await API().get(
-        url: 'http://10.0.2.2:8080/exercise/done',
-        data:{
-          "exerciseID":exerciseID,
-          "weekID":weekID,
-          "dayID":dayID,
-        },
+        url: 'http://10.0.2.2:8080/exercise/removeFromFavourite?exerciseID=$exerciseId',
         token: token,
       ).timeout(const Duration(seconds: 10));
 
-      print('API response received: ${response.runtimeType}'); // Debug
-
-      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       // Handle both array and single object responses
-      if (response != null && response['accessToken'] != null) {
-        await LocalStorageAccessToken.saveToken(response['accessToken']);
-        return {'success': true, 'message': 'Login successful'};
-      }
-      return {
-        'success': false,
-        'message': response['message'] ?? 'Invalid credentials'
-      };
+      if (response is Map<String, dynamic>) {
+        final status = response['status'];
+        final message = response['message'];
 
+        if (status is String && message is String) {
+          return {
+            'status': status,
+            'message': message,
+          };
+        } else {
+          throw FormatException('Invalid status or message format.');
+        }
+      } else {
+        throw FormatException('Unexpected response format: $response');
+      }
     } on DioException catch (e) {
       print('DioError: ${e.response?.data}'); // Debug
       if (e.response?.statusCode == 401) {
@@ -43,7 +43,7 @@ class DoneService{
       } else if (e.response?.statusCode == 500) {
         throw NetworkException('Our servers are having issues. Please try again later.');
       } else {
-        throw NetworkException('Failed to Mark as Done: ${e.message}');
+        throw NetworkException('Failed to load exercises: ${e.message}');
       }
     } on SocketException {
       throw NetworkException('No internet connection. Please check your network settings.');
@@ -56,5 +56,5 @@ class DoneService{
       throw NetworkException('An unexpected error occurred: ${e.toString()}');
     }
   }
-
 }
+

@@ -11,7 +11,7 @@ SnackBar buildCustomSnackbar({
     elevation: 0,
     behavior: SnackBarBehavior.floating,
     backgroundColor: Colors.transparent,
-    duration: Duration(seconds: 7),
+    duration: Duration(seconds: 1),
     
     
     content: AwesomeSnackbarContent(
