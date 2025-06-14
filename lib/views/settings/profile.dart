@@ -171,7 +171,7 @@ void _showNumberPickerDialog(String field) {
                         weightController.text = currentValue.toString();
                         break;
                       case 'Height':
-                        height = currentValue ;
+                        height = currentValue.toDouble() ;
                         heightController.text = currentValue.toString();
                         break;
                     }
@@ -295,7 +295,7 @@ void _showNumberPickerDialog(String field) {
                 setState(() {
                   age = parsedAge;
                   weight = parsedWeight;
-                  height = parsedHeight;
+                  height = parsedHeight.toDouble();
                 });
 
               },
