@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:numberpicker/numberpicker.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/profile_info_card.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
@@ -109,6 +110,87 @@ Future<void> _pickImage() async {
   }
 }
 
+void _showNumberPickerDialog(String field) {
+  final isDark = Theme.of(context).brightness == Brightness.dark;
+  int currentValue;
+  switch (field) {
+    case 'Age':
+      currentValue = int.tryParse(ageController.text) ?? 20;
+      break;
+    case 'Weight':
+      currentValue = int.tryParse(weightController.text) ?? 60;
+      break;
+    case 'Height':
+      currentValue = int.tryParse(heightController.text) ?? 170;
+      break;
+    default:
+      currentValue = 0;
+  }
+
+  showDialog(
+    context: context,
+    builder: (context) {
+      return StatefulBuilder(
+        builder: (context, setStateDialog) {
+          return AlertDialog(
+            backgroundColor: isDark? const Color.fromARGB(255, 0, 0, 0) : const Color.fromARGB(255, 200, 200, 200),
+            title: Text('Select $field'),
+            content: SizedBox(
+              height: 150,
+              child: NumberPicker(
+                selectedTextStyle: TextStyle(
+                  color: Colors.lightBlue,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold
+                ),
+                textStyle: TextStyle(
+                  color: isDark? Colors.white : Colors.black,
+                  fontSize: 20
+                ),
+                value: currentValue,
+                minValue: 0,
+                maxValue: 200,
+                onChanged: (newValue) {
+                  setStateDialog(() {
+                    currentValue = newValue;
+                  });
+                },
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    switch (field) {
+                      case 'Age':
+                        age = currentValue ;
+                        ageController.text = currentValue.toString();
+                        break;
+                      case 'Weight':
+                        weight = currentValue ;
+                        weightController.text = currentValue.toString();
+                        break;
+                      case 'Height':
+                        height = currentValue.toDouble() ;
+                        heightController.text = currentValue.toString();
+                        break;
+                    }
+                  });
+                  Navigator.pop(context);
+                },
+                child: const Text('Done', style: TextStyle(
+                  color: Colors.lightBlue,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold
+                ),),
+              )
+            ],
+          );
+        },
+      );
+    },
+  );
+}
 
 
 
@@ -162,28 +244,60 @@ Future<void> _pickImage() async {
             const SizedBox(height: 15),
             CustomTextFieldProfile(name: "Last Name", controller: lastNameController),
             const SizedBox(height: 15),
-            CustomTextFieldProfile(name: "Email", controller: emailController,
-              readOnly: true,),
+            AbsorbPointer(
+              child: CustomTextFieldProfile(name: "Email", controller: emailController,
+                readOnly: true,),
+            ),
             const SizedBox(height: 15),
-            CustomTextFieldProfile(name: "Age", controller: ageController),
+            GestureDetector(
+              onTap: () => _showNumberPickerDialog("Age"),
+              child: AbsorbPointer(
+                child: CustomTextFieldProfile(name: "Age", controller: ageController ,
+                  readOnly: true, editable: true,),
+              ),
+            ),
             const SizedBox(height: 15),
-            CustomTextFieldProfile(name: "Weight", controller: weightController),
+            GestureDetector(
+              onTap: () => _showNumberPickerDialog("Weight"),
+              child: AbsorbPointer(
+                child: CustomTextFieldProfile(name: "Weight", controller: weightController,
+                  readOnly: true , editable:  true,),
+              ),
+            ),
             const SizedBox(height: 15),
-            CustomTextFieldProfile(name: "Height", controller: heightController),
+            GestureDetector(
+              onTap: () => _showNumberPickerDialog("Height"),
+              child: AbsorbPointer(
+                child: CustomTextFieldProfile(name: "Height", controller: heightController,
+                  readOnly: true, editable: true,),
+              ),
+            ),
 
             const SizedBox(height: 25),
             CustomButton(
               name: "Update",
               width: 200,
               color: Colors.white,
-              on_Pressed: () {
+              on_Pressed: ()async {
                 String fullName = firstNameController.text;
                 print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                 print(lastNameController);
                 print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                setState(() {
 
+                int parsedAge = int.tryParse(ageController.text) ?? 0;
+                int parsedWeight = int.tryParse(weightController.text) ?? 0;
+                int parsedHeight = int.tryParse(heightController.text) ?? 0;
+
+                await storage.saveUserAge(parsedAge);
+                await storage.saveUserWeight(parsedWeight);
+                await storage.saveUserHeight(parsedHeight);
+
+                setState(() {
+                  age = parsedAge;
+                  weight = parsedWeight;
+                  height = parsedHeight.toDouble();
                 });
+
               },
             ),
           ],
