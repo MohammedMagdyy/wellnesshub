@@ -11,18 +11,19 @@ class FullBodyExercisePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: CustomAppbar(title: " "),
-      backgroundColor: const Color(0xFF7F9CF5),
+      backgroundColor: isDark?Colors.black: Color(0xFF7F9CF5),
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[
-            const SliverAppBar(
+            SliverAppBar(
               automaticallyImplyLeading: false,
               pinned: true,
               expandedHeight: 180.0,
-              backgroundColor: Color(0xFF7F9CF5),
-              flexibleSpace: FlexibleSpaceBar(
+              backgroundColor: isDark?Colors.black:Color(0xFF7F9CF5),
+              flexibleSpace: const FlexibleSpaceBar(
                 titlePadding: EdgeInsets.only(left: 20, bottom: 16),
                 title: Text(
                   'BE STRONGER!',
