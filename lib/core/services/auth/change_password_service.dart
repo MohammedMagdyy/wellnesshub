@@ -5,7 +5,7 @@ class ChangePasswordService {
   Future<Map<String, dynamic>> changePasswordForRestoreAccount(String email, String password) async {
     try {
       final response = await API().post(
-        url: 'http://10.0.2.2:8080/changePassword?password=$password&email=$email',
+        url: 'https://wellness-production.up.railway.app/changePassword?password=$password&email=$email',
         data: null,
         token: null,
       );

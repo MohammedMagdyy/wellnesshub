@@ -11,7 +11,7 @@ class getUserInfoService {
     try {
       final token = await LocalStorageAccessToken.getToken();
       final response = await API().get(
-        url: 'http://10.0.2.2:8080/getUserInfo',
+        url: 'https://wellness-production.up.railway.app/getUserInfo',
         token: token,
       ).timeout(const Duration(seconds: 10));
 

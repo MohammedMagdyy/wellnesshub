@@ -8,7 +8,7 @@ class DeleteAccountService {
         dynamic token = await LocalStorageAccessToken.getToken();
 
       final response = await API().delete(
-        url: 'http://10.0.2.2:8080/deleteAccount',
+        url: 'https://wellness-production.up.railway.app/deleteAccount',
         token: token,
       );
 

@@ -34,7 +34,7 @@ class GoogleLoginService {
   Future<void> _loginToBackend(BuildContext context, String idToken) async {
     try {
       final response = await _dio.post(
-        'http://10.0.2.2:8080/google/login',
+        'https://wellness-production.up.railway.app/google/login',
         data: {'idToken': idToken},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );

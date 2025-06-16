@@ -6,7 +6,7 @@ class LoginService {
   Future<Map<String, dynamic>> login(String email, String password) async {
     try {
       final response = await API().post(
-        url: 'http://10.0.2.2:8080/login',
+        url: 'https://wellness-production.up.railway.app/login',
         data: {'email': email, 'password': password},
         token: null,
       );

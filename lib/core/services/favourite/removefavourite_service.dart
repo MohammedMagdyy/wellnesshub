@@ -12,7 +12,7 @@ class RemoveFromFavouriteService {
     try {
       final token = await LocalStorageAccessToken.getToken();
       final response = await API().get(
-        url: 'http://10.0.2.2:8080/exercise/removeFromFavourite?exerciseID=$exerciseId',
+        url: 'https://wellness-production.up.railway.app/exercise/removeFromFavourite?exerciseID=$exerciseId',
         token: token,
       ).timeout(const Duration(seconds: 10));
 

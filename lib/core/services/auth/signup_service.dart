@@ -7,7 +7,7 @@ class SignupService {
   Future<Map<String, dynamic>> signup(String fname,String lname,String email, String password) async {
     try {
       final response = await API().post(
-        url: 'http://10.0.2.2:8080/register',
+        url: 'https://wellness-production.up.railway.app/register',
         data: {'firstName': fname,'lastName': lname,'email': email, 'password': password},
         token: null,
       );
@@ -47,7 +47,7 @@ class SignupService {
       print('Sending user info: $userInfoJson'); // Debug log
 
       final response = await API().post(
-        url: 'http://10.0.2.2:8080/saveUserInfo?userEmail=$email',
+        url: 'https://wellness-production.up.railway.app/saveUserInfo?userEmail=$email',
         data: userInfoJson, // Send JSON instead of raw object
          // Use the token from login
       );
@@ -90,20 +90,3 @@ class SignupService {
 
 
 
-/*
- try {
-      final response = await _dio.post(
-        'https://your-backend.com/api/login',
-        data: {'email': email, 'password': password},
-        options: Options(headers: {'Content-Type': 'application/json'}),
-      );
-
-      if (response.statusCode == 200 && response.data['token'] != null) {
-        LocalStorage.saveToken(response.data['token']);
-        return true;
-      }
-    } on DioException catch (e) {
-      print("Login error: ${e.response?.data ?? e.message}");
-    }
-    return false;
-*/

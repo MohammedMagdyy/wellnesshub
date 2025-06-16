@@ -11,7 +11,7 @@ class SwapService{
     try {
       final token = await LocalStorageAccessToken.getToken();
       final response = await API().get(
-        url: 'http://10.0.2.2:8080/exercise/swap?exerciseID=$exerciseId',
+        url: 'https://wellness-production.up.railway.app/exercise/swap?exerciseID=$exerciseId',
 
         token: token,
       ).timeout(const Duration(seconds: 10));
@@ -58,7 +58,7 @@ class SwapService{
     try {
       final token = await LocalStorageAccessToken.getToken();
       final response = await API().post(
-        url: 'http://10.0.2.2:8080/exercise/setSwap',
+        url: 'https://wellness-production.up.railway.app/exercise/setSwap',
         data:{
           "dayID":dayID,
           "weekID":weekID,

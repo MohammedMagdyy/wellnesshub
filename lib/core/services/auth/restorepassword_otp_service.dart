@@ -6,7 +6,7 @@ class RestorePasswordService {
   Future<Map<String, dynamic>> restorePassword(String email) async {
     try {
       final response = await API().post(
-        url: 'http://10.0.2.2:8080/changePasswordRequest?email=$email',
+        url: 'https://wellness-production.up.railway.app/changePasswordRequest?email=$email',
         token: null,
         data: null,  // Assuming data should be null for this POST request, adjust if needed
       );

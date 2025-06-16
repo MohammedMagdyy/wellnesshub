@@ -23,7 +23,7 @@ class FacebookLoginService {
   Future<void> _loginToBackend(BuildContext context, String fbAccessToken) async {
     try {
       final response = await _dio.post(
-        'http://10.0.2.2:8080/facebook/login',
+        'https://wellness-production.up.railway.app/facebook/login',
         data: {'accessToken': fbAccessToken},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );

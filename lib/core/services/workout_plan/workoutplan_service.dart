@@ -10,7 +10,7 @@ class WorkoutPlanService {
     dynamic token = await LocalStorageAccessToken.getToken();
     try {
       final response = await API().get(
-        url: 'http://10.0.2.2:8080/workoutPlan/getUserPlan',
+        url: 'https://wellness-production.up.railway.app/workoutPlan/getUserPlan',
         token: token,
       ).timeout(const Duration(seconds: 10)); // Add timeout
 

@@ -14,7 +14,7 @@ class SpecificExerciseService {
       print('Fetching exercises for $regionMuscle with token: ${token?.substring(0, 5)}...'); // Debug
 
       final response = await API().get(
-        url: 'http://10.0.2.2:8080/home/muscleExercises?regionMuscle=$regionMuscle',
+        url: 'https://wellness-production.up.railway.app/home/muscleExercises?regionMuscle=$regionMuscle',
         token: token,
       ).timeout(const Duration(seconds: 10));
 

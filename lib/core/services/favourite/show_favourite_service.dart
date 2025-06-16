@@ -11,7 +11,7 @@ class ShowFavouriteService {
     try {
       final token = await LocalStorageAccessToken.getToken();
       final response = await API().get(
-        url: 'http://10.0.2.2:8080/favourite/getFavouriteExercises',
+        url: 'https://wellness-production.up.railway.app/favourite/getFavouriteExercises',
         token: token,
       ).timeout(const Duration(seconds: 10));
 

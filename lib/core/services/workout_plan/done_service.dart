@@ -10,7 +10,7 @@ class DoneService{
     try {
       final token = await LocalStorageAccessToken.getToken();
       final response = await API().get(
-        url: 'http://10.0.2.2:8080/exercise/done',
+        url: 'https://wellness-production.up.railway.app/exercise/done',
         data:{
           "exerciseID":exerciseID,
           "weekID":weekID,

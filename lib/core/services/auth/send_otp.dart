@@ -6,7 +6,7 @@ class OTP {
   Future<Map<String, dynamic>> activeOtp({required String email, required String username}) async {
     try {
       final response = await API().post(
-        url: 'http://10.0.2.2:8080/active?email=$email&userName=$username',
+        url: 'https://wellness-production.up.railway.app/active?email=$email&userName=$username',
         token: null,
         data: null,
       );
@@ -61,7 +61,7 @@ class OTP {
   Future<Map<String, dynamic>> verifyOtp({required String email, required String code}) async {
     try {
       final response = await API().post(
-        url: 'http://10.0.2.2:8080/verify?email=$email&code=$code',
+        url: 'https://wellness-production.up.railway.app/verify?email=$email&code=$code',
         token: null,
         data: null,
       );
