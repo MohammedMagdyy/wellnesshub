@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/views/mainpage.dart';
 import '../core/helper_functions/simplify_errormessage.dart';
 import '../core/models/fitness_plan/planexercises_model.dart';
@@ -47,7 +46,8 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF7F9CF5),
+      //backgroundColor: const Color(0xFF7F9CF5),
+      backgroundColor: isDark ? Colors.black : const Color(0xFF7F9CF5),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -86,6 +86,8 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
         ),
       ),
       body: SafeArea(
+        child:RefreshIndicator(
+        onRefresh: _retryFetch,
         child: FutureBuilder<ExercisePlan>(
           future: _exercisePlanFuture,
           builder: (context, snapshot) {
@@ -119,17 +121,18 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
 
             return CustomScrollView(
               slivers: <Widget>[
-                const SliverAppBar(
+                SliverAppBar(
                   automaticallyImplyLeading: false,
                   pinned: true,
                   expandedHeight: 140.0,
-                  backgroundColor: Color(0xFF7F9CF5),
+                  backgroundColor:isDark ? Colors.black :  Color(0xFF7F9CF5),
+
                   flexibleSpace: FlexibleSpaceBar(
-                    titlePadding: EdgeInsets.only(left: 20, bottom: 16),
+                    titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
                     title: Text(
                       'Your Fitness Plan!',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.blue,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
@@ -151,7 +154,12 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                         ),
                         const Text(
                           "Week",
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+
                         ),
                         const SizedBox(height: 10),
                         CustomSelectableListBar(
@@ -173,7 +181,11 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                         const SizedBox(height: 20),
                         const Text(
                           "Day",
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 22,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold
+                          ),
                         ),
                         const SizedBox(height: 10),
                         CustomSelectableListBar(
@@ -194,10 +206,11 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                         const SizedBox(height: 20),
                         ...day.exercises.map((exercise) =>
                             MainExerciseCardFitnessPlan(
-                          exercise: exercise,
-                          weekId: week.id,
-                          dayId: day.id,
-                        ),),
+                              exercise: exercise,
+                              weekId: week.id,
+                              dayId: day.id,
+                              onSwapSuccess: _retryFetch,
+                            ),),
                       ],
                     ),
                   ),
@@ -205,26 +218,28 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
               ],
             );
           },
-        ),
+        ), 
+          
+        )
       ),
     );
   }
 
 }
 
-class MyCustomCard extends StatelessWidget {
-  const MyCustomCard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 160,
-      decoration: BoxDecoration(
-        color: Colors.lightGreen,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: const Center(child: Text("Magdy")),
-    );
-  }
-}
+// class MyCustomCard extends StatelessWidget {
+//   const MyCustomCard({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: 160,
+//       decoration: BoxDecoration(
+//         color: Colors.lightGreen,
+//         borderRadius: BorderRadius.circular(10),
+//       ),
+//       child: const Center(child: Text("Magdy")),
+//     );
+//   }
+// }
 

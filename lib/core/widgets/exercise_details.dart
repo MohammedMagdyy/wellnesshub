@@ -133,6 +133,25 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
     _videoPlayerController.dispose();
     _chewieController?.dispose();
   }
+  void _FavouriteActionFunc()async{
+    try {
+      if (isFavorited) {
+        await FavoriteManager.instance.removeFavorite(widget.exercise);
+      } else {
+        await FavoriteManager.instance.addFavorite(widget.exercise);
+      }
+      // FavoriteManager updates state internally; no manual reload needed
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        buildCustomSnackbar(
+          title: "Error",
+          message: e.toString(),
+          type: ContentType.failure,
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -266,23 +285,7 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
                     size: 40,
                   ),
                   onPressed: () async {
-                    try {
-                      if (isFavorited) {
-                        await FavoriteManager.instance.removeFavorite(widget.exercise);
-                      } else {
-                        await FavoriteManager.instance.addFavorite(widget.exercise);
-                      }
-                      // FavoriteManager updates state internally; no manual reload needed
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        buildCustomSnackbar(
-                          title: "Error",
-                          message: e.toString(),
-                          type: ContentType.failure,
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }
+                    _FavouriteActionFunc();
                   },
                 ),
               ),
