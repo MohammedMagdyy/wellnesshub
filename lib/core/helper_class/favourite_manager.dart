@@ -16,7 +16,7 @@ class FavoriteManager {
   // Load favorites from backend
   Future<void> loadFavorites() async {
     try {
-      final favs = await ShowFavouriteService().ShowFavourites();
+      final favs = await ShowFavouriteService().showFavourites();
       favorites.value = favs;
       favoriteIds
         ..clear()

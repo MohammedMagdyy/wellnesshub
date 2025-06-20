@@ -71,15 +71,46 @@ class _SpecificExercisePageState extends State<SpecificExercisePage> {
             }
 
             // Error States
-            if (snapshot.hasError) {
-              if (snapshot.error.toString().contains('server')) {
+            else if (snapshot.hasError) {
+              final errorString = snapshot.error.toString().toLowerCase();
+
+              if (errorString.contains('session timeout')) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text("Session Expired"),
+                        content: const Text("Your session has timed out. Please log in again."),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                "LoginPage", // or whatever your login route is
+                                    (route) => false,
+                              );
+                            },
+                            child: const Text("OK"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                });
+
+                return const SizedBox(); // Return empty widget after dialog is scheduled
+              }
+
+              if (errorString.contains('server')) {
                 return ServerErrorWidget(onRetry: _retryFetch);
               }
+
               return ErrorDisplayWidget(
                 errorMessage: simplifyErrorMessage(snapshot.error.toString()),
                 onRetry: _retryFetch,
               );
             }
+
 
             // Empty State
             if (!snapshot.hasData || snapshot.data!.isEmpty) {

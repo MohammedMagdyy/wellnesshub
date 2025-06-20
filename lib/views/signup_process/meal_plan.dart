@@ -37,7 +37,9 @@ class _MealPlanState extends State<MealPlan> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
-              horizontal: width * 0.05, vertical: height * 0.02),
+            horizontal: width * 0.05,
+            vertical: height * 0.02,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -47,13 +49,15 @@ class _MealPlanState extends State<MealPlan> {
                   "Vegetarian", "Vegan", "Gluten-Free", "Keto", "Paleo", "No preferences"
                 ],
                 selectedValue: selectedDietaryPreference,
-                onChanged: (value) => setState(() => selectedDietaryPreference = value),
+                onChanged: (value) {
+                  if (!mounted) return;
+                  setState(() => selectedDietaryPreference = value);
+                },
               ),
-              // ... [other MealPlanSections remain the same] ...
               SizedBox(height: height * 0.04),
               Center(
                 child: _isLoading
-                    ? CircularProgressIndicator(
+                    ? const CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
                 )
                     : CustomButton(
@@ -61,6 +65,7 @@ class _MealPlanState extends State<MealPlan> {
                   color: Colors.black,
                   name: 'Submit',
                   on_Pressed: () async {
+                    if (!mounted) return;
                     setState(() => _isLoading = true);
 
                     try {
@@ -69,7 +74,28 @@ class _MealPlanState extends State<MealPlan> {
                         throw Exception('User credentials not found in local storage');
                       }
 
-                      // 1. Login to get token
+                      final signupService = SignupService();
+                      final signupResult = await signupService.signup(
+                        userinfo['fname']!,
+                        userinfo['lname']!,
+                        userinfo['email']!,
+                        userinfo['password']!,
+                      );
+
+                      if (signupResult['success'] == true) {
+                        print("@@@@@@@@@@@OK@@@@@@@@@@@@@@@@@@@");
+                      } else {
+                        // Show error message to user
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(signupResult['message'] ?? 'Signup failed'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+
+
+
                       final loginResult = await LoginService().login(
                         userinfo['email']!,
                         userinfo['password']!,
@@ -80,9 +106,7 @@ class _MealPlanState extends State<MealPlan> {
                       }
 
                       final token = await LocalStorageAccessToken.getToken();
-                      print('Token: $token'); // Debug token
-
-                      // 2. Prepare user info with all required fields
+                      print('Token: $token');
 
                       final userInfo = await storage.getUserInfoModel();
                       final updatedUserInfo = UserInfo(
@@ -90,34 +114,33 @@ class _MealPlanState extends State<MealPlan> {
                         age: userInfo.age ?? 25,
                         weight: userInfo.weight ?? 70,
                         height: userInfo.height ?? 170,
-                        goal: userInfo.goal ?? 'WEIGHT_CUT', // Default to a valid backend enum
-                        activityLevel: userInfo.activityLevel ?? 'Sedentary', // Exact match
-                        experienceLevel: userInfo.experienceLevel ?? 'BEGINNER', // Uppercase
+                        goal: userInfo.goal ?? 'WEIGHT_CUT',
+                        activityLevel: userInfo.activityLevel ?? 'Sedentary',
+                        experienceLevel: userInfo.experienceLevel ?? 'BEGINNER',
                         daysPerWeek: userInfo.daysPerWeek ?? 3,
                       );
 
-                      // 3. Save user info with token in headers
-                      final userInfoResult = await SignupService().saveUserInfo(
+                      final userInfoResult = await signupService.saveUserInfo(
                         userinfo['email']!,
                         updatedUserInfo,
-
                       );
 
                       print('SaveUserInfo response: $userInfoResult');
 
                       if (userInfoResult['success'] == true) {
+                        if (!mounted) return;
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           'MainPage',
                               (Route<dynamic> route) => false,
                         );
                       } else {
-                        // More detailed error message
                         throw Exception(userInfoResult['message'] ??
                             'Failed to save user info. Status code: ${userInfoResult['statusCode']}');
                       }
                     } catch (e, stackTrace) {
                       print('Error details: $e\n$stackTrace');
+                      if (!mounted) return;
                       final snackBar = buildCustomSnackbar(
                         backgroundColor: Colors.redAccent,
                         title: 'Error!',
@@ -128,6 +151,7 @@ class _MealPlanState extends State<MealPlan> {
                         ..hideCurrentSnackBar()
                         ..showSnackBar(snackBar);
                     } finally {
+                      if (!mounted) return;
                       setState(() => _isLoading = false);
                     }
                   },

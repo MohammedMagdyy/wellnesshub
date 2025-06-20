@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/helper_functions/build_customSnackbar.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
 import '../../core/services/auth/signup_service.dart';
@@ -158,18 +157,18 @@ class _Sign_UpState extends State<SignUp> {
                               password: password!,
                             );
 
-                            SignupService signupService = SignupService();
-                            final signupResult = await signupService.signup(
-                              firstName!,
-                              lastName!,
-                              email!,
-                              password!,
-                            );
-
-                            if (!signupResult['success']) {
-                              throw Exception(
-                                  signupResult['message'] ?? 'Signup failed');
-                            }
+                            // SignupService signupService = SignupService();
+                            // final signupResult = await signupService.signup(
+                            //   firstName!,
+                            //   lastName!,
+                            //   email!,
+                            //   password!,
+                            // );
+                            //
+                            // if (!signupResult['success']) {
+                            //   throw Exception(
+                            //       signupResult['message'] ?? 'Signup failed');
+                            // }
 
                             Navigator.pushNamed(context, 'VerifyEmailPage');
                           } catch (e) {

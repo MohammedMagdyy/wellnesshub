@@ -3,6 +3,7 @@ import 'package:numberpicker/numberpicker.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 
+import '../../core/services/auth/signup_service.dart';
 import '../../core/utils/global_var.dart';
 import '../../core/widgets/custom_appbar.dart';
 
@@ -79,10 +80,36 @@ class _WeightPageState extends State<WeightPage> {
           ),
         ),
         SizedBox(height: 100,),
-        CustomButton(name: "Continue", width: 200, color: Colors.black , on_Pressed: () async{
-          await storage.saveUserWeight(_weight);
-          Navigator.pushNamed(context, 'HeightPage');
-        },)
+        CustomButton(
+          name: "Continue",
+          width: 200,
+          color: Colors.black,
+          on_Pressed: () async {
+            // final userinfo = await storage.getUserData();
+            // final signupService = SignupService();
+            // final signupResult = await signupService.signup(
+            //   userinfo['fname']!,
+            //   userinfo['lname']!,
+            //   userinfo['email']!,
+            //   userinfo['password']!,
+            // );
+            //
+            // if (signupResult['success'] == true) {
+            //   await storage.saveUserWeight(_weight);
+            //   Navigator.pushNamed(context, 'HeightPage');
+            // } else {
+            //   // Show error message to user
+            //   ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(
+            //       content: Text(signupResult['message'] ?? 'Signup failed'),
+            //       backgroundColor: Colors.red,
+            //     ),
+            //   );
+            // }
+            Navigator.pushNamed(context, 'HeightPage');
+
+          },
+        )
       ],
     ),
     );

@@ -7,7 +7,9 @@ import '../helper_class/userInfo_local.dart';
 import '../services/getUserInfo_service.dart';
 
 class Header extends StatefulWidget {
-  const Header({super.key});
+  const Header({
+    super.key,
+  });
 
   @override
   State<Header> createState() => _HeaderState();
@@ -17,24 +19,36 @@ class _HeaderState extends State<Header> {
   String _name = "User"; // Use _name for private variable
 
   File? _profileImage;
-
   @override
   void initState() {
     super.initState();
-    _loadUserInfo();
     _loadProfileImage();
+    _initializeUserName();
   }
 
-  Future<void> _loadUserInfo() async {
-
-      final userData = await getUserInfoService().getUserInfo();
-      await UserInfoLocalStorage.saveUserInfoForProfile(userData);
-      if (mounted) {
-        setState(() {
-          _name = userData.firstName?? "User";
-        });
-      }
+  Future<void> _initializeUserName() async {
+    final userData = await GetUserInfoService().getUserInfo();
+    userNameNotifier.value = userData.firstName ?? "User";
   }
+
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _loadUserInfo();
+  //   _loadProfileImage();
+  // }
+
+  // Future<void> _loadUserInfo() async {
+  //
+  //      final userData = await GetUserInfoService().getUserInfo();
+  //    // // await UserInfoLocalStorage.saveUserInfoForProfile(userData);
+  //     if (mounted) {
+  //       setState(() {
+  //         _name = userData.firstName?? "User";
+  //       });
+  //     }
+  // }
 
   Future<void> _loadProfileImage() async {
   final prefs = await SharedPreferences.getInstance();
@@ -76,14 +90,20 @@ class _HeaderState extends State<Header> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Hi, $_name", // Use _name here
-                  style: TextStyle(
-                    fontSize: screenWidth * 0.05,
-                    color: const Color(0xff0095FF),
-                    fontWeight: FontWeight.bold,
-                  ),
+                ValueListenableBuilder<String>(
+                  valueListenable: userNameNotifier,
+                  builder: (context, name, _) {
+                    return Text(
+                      "Hi, $name",
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.05,
+                        color: const Color(0xff0095FF),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  },
                 ),
+
                 const Text( // Added const
                   "Let's make your body stronger today!",
                   style: TextStyle(

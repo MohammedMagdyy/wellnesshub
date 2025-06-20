@@ -3,15 +3,17 @@ import 'package:numberpicker/numberpicker.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/profile_info_card.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
-import '../../core/helper_class/userInfo_local.dart';
+import '../../core/models/update_model.dart';
+import '../../core/services/auth/updateprofile_service.dart';
+import '../../core/services/getUserInfo_service.dart';
 import '../../core/utils/global_var.dart';
 import '../../core/widgets/custom_profile_textfield.dart';
-import 'package:wellnesshub/core/utils/global_var.dart';
-import 'package:wellnesshub/core/widgets/custom_profile_textfield.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../core/helper_functions/build_customSnackbar.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -46,17 +48,24 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _loadUserData() async {
-    final storedUserData = await UserInfoLocalStorage.getUserInfoForProfile();
+    //final storedUserData = await UserInfoLocalStorage.getUserInfoForProfile();
+    final userData = await GetUserInfoService().getUserInfo();
 
 
     if (mounted) {
       setState(() {
-        fName = storedUserData!.firstName ?? "User";
-        lName = storedUserData.lastName ?? " ";
-        email =storedUserData.email ?? " ";
-        age = storedUserData.age ?? 0;
-        height = storedUserData.height ;
-        weight =storedUserData.weight ;
+        fName=userData.firstName;
+        lName=userData.lastName;
+        email=userData.email;
+        age=userData.age;
+        height=userData.height;
+        weight=userData.weight;
+        // fName = storedUserData!.firstName ?? "User";
+        // lName = storedUserData.lastName ?? " ";
+        // email =storedUserData.email ?? " ";
+        // age = storedUserData.age ?? 0;
+        // height = storedUserData.height ;
+        // weight =storedUserData.weight ;
 
         firstNameController.text = fName;
         lastNameController.text = lName;
@@ -279,24 +288,76 @@ void _showNumberPickerDialog(String field) {
               width: 200,
               color: Colors.white,
               on_Pressed: ()async {
-                String fullName = firstNameController.text;
-                print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                print(lastNameController);
-                print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                UpdateData updateData = UpdateData(
+                  fName: firstNameController.text,
+                  lName: lastNameController.text,
+                  email: emailController.text,
+                  age: int.tryParse(ageController.text) ?? age ,
+                  weight: int.tryParse(weightController.text)??weight,
+                  height: int.tryParse(heightController.text)??170
+                );
+                try {
+                  final result = await UpdateProfileService().updateProfile(updateData);
 
-                int parsedAge = int.tryParse(ageController.text) ?? 0;
-                int parsedWeight = int.tryParse(weightController.text) ?? 0;
-                int parsedHeight = int.tryParse(heightController.text) ?? 0;
+                  if (result['success']) {
+                    userNameNotifier.value = firstNameController.text;
 
-                await storage.saveUserAge(parsedAge);
-                await storage.saveUserWeight(parsedWeight);
-                await storage.saveUserHeight(parsedHeight);
+                    final updatedUser = await GetUserInfoService().getUserInfo();
 
-                setState(() {
-                  age = parsedAge;
-                  weight = parsedWeight;
-                  height = parsedHeight.toDouble();
-                });
+                    if (mounted) {
+                      setState(() {
+                        fName = updatedUser.firstName ?? "";
+                        lName = updatedUser.lastName ?? "";
+                        email = updatedUser.email ?? "";
+                        age = updatedUser.age ?? 0;
+                        height = updatedUser.height ?? 0;
+                        weight = updatedUser.weight ?? 0;
+
+                        firstNameController.text = fName;
+                        lastNameController.text = lName;
+                        emailController.text = email;
+                        ageController.text = age.toString();
+                        weightController.text = weight.toString();
+                        heightController.text = height.toString();
+
+                        final snackBar = buildCustomSnackbar(
+                          title: 'Success!',
+                          message: result['message'],
+                          backgroundColor: Colors.green,
+                          type: ContentType.success,
+                        );
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(snackBar);
+                      });
+                    }
+                  }else {
+                    final snackBar = buildCustomSnackbar(
+                      title: 'Update Failed!',
+                      message: result['message'],
+                      backgroundColor: Colors.redAccent,
+                      type: ContentType.failure,
+                    );
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(snackBar);
+                  }
+                } catch (e) {
+                  final snackBar = buildCustomSnackbar(
+                    title: 'Error!',
+                    message: e.toString(),
+                    backgroundColor: Colors.redAccent,
+                    type: ContentType.failure,
+                  );
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(snackBar);
+                }
+
+
+
+
+
 
               },
             ),
@@ -306,6 +367,22 @@ void _showNumberPickerDialog(String field) {
     );
   }
 }
+
+// int parsedAge = int.tryParse(ageController.text) ?? 0;
+// int parsedWeight = int.tryParse(weightController.text) ?? 0;
+// int parsedHeight = int.tryParse(heightController.text) ?? 0;
+//
+// await storage.saveUserAge(parsedAge);
+// await storage.saveUserWeight(parsedWeight);
+// await storage.saveUserHeight(parsedHeight);
+//
+// setState(() {
+//   age = parsedAge;
+//   weight = parsedWeight;
+//   height = parsedHeight.toDouble();
+// });
+
+
 
 /*
 on_Pressed: () async {

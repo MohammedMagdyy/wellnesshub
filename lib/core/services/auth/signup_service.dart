@@ -1,58 +1,75 @@
+import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:wellnesshub/core/helper_class/api.dart';
 import 'package:wellnesshub/core/models/sign_up/userinfo_model.dart';
 
 
 class SignupService {
-  Future<Map<String, dynamic>> signup(String fname,String lname,String email, String password) async {
+  Future<Map<String, dynamic>> signup(String fname, String lname, String email, String password) async {
     try {
       final response = await API().post(
-        url: 'https://wellness-production.up.railway.app/register',
-        data: {'firstName': fname,'lastName': lname,'email': email, 'password': password},
+        url: 'http://10.0.2.2:8080/register',
+        data: {
+          'firstName': fname,
+          'lastName': lname,
+          'email': email,
+          'password': password,
+          // 'role': {
+          //   'name': 'USER'
+          // }
+        },
         token: null,
-      );
+      ).timeout(const Duration(seconds: 10));
 
-      // If the response contains an access token, login is successful.
-      if (response != null && response['message'] != null) {
-        return {'success': true, 'message': response['message']};
+      if (response != null && response['status'] == 'success') {
+        return {'success': true, 'message': response['message'] ?? 'Signup successful'};
       } else {
-        // If response does not contain access token, but there is a message, return the message.
+        // Handle backend response with error message
         return {
           'success': false,
-          'message': response['message'] ?? 'SignUp failed'
+          'message': response['message'] ?? 'Signup failed. Please try again.'
         };
       }
+    } on TimeoutException {
+      return {
+        'success': false,
+        'message': 'Server timeout. Please try again later.'
+      };
     } on DioException catch (e) {
-      // Handle error response properly in case of failure.
+      // Handle Dio errors (network issues, etc.)
+      String errorMessage = 'An error occurred. Please try again.';
       if (e.response != null) {
-        // If response contains a message, return it.
-        return {
-          'success': false,
-          'message': e.response?.data['message'] ?? 'An error occurred. Please try again.'
-        };
-      } else {
-        // If there's no response, it means network issue or other error.
-        return {'success': false, 'message': 'An error occurred. Please try again.'};
+        if (e.response?.data is Map && e.response?.data['message'] != null) {
+          errorMessage = e.response?.data['message'];
+        } else if (e.response?.statusCode == 400) {
+          errorMessage = 'Email already exists. Please use a different email.';
+        }
       }
+      return {
+        'success': false,
+        'message': errorMessage
+      };
     } catch (e) {
-      // General catch for unexpected errors.
       print('Unexpected error: $e');
-      return {'success': false, 'message': 'An error occurred. Please try again.'};
+      return {
+        'success': false,
+        'message': 'An unexpected error occurred. Please try again.'
+      };
     }
   }
+
+
   Future<Map<String, dynamic>> saveUserInfo(String email, UserInfo userinfo) async {
     try {
-      // Convert UserInfo to JSON
       final userInfoJson = userinfo.toJson();
-      print('Sending user info: $userInfoJson'); // Debug log
+      print('Sending user info: $userInfoJson');
 
       final response = await API().post(
-        url: 'https://wellness-production.up.railway.app/saveUserInfo?userEmail=$email',
-        data: userInfoJson, // Send JSON instead of raw object
-         // Use the token from login
-      );
+        url: 'http://10.0.2.2:8080/saveUserInfo?userEmail=$email',
+        data: userInfoJson,
+      ).timeout(const Duration(seconds: 10)); // <-- Added timeout
 
-      print('API Response: $response'); // Debug log
+      print('API Response: $response');
 
       if (response != null) {
         if (response['status'] == 'success') {
@@ -61,17 +78,21 @@ class SignupService {
           return {
             'success': false,
             'message': response['message'] ?? 'Failed to save user info',
-            'statusCode': response['statusCode'] // Include status code if available
+            'statusCode': response['statusCode']
           };
         }
       }
       return {'success': false, 'message': 'No response from server'};
+    } on TimeoutException {
+      return {
+        'success': false,
+        'message': 'Server timeout. Please try again later.'
+      };
     } on DioException catch (e) {
       print('DioError: ${e.response?.statusCode} - ${e.response?.data}');
       return {
         'success': false,
-        'message': e.response?.data['message'] ??
-            'Server error (${e.response?.statusCode})',
+        'message': e.response?.data['message'] ?? 'Server error (${e.response?.statusCode})',
         'statusCode': e.response?.statusCode
       };
     } catch (e, stackTrace) {
@@ -82,8 +103,8 @@ class SignupService {
       };
     }
   }
-
 }
+
 
 
 

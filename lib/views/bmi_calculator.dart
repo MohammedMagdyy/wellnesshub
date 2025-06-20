@@ -3,6 +3,7 @@ import 'package:wellnesshub/core/widgets/bmi_bar.dart';
 import 'package:wellnesshub/core/widgets/bmi_infos.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
+import '../core/helper_class/accesstoken_storage.dart';
 import '../core/utils/global_var.dart';
 
 class BMICalculator extends StatefulWidget {

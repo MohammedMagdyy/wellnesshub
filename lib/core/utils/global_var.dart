@@ -7,6 +7,7 @@ import '../helper_class/userInfo_local.dart';
 final storage = UserInfoLocalStorage(); // Assuming you use this elsewhere
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 ValueNotifier<File?> profileImageNotifier = ValueNotifier<File?>(null);
+ValueNotifier<String> userNameNotifier = ValueNotifier<String>("User");
 
 class GlobalVar {
   static final GlobalVar _instance = GlobalVar._internal();

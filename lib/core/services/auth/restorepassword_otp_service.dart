@@ -5,32 +5,25 @@ import 'package:wellnesshub/core/helper_class/api.dart';
 class RestorePasswordService {
   Future<Map<String, dynamic>> restorePassword(String email) async {
     try {
+      final encodedEmail = Uri.encodeComponent(email);
+
       final response = await API().post(
-        url: 'https://wellness-production.up.railway.app/changePasswordRequest?email=$email',
+        url: 'https://wellness-production.up.railway.app/changePasswordRequest?email=$encodedEmail',
         token: null,
-        data: null,  // Assuming data should be null for this POST request, adjust if needed
-      );
+        data: null,
+      ).timeout(const Duration(seconds: 10));
 
-      if (response != null) {
-        // Assuming the response is a JSON object
-        final decoded = response is Map<String, dynamic> ? response : jsonDecode(response.toString());
+      final decoded = response is Map<String, dynamic> ? response : jsonDecode(response.toString());
 
-        if (decoded is Map<String, dynamic> && decoded.containsKey('otp')) {
-          final otp = decoded['otp']; // Adjust key if needed
-          return {
-            "success": true,
-            "otp": otp,
-          };
-        } else {
-          return {
-            "success": false,
-            "message": "Unexpected response format from server",
-          };
-        }
+      if (decoded is Map<String, dynamic> && decoded.containsKey('otp')) {
+        return {
+          "success": true,
+          "otp": decoded['otp'],
+        };
       } else {
         return {
           "success": false,
-          "message": "No response from server",
+          "message": "Unexpected response format from server",
         };
       }
     } on DioException catch (e) {
@@ -45,9 +38,7 @@ class RestorePasswordService {
           if (parsed is Map<String, dynamic> && parsed.containsKey('message')) {
             errorMessage = parsed['message'];
           }
-        } catch (_) {
-          // data was not JSON, do nothing
-        }
+        } catch (_) {}
       }
 
       return {
@@ -62,4 +53,3 @@ class RestorePasswordService {
     }
   }
 }
-
