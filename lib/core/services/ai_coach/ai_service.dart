@@ -6,9 +6,9 @@ import '../../utils/global_var.dart';
 
 
 class GeminiService {
-  static const String _apiKey = 'AIzaSyAt_qPOoVYM9jZgIYaRSqZ6Ds1Pmwysk-c';
+  static const String _apiKey = 'AIzaSyDaGyY5_PpGYrAsCdSD3fF0Ndw5Xb1vZVo';
   static const String _apiUrl =
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=$_apiKey";
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$_apiKey";
 
   static final List<Map<String, dynamic>> _conversation = [];
 
@@ -132,7 +132,9 @@ First Interaction:
 
       return reply;
     } else {
+      print(response.body);
       return "❌ Error: ${response.body}";
+
     }
   }
 }

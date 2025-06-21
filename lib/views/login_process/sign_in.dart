@@ -200,11 +200,15 @@ class _SignInState extends State<SignInPage> {
                           horizontal: screenWidth * 0.04, vertical: screenHeight * 0.01),
                       child: CustomListTile(
                         on_Pressed: () async {
-                          try {
-                            final googleLogin = GoogleLoginService();
-                            await googleLogin.loginWithGoogle(context);
-                          } catch (e) {
-                            debugPrint(e.toString());
+                          final googleLogin = GoogleLoginService();
+                          final success = await googleLogin.loginWithGoogle();
+
+                          if (success) {
+                            Navigator.pushReplacementNamed(context, 'MainPage');
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Login with Google failed')),
+                            );
                           }
                         },
                         text: "Sign In Using Google",

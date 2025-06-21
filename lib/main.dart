@@ -49,7 +49,7 @@ class WellnessHub extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
           onGenerateRoute: OnGenerateRoute,
-          initialRoute:MainPage.routeName,
+          initialRoute:SignInPage.routeName,
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
             brightness: Brightness.light

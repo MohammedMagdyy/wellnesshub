@@ -156,20 +156,6 @@ class _Sign_UpState extends State<SignUp> {
                               lname: lastName!,
                               password: password!,
                             );
-
-                            // SignupService signupService = SignupService();
-                            // final signupResult = await signupService.signup(
-                            //   firstName!,
-                            //   lastName!,
-                            //   email!,
-                            //   password!,
-                            // );
-                            //
-                            // if (!signupResult['success']) {
-                            //   throw Exception(
-                            //       signupResult['message'] ?? 'Signup failed');
-                            // }
-
                             Navigator.pushNamed(context, 'VerifyEmailPage');
                           } catch (e) {
                             ScaffoldMessenger.of(context)
