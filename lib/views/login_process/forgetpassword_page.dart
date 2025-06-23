@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
@@ -24,6 +25,8 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: CustomAppbar(title: "Forget Password"),
       body: SafeArea(
@@ -32,9 +35,11 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
           child: Column(
             children: [
               const Spacer(flex: 6),
-              const Text(
+              Text(
                 "Change Password",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,
+                color: isDark? darkPrimaryTextColor : lightPrimaryTextColor
+                ),
               ),
               const Spacer(flex: 3),
               CustomTextField(

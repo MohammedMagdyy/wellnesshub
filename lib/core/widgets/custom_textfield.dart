@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 
 class CustomTextField extends StatefulWidget {
   CustomTextField({
@@ -32,6 +33,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return TextFormField(
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -45,27 +47,29 @@ class _CustomTextFieldState extends State<CustomTextField> {
       obscureText: _obscureText,
       decoration: InputDecoration(
         labelText: widget.name,
-        labelStyle: const TextStyle(color: Colors.grey),
+        labelStyle: TextStyle(color: isDark? darkChatInputTextColor : lightChatInputTextColor),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50),
-          borderSide: const BorderSide(color: Colors.black),
+          borderSide: BorderSide(color: isDark? darkChatInputBarEnabledBorderColor : lightChatInputBarEnabledBorderColor),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50),
-          borderSide: const BorderSide(color: Colors.blue, width: 2),
+          borderSide: BorderSide(color: isDark? darkChatInputBarFocusedBorderColor : lightChatInputBarFocusedBorderColor,
+              width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50),
-          borderSide: const BorderSide(color: Colors.red, width: 2),
+          borderSide: BorderSide(color: Colors.red, width: 2),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50),
-          borderSide: const BorderSide(color: Colors.blue, width: 1),
+          borderSide: BorderSide(color: isDark? darkChatInputBarEnabledBorderColor : lightChatInputBarEnabledBorderColor, width: 1),
         ),
         suffixIcon: widget.obscureText
             ? IconButton(
           icon: Icon(
             _obscureText ? Icons.visibility_off : Icons.visibility,
+            color: isDark? darkSettingsArrowsColor:lightSettingsArrowsColor,
           ),
           onPressed: () {
             setState(() {

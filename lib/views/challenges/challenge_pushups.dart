@@ -12,34 +12,59 @@ class ChallengePushups extends StatefulWidget {
 }
 
 class _ChallengePushupsState extends State<ChallengePushups> {
+  double progress = 0;
+  int counter = 0;
 
-  double progress = 0 ;
-  int counter = 0 ;
+  // Theme colors from the Sunrise Serenity palette
+  final Color lightBackgroundColor = const Color(0xFFFDF8F2); // Soft ivory
+  final Color lightPrimaryTextColor = const Color(0xFF3A2D2D); // Deep cocoa
+  final Color lightSecondaryTextColor = const Color(0xFF867070); // Muted mauve
+  final Color lightImportantButtonStart = const Color(0xFFFF9A6C); // Bright coral
+  final Color lightImportantButtonEnd = const Color(0xFFFF6F61); // Passion orange
+  final Color lightButtonColorInactive = const Color(0xFFF2E5D7); // Almond milk
+  final Color lightCardColor = const Color(0xFFFFFFFF); // Pure white
+  final Color lightCardBorderColor = const Color(0xFFE8D5C5); // Soft cinnamon
+
+  final Color darkBackgroundColor = const Color(0xFF1A1A1A); // Deep charcoal
+  final Color darkPrimaryTextColor = const Color(0xFFEADBCB); // Warm ivory
+  final Color darkSecondaryTextColor = const Color(0xFFB9AFA7); // Earth clay
+  final Color darkImportantButtonStart = const Color(0xFFFF8C5E); // Flame orange
+  final Color darkImportantButtonEnd = const Color(0xFFFF5F49); // Bold sunrise
+  final Color darkButtonColorInactive = const Color(0xFF3A3A3A); // Midnight slate
+  final Color darkCardBorderColor = const Color(0xFF3F3F3F); // Coal edge
+
 
   void _showCongratsDialog() {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
         return Center(
           child: Material(
             color: Colors.transparent,
             child: TweenAnimationBuilder<double>(
               tween: Tween(begin: 0.0, end: 1.0),
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               builder: (context, value, child) {
                 return Transform.scale(
                   scale: value,
                   child: AlertDialog(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.celebration, size: 60, color: Colors.amber),
-                        SizedBox(height: 10),
+                        Icon(Icons.celebration, size: 60, color: isDark? darkImportantButtonEnd : lightImportantButtonStart),
+                        const SizedBox(height: 10),
                         Text(
                           "🎉 Congratulations! 🎉",
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: isDark? darkPrimaryTextColor:lightPrimaryTextColor,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -53,7 +78,10 @@ class _ChallengePushupsState extends State<ChallengePushups> {
                             progress = 0;
                           });
                         },
-                        child: Text("OK"),
+                        child: Text(
+                          "OK",
+                          style: TextStyle(color: isDark? darkImportantButtonStart:lightImportantButtonStart),
+                        ),
                       ),
                     ],
                   ),
@@ -66,97 +94,126 @@ class _ChallengePushupsState extends State<ChallengePushups> {
     );
   }
 
+  Widget _buildImageCard() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Container(
+      height: 200,
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: isDark? darkBackgroundColor : lightBackgroundColor,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color:isDark? darkCardBorderColor: lightCardBorderColor, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color:isDark? darkSecondaryTextColor: lightSecondaryTextColor,
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+        image: DecorationImage(
+          image: AssetImage(Assets.assetsImagesPushUps),
+          fit: BoxFit.fill,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCounterButton() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        borderRadius: BorderRadius.circular(150),
+        onTap: () {
+          setState(() {
+            counter++;
+            progress = counter / 20;
+            if (counter >= 20) {
+              Future.delayed(const Duration(milliseconds: 100), () {
+                _showCongratsDialog();
+              });
+            }
+          });
+        },
+        child: CircularPercentIndicator(
+          header: Column(
+            children: [
+              Text(
+                "Press Here",
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color:isDark? darkPrimaryTextColor: lightPrimaryTextColor,
+                ),
+              ),
+              const SizedBox(height: 12),
+            ],
+          ),
+          radius: 150,
+          lineWidth: 12,
+          percent: progress.clamp(0.0, 1.0),
+          center: Text(
+            "$counter",
+            style: TextStyle(
+              fontSize: 48,
+              fontWeight: FontWeight.bold,
+              color:isDark? darkPrimaryTextColor: lightPrimaryTextColor,
+            ),
+          ),
+          backgroundColor:isDark? darkButtonColorInactive : lightButtonColorInactive,
+          linearGradient: LinearGradient(
+            colors: [isDark? darkImportantButtonStart : lightImportantButtonStart,isDark? darkImportantButtonEnd : lightImportantButtonEnd],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          circularStrokeCap: CircularStrokeCap.round,
+          animation: false,
+          animationDuration: 300,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: CustomAppbar(title: "Push Ups Challenge"),
+      backgroundColor:isDark? darkBackgroundColor : lightBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
-            Expanded(
-              flex: 1,
-              child: SizedBox(
-                width: double.infinity,
-                child: Container(
-                  margin: EdgeInsets.all(10),
-                  // width: 300,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.blue
-                    ),
-                  borderRadius: BorderRadius.circular(20)
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(
-                      Assets.assetsImagesPushUps , fit: BoxFit.fill,
-                    )
-                  )
-                  ),
+            const SizedBox(height: 16),
+            _buildImageCard(),
+            const SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                "The Challenge is to do 20 Pushups \n LET'S SEE HOW POWERFUL YOU ARE",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, color:isDark? darkSecondaryTextColor: lightSecondaryTextColor , fontWeight: FontWeight.bold),
               ),
             ),
-            
-            Expanded(
-              flex: 2,
-              child: MaterialButton(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                enableFeedback: true,
-                onPressed: () {
-                  setState(() {
-                    counter ++ ;
-                    progress = (counter / 20);
-                    if (counter == 20) {
-                      Future.delayed(Duration(milliseconds: 100), () {
-                        _showCongratsDialog();
-                      });
-                    }
-                  });
-                },
-                child: CircularPercentIndicator(
-                  header: Column(
-                    children: [
-                      Text(
-                        "Press Here" ,
-                        style: TextStyle(
-                          fontSize: 30 ,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      SizedBox(height: 20,),
-                    ],
-                  ),
-                  radius: 150.0,
-                  lineWidth: 10.0,
-                  percent: progress,
-                  center: Text(
-                    "$counter" ,
-                    style: TextStyle(
-                      fontSize: 45,
-                      fontWeight: FontWeight.bold ,
-                      color: Colors.blue
-                    ),
-                    ),
-                  backgroundColor: const Color.fromARGB(103, 158, 158, 158),
-                  progressColor: Colors.blue,
-                  animation: false,
-                  circularStrokeCap: CircularStrokeCap.round,
-                  restartAnimation: false,
-                  footer: Column(
-                    children: [
-                      SizedBox(height: 25,),
-                      Text(
-                        "You can press here by using your nose when push up",
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
+            const SizedBox(height: 16),
+            Expanded(child: Center(child: _buildCounterButton())),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: Text(
+                "Every push-up builds strength. Keep going and push your limits!",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, color:isDark? darkSecondaryTextColor : lightSecondaryTextColor , fontWeight: FontWeight.bold),
               ),
-            )
+            ),
+            const SizedBox(height: 24),
           ],
-        )
         ),
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/widgets/checkbox_button.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 
@@ -20,6 +21,8 @@ class _InjuriesPageState extends State<InjuriesPage> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
 
     return Scaffold(
       appBar: CustomAppbar(
@@ -35,6 +38,7 @@ class _InjuriesPageState extends State<InjuriesPage> {
               style: TextStyle(
                 fontSize: width * 0.06,
                 fontWeight: FontWeight.bold,
+                color: isDark? darkPrimaryTextColor : lightPrimaryTextColor
               ),
               textAlign: TextAlign.center,
             ),
@@ -43,6 +47,7 @@ class _InjuriesPageState extends State<InjuriesPage> {
               "Choose the injured area you’re suffering from or if you don’t find it, choose None.",
               style: TextStyle(
                 fontSize: width * 0.04,
+                color: isDark? darkSecondaryTextColor : lightSecondaryTextColor
               ),
               textAlign: TextAlign.center,
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/profile_info_card.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
@@ -47,6 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> _loadUserData() async {
     final storedUserData = await UserInfoLocalStorage.getUserInfoForProfile();
+
 
 
     if (mounted) {
@@ -111,7 +113,6 @@ Future<void> _pickImage() async {
 }
 
 void _showNumberPickerDialog(String field) {
-  final isDark = Theme.of(context).brightness == Brightness.dark;
   int currentValue;
   switch (field) {
     case 'Age':
@@ -130,21 +131,22 @@ void _showNumberPickerDialog(String field) {
   showDialog(
     context: context,
     builder: (context) {
+      final isDark = Theme.of(context).brightness == Brightness.dark;
       return StatefulBuilder(
         builder: (context, setStateDialog) {
           return AlertDialog(
-            backgroundColor: isDark? const Color.fromARGB(255, 0, 0, 0) : const Color.fromARGB(255, 200, 200, 200),
+            backgroundColor: isDark? darkBmiContainerColor : lightBmiContainerColor,
             title: Text('Select $field'),
             content: SizedBox(
               height: 150,
               child: NumberPicker(
                 selectedTextStyle: TextStyle(
-                  color: Colors.lightBlue,
+                  color: isDark? darkBmiTextColor_1:lightBmiTextColor_1,
                   fontSize: 30,
                   fontWeight: FontWeight.bold
                 ),
                 textStyle: TextStyle(
-                  color: isDark? Colors.white : Colors.black,
+                  color: isDark? darkBmiTextColor_2 :lightBmiTextColor_2 ,
                   fontSize: 20
                 ),
                 value: currentValue,
@@ -178,8 +180,8 @@ void _showNumberPickerDialog(String field) {
                   });
                   Navigator.pop(context);
                 },
-                child: const Text('Done', style: TextStyle(
-                  color: Colors.lightBlue,
+                child: Text('Done', style: TextStyle(
+                  color: isDark? darkImportantButtonEnd : lightImportantButtonEnd,
                   fontSize: 20,
                   fontWeight: FontWeight.bold
                 ),),
@@ -198,6 +200,8 @@ void _showNumberPickerDialog(String field) {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar:  CustomAppbar(title: "Profile"),
       body: SingleChildScrollView(
@@ -224,11 +228,13 @@ void _showNumberPickerDialog(String field) {
             const SizedBox(height: 10),
             Text(
               "$fName $lName",
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold ,
+              color: isDark? darkBmiTextColor_1 : lightBmiTextColor_1
+              ),
             ),
             Text(
               email,
-              style: const TextStyle(fontSize: 14, color: Colors.grey),
+              style: TextStyle(fontSize: 14, color: isDark? darkSecondaryTextColor : lightSecondaryTextColor),
             ),
             const SizedBox(height: 15),
             Row(

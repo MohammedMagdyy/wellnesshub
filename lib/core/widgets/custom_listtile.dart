@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 
 class CustomListTile extends StatelessWidget {
   CustomListTile(
@@ -9,11 +10,13 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       height: 40,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          color: const Color.fromARGB(127, 158, 158, 158)),
+          color: isDark? darkButtonColor : lightButtonColor
+      ),
       child: ListTile(
         visualDensity: VisualDensity(vertical: VisualDensity.minimumDensity),
         dense: true,
@@ -23,7 +26,7 @@ class CustomListTile extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
-            color: const Color(0xff0065d0),
+            color: isDark? darkButtonTextColor : lightButtonTextColor,
           ),
         ),
         leading: Image.asset(

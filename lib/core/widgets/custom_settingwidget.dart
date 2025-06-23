@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/helper_functions/showLanguagePicker.dart';
 import 'package:wellnesshub/core/helper_functions/show_fontsize_Picker.dart';
 import 'package:wellnesshub/core/widgets/custom_switchtoggle.dart';
@@ -110,24 +111,32 @@ class _CustomSettingwidgetState extends State<CustomSettingwidget> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 7),
       child: Container(
         decoration: BoxDecoration(
-          color: isDark? Colors.black : Colors.white,
+          color: isDark? darkSettingsButtonColor : lightSettingsButtonColor,
           border: Border(
-            bottom: BorderSide(color: Colors.blue, width: 1),
-            left: BorderSide(color: Colors.blue, width: 1),
-            right: BorderSide(color: Colors.blue, width: 1),
-            top: BorderSide(color: Colors.blue, width: 1),
+            bottom: BorderSide(color: isDark?darkSettingsArrowsColor:lightSettingsArrowsColor, width: 1),
+            left: BorderSide(color: isDark?darkSettingsArrowsColor:lightSettingsArrowsColor, width: 1),
+            right: BorderSide(color: isDark?darkSettingsArrowsColor:lightSettingsArrowsColor, width: 1),
+            top: BorderSide(color: isDark?darkSettingsArrowsColor:lightSettingsArrowsColor, width: 1),
           ),
           borderRadius: BorderRadius.circular(32),
+          boxShadow: [
+            BoxShadow(
+              color: isDark? darkBoxShadowColor : lightBoxShadowColor,
+              offset: Offset(3, 3),
+              blurRadius: 6,
+              spreadRadius: 1,
+            )
+          ]
         ),
         child: ListTile(
           title: Text(
             widget.title,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: isDark?Colors.white : Colors.black,
+              color: isDark? darkSettingsBtnTextColor : lightSettingsBtnTextColor,
             ),
           ),
           horizontalTitleGap: 20,
@@ -180,10 +189,13 @@ class _CustomSettingwidgetState extends State<CustomSettingwidget> {
               );
 
             }
+            else if(widget.onTapFunc == 5){
+
+            }
           },
           leading: Icon(
             widget.icon,
-            color: Colors.blueAccent,
+            color: isDark? darkSettingsBtnTextColor : lightSettingsBtnTextColor,
           ),
           trailing: widget.switchcheck
               ? CustomToggleSwitch(
@@ -191,7 +203,7 @@ class _CustomSettingwidgetState extends State<CustomSettingwidget> {
               )
               : Icon(
                   Icons.chevron_right_outlined,
-                  color: widget.iconColor,
+                  color: isDark? darkSettingsArrowsColor : lightSettingsArrowsColor,
                 ),
         ),
       ),

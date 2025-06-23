@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/utils/global_var.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
@@ -66,6 +67,7 @@ class _FindYourAccountState extends State<FindYourAccount> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: CustomAppbar(title: "Find Your Account"),
       body: SafeArea(
@@ -82,9 +84,11 @@ class _FindYourAccountState extends State<FindYourAccount> {
                 padding: const EdgeInsets.all(10),
                 child: Column(
                   children: [
-                    const Text(
+                    Text(
                       "Please enter your email address to search for your account.",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
+                      color: isDark? darkPrimaryTextColor : lightPrimaryTextColor
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 30),

@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/constant_colors.dart';
 
-class MainpageCard extends StatelessWidget {
+class ChallengeCard extends StatelessWidget {
   final String title;
   final String image;
   final String nextPage;
 
-  const MainpageCard({
-    Key? key,
+  const ChallengeCard({
+    super.key,
     required this.title,
     required this.image,
     required this.nextPage
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, nextPage);
@@ -25,7 +24,7 @@ class MainpageCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: isDark? darkCardColor : lightCardColor,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: isDark? darkCardBorderColor : lightCardBorderColor),
+          border: Border.all(color: isDark? darkCardBorderColor : lightCardBorderColor)
         ),
         padding: const EdgeInsets.all(16),
         child: Row(
@@ -38,7 +37,7 @@ class MainpageCard extends StatelessWidget {
                   Text(
                     title,
                     style: TextStyle(
-                      color: isDark? darkCardTextColor :lightCardTextColor ,
+                      color: isDark? darkCardTextColor : lightCardTextColor ,
                       fontSize: 25,
                       fontWeight: FontWeight.bold
                     ),

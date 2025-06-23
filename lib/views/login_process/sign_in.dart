@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/services/auth/facebook_login.dart';
 import 'package:wellnesshub/core/services/auth/google_login.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
@@ -33,6 +34,8 @@ class _SignInState extends State<SignInPage> {
     final size = MediaQuery.of(context).size;
     final screenHeight = size.height;
     final screenWidth = size.width;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
 
     return Scaffold(
       body: Stack(
@@ -56,7 +59,7 @@ class _SignInState extends State<SignInPage> {
                             style: TextStyle(
                               fontSize: screenWidth * 0.08,
                               fontWeight: FontWeight.bold,
-                              color: const Color(0xff0065d0),
+                              color: isDark? darkPrimaryTextColor : lightPrimaryTextColor,
                             ),
                           ),
                           SizedBox(height: screenHeight * 0.01),
@@ -64,7 +67,7 @@ class _SignInState extends State<SignInPage> {
                             'it’s good to see you again',
                             style: TextStyle(
                               fontSize: screenWidth * 0.04,
-                              color: const Color(0xff0065d0),
+                              color: isDark? darkSecondaryTextColor : lightSecondaryTextColor,
                             ),
                           ),
                         ],
@@ -97,9 +100,9 @@ class _SignInState extends State<SignInPage> {
                             onPressed: () {
                               Navigator.pushNamed(context, FindYourAccount.routeName);
                             },
-                            child: const Text(
+                            child: Text(
                               "Forget Password?",
-                              style: TextStyle(color: Colors.blue),
+                              style: TextStyle(color: isDark? darkPrimaryTextColor : lightPrimaryTextColor),
                             ),
                           ),
                         ],
@@ -169,18 +172,18 @@ class _SignInState extends State<SignInPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: Divider(
                             indent: 20,
                             endIndent: 10,
                             thickness: 1.5,
-                            color: Colors.blueGrey,
+                            color: isDark? darkSecondaryTextColor:lightSecondaryTextColor,
                           ),
                         ),
                         Text(
                           "or continue with",
                           style: TextStyle(
-                            color: const Color(0xff0065d0),
+                            color:isDark? darkPrimaryTextColor:lightPrimaryTextColor,
                             fontSize: screenWidth * 0.04,
                           ),
                         ),
@@ -234,7 +237,7 @@ class _SignInState extends State<SignInPage> {
                         Text(
                           "Don't have an account?",
                           style: TextStyle(
-                            color: const Color(0xff0065d0),
+                            color: isDark? darkSecondaryTextColor : lightSecondaryTextColor,
                             fontSize: screenWidth * 0.035,
                           ),
                         ),
@@ -245,7 +248,7 @@ class _SignInState extends State<SignInPage> {
                           child: Text(
                             "Sign Up",
                             style: TextStyle(
-                              color: Colors.blue,
+                              color: isDark? darkPrimaryTextColor : lightPrimaryTextColor,
                               fontSize: screenWidth * 0.04,
                               fontWeight: FontWeight.bold,
                             ),

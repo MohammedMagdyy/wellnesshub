@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
@@ -27,6 +28,8 @@ class _Sign_UpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
 
     return Scaffold(
       appBar: CustomAppbar(title: "Sign Up"),
@@ -48,6 +51,7 @@ class _Sign_UpState extends State<SignUp> {
                       style: TextStyle(
                         fontSize: screenWidth < 400 ? 24 : 30,
                         fontWeight: FontWeight.bold,
+                        color: isDark? darkPrimaryTextColor : lightPrimaryTextColor
                       ),
                     ),
                   ),
@@ -87,7 +91,7 @@ class _Sign_UpState extends State<SignUp> {
                     height: 50, // Match your button height
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: isDark? darkImportantButtonEnd : lightImportantButtonEnd,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -195,10 +199,10 @@ class _Sign_UpState extends State<SignUp> {
                           strokeWidth: 2,
                         ),
                       )
-                          : const Text(
+                          : Text(
                         'Sign Up',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: isDark? darkButtonTextColor:lightButtonTextColor,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -209,18 +213,20 @@ class _Sign_UpState extends State<SignUp> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         "Already have an account?",
-                        style: TextStyle(fontSize: 13, color: Colors.red),
+                        style: TextStyle(fontSize: 13,
+                            color: isDark? darkSecondaryTextColor:lightSecondaryTextColor
+                        ),
                       ),
                       TextButton(
                         onPressed: () {
                           Navigator.pushReplacementNamed(context, 'LoginPage');
                         },
-                        child: const Text(
+                        child: Text(
                           "Sign In",
                           style: TextStyle(
-                            color: Colors.blue,
+                            color:isDark? darkBmiTextColor_1:lightBmiTextColor_1,
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),

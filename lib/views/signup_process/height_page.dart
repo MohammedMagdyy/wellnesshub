@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_ruler_picker/simple_ruler_picker.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 
 import '../../core/utils/global_var.dart';
@@ -18,6 +19,8 @@ class _HeightPageState extends State<HeightPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: CustomAppbar(
         title: "Height Selection",
@@ -35,7 +38,7 @@ class _HeightPageState extends State<HeightPage> {
               Text(
                 "What is your height ?",
                 style: TextStyle(
-                  color: Colors.black,
+                  color: isDark? darkPrimaryTextColor:lightPrimaryTextColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 30
                 ),
@@ -47,7 +50,7 @@ class _HeightPageState extends State<HeightPage> {
             '$_height cm',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: isDark? darkBmiTextColor_1 : lightBmiTextColor_1,
               fontSize: 50
             ),
             ),
@@ -57,18 +60,18 @@ class _HeightPageState extends State<HeightPage> {
             margin: EdgeInsets.all(50),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: Color(0xff80C9FC),
+              color: isDark? darkBmiContainerColor : lightBmiContainerColor,
             ),
             // padding: EdgeInsets.symmetric(horizontal: 90),
             child: SimpleRulerPicker(
               axis: Axis.vertical,
               height: 150,
               initialValue: _height,
-              labelColor: Colors.black,
-              lineColor: Colors.black,
+              labelColor: isDark? darkButtonTextColor : lightButtonTextColor,
+              lineColor: isDark? darkButtonTextColor : lightButtonTextColor,
               maxValue: 280,
               minValue: 100,
-              selectedColor: Color(0xff0095ff),
+              selectedColor: isDark? darkBmiTextColor_1 : lightBmiTextColor_1,
               scaleBottomPadding: 15,
               scaleLabelSize: 15,
               onValueChanged: (value) => setState(() => _height = value),

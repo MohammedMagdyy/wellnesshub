@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/checkbox_button.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
@@ -34,6 +35,8 @@ class _ExperienceLevelPageState extends State<ExperienceLevelPage> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
 
     return Scaffold(
       appBar: CustomAppbar(
@@ -51,6 +54,7 @@ class _ExperienceLevelPageState extends State<ExperienceLevelPage> {
                 style: TextStyle(
                   fontSize: width * 0.07,
                   fontWeight: FontWeight.bold,
+                  color: isDark? darkPrimaryTextColor : lightPrimaryTextColor
                 ),
               ),
               SizedBox(height: height * 0.03),
