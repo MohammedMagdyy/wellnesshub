@@ -26,7 +26,7 @@ class _HeaderState extends State<Header> {
 
   Future<void> _initializeUserName() async {
     final userData = await GetUserInfoService().getUserInfo();
-    userNameNotifier.value = userData.firstName ?? "User";
+    userNameNotifier.value = userData.firstName ?? " ";
   }
 
   Future<void> _loadProfileImage() async {

@@ -33,7 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController heightController = TextEditingController();
 
   // Data for display (can be split or parsed if needed)
-  String fName = "User";
+  String fName = " ";
   String lName = " ";
   String email = " ";
   int age = 0;

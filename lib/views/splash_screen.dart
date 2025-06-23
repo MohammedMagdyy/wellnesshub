@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 import '../core/helper_class/is_loggedIn.dart';
 
@@ -70,6 +71,9 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -83,18 +87,28 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                 fit: BoxFit.cover,
               ),
               Positioned(
-                bottom: 400,
+                bottom: screenHeight*0.5,
                 left: 0,
                 right: 0,
                 child: SlideTransition(
                   position: _slideAnimation,
-                  child: const Center(
+                  child: Center(
                     child: Text(
-                      'Welcome to WellnessHub',
+                      'Welcome To WellnessHub',
+                      overflow: TextOverflow.visible,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
+                        color: darkImportantButtonEnd,
+                        fontSize: 32,
+                        fontFamily:'Roboto',
                         fontWeight: FontWeight.bold,
+                        shadows: [
+                          Shadow(
+                            blurRadius: 5.0,
+                            color: Colors.black38,
+                            offset: const Offset(8, 8),
+                          ),
+                        ],
                       ),
                     ),
                   ),
