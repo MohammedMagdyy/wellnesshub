@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
+import '../constant_colors.dart';
 import '../core/widgets/custom_exercise_cateogory.dart';
 
 class AllExeclusiveExercisePage extends StatelessWidget {
@@ -12,7 +13,7 @@ class AllExeclusiveExercisePage extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: CustomAppbar(title: " "),
-      backgroundColor: isDark?Colors.black: Color(0xFF7F9CF5),
+      backgroundColor: isDark? darkForegroundColor : lightForegroundColor,
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[
@@ -20,14 +21,14 @@ class AllExeclusiveExercisePage extends StatelessWidget {
               automaticallyImplyLeading: false,
               pinned: true,
               expandedHeight: 180.0,
-              backgroundColor: isDark?Colors.black:Color(0xFF7F9CF5),
-              flexibleSpace: const FlexibleSpaceBar(
-                titlePadding: EdgeInsets.only(left: 20, bottom: 16),
+              backgroundColor: isDark? darkForegroundColor : lightForegroundColor,
+              flexibleSpace: FlexibleSpaceBar(
+                titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
                 title: Text(
                   'EXCLUSIVE TRAINING!',
                   style: TextStyle(
-                    color: Colors.amberAccent,
-                    fontSize: 22,
+                    color: isDark? darkForegroundTextColor : lightForegroundTextColor,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -36,9 +37,9 @@ class AllExeclusiveExercisePage extends StatelessWidget {
             SliverToBoxAdapter(
               child: Container(
                 padding: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+                decoration: BoxDecoration(
+                  color: isDark? darkBackgroundColor : lightBackgroundColor,
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
                 ),
                 child: Column(
                   children: [
