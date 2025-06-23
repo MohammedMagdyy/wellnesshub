@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/widgets/ExerciseCard.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import '../core/helper_class/favourite_manager.dart';
@@ -58,18 +59,19 @@ class _SpecificExercisePageState extends State<SpecificExercisePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: CustomAppbar(title:""),
-      backgroundColor: const Color(0xFF7F9CF5),
+      backgroundColor: isDark? darkBackgroundColor : lightBackgroundColor,
       body: SafeArea(
         child: FutureBuilder<List<Exercise>>(
           future: _exercisesFuture,
           builder: (context, snapshot) {
             // Loading State
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
+              return Center(
                 child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF7F9CF5)),
+                  valueColor: AlwaysStoppedAnimation<Color>(isDark? darkBackgroundColor : lightBackgroundColor),
                 ),
               );
             }
@@ -134,13 +136,13 @@ class _SpecificExercisePageState extends State<SpecificExercisePage> {
                   automaticallyImplyLeading: false,
                   pinned: true,
                   expandedHeight: 80.0,
-                  backgroundColor: Color(0xFF7F9CF5),
+                  backgroundColor: isDark? darkBackgroundColor : lightBackgroundColor,
                   flexibleSpace: FlexibleSpaceBar(
                     titlePadding: EdgeInsets.only(left: 20, bottom: 16),
                     title: Text(
                       '${widget.title} Exercises',
                       style: TextStyle(
-                        color: Colors.amberAccent,
+                        color: isDark? darkBmiTextColor_1 : lightBmiTextColor_1,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),

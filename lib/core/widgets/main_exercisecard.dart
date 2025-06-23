@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/models/fitness_plan/exercises_model.dart';
 import 'package:wellnesshub/core/services/workout_plan/swap_services.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
@@ -28,11 +29,15 @@ class _MainExerciseCardFitnessPlanState extends State<MainExerciseCardFitnessPla
 
 
   Future<bool?> showExerciseDialog(BuildContext context) async {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final result = await showDialog<bool>(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Exercises'),
+          backgroundColor: isDark? darkBmiContainerColor : lightBmiContainerColor,
+          title: Text('Exercises' , style: TextStyle(
+            color: isDark? darkBmiTextColor_1:lightBmiTextColor_1,
+          ),),
           content: SizedBox(
             width: double.maxFinite,
             child: FutureBuilder<List<Exercise>>(
@@ -65,7 +70,11 @@ class _MainExerciseCardFitnessPlanState extends State<MainExerciseCardFitnessPla
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Close'),
+              child: Text('Close' , style: TextStyle(
+                color: isDark? darkImportantButtonEnd : lightImportantButtonEnd,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold
+              ),),
             ),
           ],
         );
@@ -148,7 +157,7 @@ class _MainExerciseCardFitnessPlanState extends State<MainExerciseCardFitnessPla
                         widget.exercise.exerciseName,
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -157,7 +166,8 @@ class _MainExerciseCardFitnessPlanState extends State<MainExerciseCardFitnessPla
                         widget.exercise.sets?? 'No sets',
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold
                         ),
                       ),
                       const SizedBox(height: 2),
@@ -165,7 +175,8 @@ class _MainExerciseCardFitnessPlanState extends State<MainExerciseCardFitnessPla
                         "Target: ${widget.exercise.targetMuscle}",
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold
                         ),
                       ),
                     ],
@@ -189,7 +200,7 @@ class _MainExerciseCardFitnessPlanState extends State<MainExerciseCardFitnessPla
                   child: IconButton(
                     icon: const Icon(
                       Icons.swap_horizontal_circle_rounded,
-                      color: Colors.blue,
+                      color: darkImportantButtonStart,
                       size: 40,
                     ),
                     onPressed: ()async{

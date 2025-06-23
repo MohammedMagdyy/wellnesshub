@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import '../helper_class/favourite_manager.dart';
 import '../helper_functions/build_customSnackbar.dart';
@@ -162,6 +163,8 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     final exercise = widget.exercise;
 
     return SingleChildScrollView(
@@ -202,25 +205,58 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
 
           // Exercise Details Section
           const SizedBox(height: 30),
-          Text(
-            exercise.exerciseName,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.blue,
+          Container(
+            padding: EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: isDark? darkBmiContainerColor : lightBmiContainerColor,
+              border: Border.all(
+                color: isDark? darkCardBorderColor : lightCardBorderColor,
+                width: 1.5,
+              ),
+              borderRadius: BorderRadius.circular(15)
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  exercise.exerciseName,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: isDark? darkBmiTextColor_1 : lightBmiTextColor_1,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 15),
+                Text(exercise.sets , style: TextStyle(
+                  color: isDark? darkBmiTextColor_2 : lightBmiTextColor_2,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 5),
+                Text("Target Muscle: ${exercise.targetMuscle}"
+                  , style: TextStyle(
+                      color: isDark? darkBmiTextColor_3 : lightBmiTextColor_3,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                  ),
+                  // textAlign: TextAlign.left,
+                ),
+                const SizedBox(height: 10),
+                Text("Description:\n${exercise.description ?? 'No description available'}"
+                  , style: TextStyle(
+                      color: isDark? darkPrimaryTextColor : lightPrimaryTextColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 10),
-          Text("dayId: ${widget.dayId}"),
-          const SizedBox(height: 10),
-          Text("weekId: ${widget.weekId}"),
-          const SizedBox(height: 10),
-          Text("Sets: ${exercise.sets}"),
-          const SizedBox(height: 10),
-          Text("Target Muscle: ${exercise.targetMuscle}"),
-          const SizedBox(height: 10),
-          Text("Description:\n${exercise.description ?? 'No description available'}"),
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
           Row(
             children: [
               Expanded(

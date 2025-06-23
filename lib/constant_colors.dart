@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 /*Light Mode*/
 const Color lightBackgroundColor = Color(0xFFFDF8F2);
+const Color lightForegroundColor = Color(0xFF3A2D2D);
+const Color lightForegroundTextColor = Color(0xFFFFF4EC);
 const Color lightPrimaryTextColor = Color(0xFF3A2D2D);
 const Color lightSecondaryTextColor = Color(0xFF867070);
 const Color lightImportantButtonStart = Color(0xFFFF9A6C);
@@ -49,6 +51,8 @@ const Color lightChatInputBarEnabledBorderColor = Color(0xFFEAD8C0);
 
 /*Dark Mode*/
 const Color darkBackgroundColor = Color(0xFF1A1A1A);
+const Color darkForegroundColor = Color(0xFF8A7265);
+const Color darkForegroundTextColor = Color(0xFF45352C);
 const Color darkPrimaryTextColor = Color(0xFFEADBCB);
 const Color darkSecondaryTextColor = Color(0xFFB9AFA7);
 const Color darkImportantButtonStart = Color(0xFFFF8C5E);
