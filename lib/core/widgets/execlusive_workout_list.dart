@@ -18,24 +18,24 @@ class ExclusiveWorkoutList extends StatelessWidget {
         ExclusiveWorkoutCard(
           name: "CARDIO",
           image: Assets.assetsImagesFitnessImg,
-          details: "11 MINS • 11 EXERCISES",
+          details: "10 EXERCISES",
         ),
         SizedBox(width: 12),
         ExclusiveWorkoutCard(
           name: "RECOVERY",
           image: Assets.assetsImagesRecoveryImage,
-          details: "11 MINS • 11 EXERCISES",
+          details: "9 EXERCISES",
         ),
         SizedBox(width: 12),
         ExclusiveWorkoutCard(
           name: "YOGA",
-          details: "11 MINS • 11 EXERCISES",
+          details: "9 EXERCISES",
           image: Assets.assetsImagesYogaImage,
         ),
         SizedBox(width: 12),
         ExclusiveWorkoutCard(
           name: "STRETCHES",
-          details: "11 MINS • 11 EXERCISES",
+          details: "10 EXERCISES",
           image: Assets.assetsImagesStreachImage,
         ),
         SizedBox(width: 12),

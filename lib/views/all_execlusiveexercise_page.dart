@@ -45,21 +45,21 @@ class AllExeclusiveExercisePage extends StatelessWidget {
                     CustomExerciseCategory(
                       name: "CARDIO",
                       imagePath: Assets.assetsImagesFitnessImg,
-                      details: "11 MINS • 11 EXERCISES",
+                      details: "10 EXERCISES",
                     ),
                     CustomExerciseCategory(
                       name: "RECOVERY",
                       imagePath: Assets.assetsImagesRecoveryImage,
-                      details: "11 MINS • 11 EXERCISES",
+                      details: "9 EXERCISES",
                     ),
                     CustomExerciseCategory(
                       name: "YOGA",
-                      details: "11 MINS • 11 EXERCISES",
+                      details: "9 EXERCISES",
                       imagePath: Assets.assetsImagesYogaImage,
                     ),
                     CustomExerciseCategory(
                       name: "STRETCHES",
-                      details: "11 MINS • 11 EXERCISES",
+                      details: "10 EXERCISES",
                       imagePath: Assets.assetsImagesStreachImage,
                     ),
 

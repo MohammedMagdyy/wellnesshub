@@ -26,7 +26,8 @@ class _GoalPageState extends State<GoalPage> {
       case 'weight cut':
         return 'WEIGHT_CUT';
       case 'muscles gain':
-        return 'BUILD_MUSCLE'; // Matches backend enum
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        return 'WEIGHT_CUT'; // Matches backend enum
       case 'increasing strength':
         return 'INCREASE_STRENGTH'; // Matches backend enum
       default:
