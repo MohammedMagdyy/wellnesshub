@@ -42,6 +42,7 @@ import 'package:wellnesshub/views/test.dart';
 import 'package:wellnesshub/views/exercisedetails_page.dart';
 import 'package:wellnesshub/views/settings/versioninfo_page.dart';
 import 'package:wellnesshub/views/settings/workout_reminder_page.dart';
+import '../../views/all_execlusiveexercise_page.dart';
 import '../../views/login_process/find_your_account.dart';
 import '../../views/login_process/forgetpassword_page.dart';
 import '../../views/login_process/restorepassword_otp.dart';
@@ -162,6 +163,8 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => ChallengeSquats());
     case 'Plank':
       return MaterialPageRoute(builder: (context) => ChallengePlank());
+    case AllExeclusiveExercisePage.routeName:
+      return MaterialPageRoute(builder: (context) => AllExeclusiveExercisePage());
     case 'RestorePasswordOtp':
       return MaterialPageRoute(builder: (context) => RestorePasswordOtp());
     default:

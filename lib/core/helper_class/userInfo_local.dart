@@ -7,15 +7,23 @@ class UserInfoLocalStorage {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   /// Save user account information
+  Future<void> saveUserEmail({required String email,}) async {
+    final prefs = await _prefs;
+    await prefs.setString('email', email);
+  }
+  Future<String?> getUserEmail() async {
+    final prefs = await _prefs;
+    return prefs.getString('email');
+  }
   Future<void> saveUserData({
-    required String email,
+   // required String email,
     required String fname,
     required String lname,
     required String password,
 
   }) async {
     final prefs = await _prefs;
-    await prefs.setString('email', email);
+    //await prefs.setString('email', email);
     await prefs.setString('fname', fname);
     await prefs.setString('lname', lname);
     await prefs.setString('password', password);
@@ -24,7 +32,7 @@ class UserInfoLocalStorage {
   Future<Map<String, String?>> getUserData() async {
     final prefs = await _prefs;
     return {
-      'email': prefs.getString('email'),
+      //'email': prefs.getString('email'),
       'fname': prefs.getString('fname'),
       'lname': prefs.getString('lname'),
       'password': prefs.getString('password'),
@@ -151,14 +159,15 @@ class UserInfoLocalStorage {
     final prefs = await _prefs;
 
     return UserInfo(
-      gender: prefs.getString('gender') ?? '', // Provide default if null
-      age: prefs.getInt('age') ?? 30,          // Provide default if null
-      weight: prefs.getInt('weight') ?? 70,     // Provide default if null
-      height: prefs.getInt('height') ?? 175,     // Provide default if null
-      goal: prefs.getString('goal') ?? '',     // Provide default if null
-      activityLevel: prefs.getString('activityLevel') ?? '',
-      experienceLevel: prefs.getString('experienceLevel') ?? '',
-      daysPerWeek: prefs.getInt('workoutDays') ?? 3,
+      gender: prefs.getString('gender') !, // Provide default if null
+      age: prefs.getInt('age') !,          // Provide default if null
+      weight: prefs.getInt('weight')! ,     // Provide default if null
+      height: prefs.getInt('height') !,     // Provide default if null
+      goal: prefs.getString('goal') !,     // Provide default if null
+      activityLevel: prefs.getString('activityLevel') !,
+      experienceLevel: prefs.getString('experienceLevel') !,
+      daysPerWeek: prefs.getInt('workoutDays')!,
+
     );
   }
 

@@ -1,6 +1,7 @@
 import '../../helper_class/accesstoken_storage.dart';
 import '../../helper_class/api.dart';
 import '../../helper_class/network_exception_class.dart';
+import '../../utils/global_var.dart';
 
 class DoneService {
   Future<Map<String, dynamic>> exerciseDone(int exerciseID, int weekID, int dayID) async {
@@ -8,7 +9,7 @@ class DoneService {
       final token = await LocalStorageAccessToken.getToken();
 
       final response = await API().get(
-        url: 'https://wellness-production.up.railway.app/exercise/done',
+        url: '$apiUrl/exercise/done',
         token: token,
         data: {
           'exerciseID': exerciseID,

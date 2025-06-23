@@ -3,15 +3,16 @@ import '../helper_class/accesstoken_storage.dart';
 import '../helper_class/api.dart';
 import '../helper_class/network_exception_class.dart';
 import '../models/sign_up/full_userinfo_model.dart';
+import '../utils/global_var.dart';
 
 class GetUserInfoService {
   Future<FullUserInfo> getUserInfo() async {
     try {
       final token = await LocalStorageAccessToken.getToken();
       final response = await API().get(
-        url: 'http://10.0.2.2:8080/getUserInfo',
+        url: '$apiUrl/getUserInfo',
         token: token,
-      ).timeout(const Duration(seconds: 10));
+      );
 
       final data = response;
 

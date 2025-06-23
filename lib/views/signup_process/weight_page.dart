@@ -85,27 +85,7 @@ class _WeightPageState extends State<WeightPage> {
           width: 200,
           color: Colors.black,
           on_Pressed: () async {
-            // final userinfo = await storage.getUserData();
-            // final signupService = SignupService();
-            // final signupResult = await signupService.signup(
-            //   userinfo['fname']!,
-            //   userinfo['lname']!,
-            //   userinfo['email']!,
-            //   userinfo['password']!,
-            // );
-            //
-            // if (signupResult['success'] == true) {
-            //   await storage.saveUserWeight(_weight);
-            //   Navigator.pushNamed(context, 'HeightPage');
-            // } else {
-            //   // Show error message to user
-            //   ScaffoldMessenger.of(context).showSnackBar(
-            //     SnackBar(
-            //       content: Text(signupResult['message'] ?? 'Signup failed'),
-            //       backgroundColor: Colors.red,
-            //     ),
-            //   );
-            // }
+            await storage.saveUserWeight(_weight);
             Navigator.pushNamed(context, 'HeightPage');
 
           },

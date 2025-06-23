@@ -28,7 +28,11 @@ class _SpecificExercisePageState extends State<SpecificExercisePage> {
       case 'CHEST': return 'Chest';
       case 'BACK': return 'Back';
       case 'LEG': return 'Leg';
+      case 'RECOVERY': return 'Recovery';
       case 'CARDIO': return 'Cardio';
+      case 'STRETCHES': return 'Stretches';
+      case 'YOGA': return 'Yoga';
+
       default: return title; // Fallback
     }
   }

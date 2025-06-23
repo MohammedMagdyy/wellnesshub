@@ -2,13 +2,14 @@ import '../../helper_class/accesstoken_storage.dart';
 import '../../helper_class/api.dart';
 import '../../helper_functions/HanleSessionExpired.dart';
 import '../../helper_class/network_exception_class.dart';
+import '../../utils/global_var.dart';
 
 class AddToFavouriteService {
   Future<Map<String, String>> addToFav(int exerciseId) async {
     final token = await LocalStorageAccessToken.getToken();
 
     final response = await API().get(
-      url: 'https://wellness-production.up.railway.app/exercise/addToFavourite?exerciseID=$exerciseId',
+      url: '$apiUrl/exercise/addToFavourite?exerciseID=$exerciseId',
       token: token,
     );
 

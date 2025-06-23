@@ -6,15 +6,17 @@ import '../../helper_class/network_exception_class.dart';
 import 'dart:io';
 import 'dart:async';
 
+import '../../utils/global_var.dart';
+
 class DeleteAccountService {
   Future<Map<String, dynamic>> deleteAccount() async {
     try {
       final token = await LocalStorageAccessToken.getToken();
 
       final data = await API().delete(
-        url: 'http://10.0.2.2:8080/deleteAccount',
+        url: '$apiUrl/deleteAccount',
         token: token,
-      ).timeout(const Duration(seconds: 10));
+      );
 
       // Detect OAuth/HTML redirect fallback
       if (data is String && data.contains('<html')) {

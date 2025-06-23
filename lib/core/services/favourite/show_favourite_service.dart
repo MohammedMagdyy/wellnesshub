@@ -2,13 +2,14 @@ import '../../helper_class/accesstoken_storage.dart';
 import '../../helper_class/api.dart';
 import '../../models/fitness_plan/exercises_model.dart';
 import '../../helper_class/network_exception_class.dart';
+import '../../utils/global_var.dart';
 
 class ShowFavouriteService {
   Future<List<Exercise>> showFavourites() async {
     final token = await LocalStorageAccessToken.getToken();
 
     final data = await API().get(
-      url: 'http://10.0.2.2:8080/favourite/getFavouriteExercises',
+      url: '$apiUrl/favourite/getFavouriteExercises',
       token: token,
     );
 

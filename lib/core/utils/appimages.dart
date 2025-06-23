@@ -94,6 +94,10 @@ class Assets {
   /// assets/images/plank.gif
   static const String assetsImagesPlank = "assets/images/plank.gif";
 
+  /// Assets for assetsImagesPlankImage
+  /// assets/images/plankImage.jpg
+  static const String assetsImagesPlankImage = "assets/images/plankImage.jpg";
+
   /// Assets for assetsImagesProgress
   /// assets/images/progress.jpg
   static const String assetsImagesProgress = "assets/images/progress.jpg";
@@ -102,13 +106,29 @@ class Assets {
   /// assets/images/push_ups.gif
   static const String assetsImagesPushUps = "assets/images/push_ups.gif";
 
+  /// Assets for assetsImagesPushupImage
+  /// assets/images/pushupImage.jpg
+  static const String assetsImagesPushupImage = "assets/images/pushupImage.jpg";
+
+  /// Assets for assetsImagesRecoveryImage
+  /// assets/images/RecoveryImage.jpg
+  static const String assetsImagesRecoveryImage = "assets/images/RecoveryImage.jpg";
+
   /// Assets for assetsImagesShoulderImg
   /// assets/images/shoulder_Img.jpeg
   static const String assetsImagesShoulderImg = "assets/images/shoulder_Img.jpeg";
 
+  /// Assets for assetsImagesSquatImage
+  /// assets/images/squatImage.jpg
+  static const String assetsImagesSquatImage = "assets/images/squatImage.jpg";
+
   /// Assets for assetsImagesSquats
   /// assets/images/squats.gif
   static const String assetsImagesSquats = "assets/images/squats.gif";
+
+  /// Assets for assetsImagesStreachImage
+  /// assets/images/StreachImage.jpg
+  static const String assetsImagesStreachImage = "assets/images/StreachImage.jpg";
 
   /// Assets for assetsImagesStretches
   /// assets/images/stretches.jpg
@@ -125,5 +145,9 @@ class Assets {
   /// Assets for assetsImagesWorkout1
   /// assets/images/Workout_1.png
   static const String assetsImagesWorkout1 = "assets/images/Workout_1.png";
+
+  /// Assets for assetsImagesYogaImage
+  /// assets/images/YogaImage.jpg
+  static const String assetsImagesYogaImage = "assets/images/YogaImage.jpg";
 }
 

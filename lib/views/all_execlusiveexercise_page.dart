@@ -3,9 +3,9 @@ import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import '../core/widgets/custom_exercise_cateogory.dart';
 
-class FullBodyExercisePage extends StatelessWidget {
-  const FullBodyExercisePage({super.key});
-  static const routeName = 'FullBodyExercisePage';
+class AllExeclusiveExercisePage extends StatelessWidget {
+  const AllExeclusiveExercisePage({super.key});
+  static const routeName = 'AllExeclusiveExercisePage';
 
   @override
   Widget build(BuildContext context) {
@@ -43,30 +43,26 @@ class FullBodyExercisePage extends StatelessWidget {
                 child: Column(
                   children: [
                     CustomExerciseCategory(
-                      name: "CHEST",
-                      imagePath: Assets.assetsImagesChestIMg,
+                      name: "CARDIO",
+                      imagePath: Assets.assetsImagesFitnessImg,
                       details: "11 MINS • 11 EXERCISES",
                     ),
                     CustomExerciseCategory(
-                      name: "BACK",
-                      imagePath: Assets.assetsImagesBackImg,
+                      name: "RECOVERY",
+                      imagePath: Assets.assetsImagesRecoveryImage,
                       details: "11 MINS • 11 EXERCISES",
                     ),
                     CustomExerciseCategory(
-                      name: "SHOULDER",
-                      imagePath: Assets.assetsImagesShoulderImg,
+                      name: "YOGA",
                       details: "11 MINS • 11 EXERCISES",
+                      imagePath: Assets.assetsImagesYogaImage,
                     ),
                     CustomExerciseCategory(
-                      name: "ARM",
-                      imagePath: Assets.assetsImagesArmImg,
+                      name: "STRETCHES",
                       details: "11 MINS • 11 EXERCISES",
+                      imagePath: Assets.assetsImagesStreachImage,
                     ),
-                    CustomExerciseCategory(
-                      name: "LEG",
-                      imagePath: Assets.assetsImagesLegImg,
-                      details: "11 MINS • 11 EXERCISES",
-                    ),
+
                   ],
                 ),
               ),

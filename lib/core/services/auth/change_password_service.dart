@@ -3,11 +3,12 @@ import '../../helper_class/api.dart';
 import '../../helper_class/accesstoken_storage.dart';
 import '../../helper_class/network_exception_class.dart';
 import '../../helper_functions/HanleSessionExpired.dart';
+import '../../utils/global_var.dart';
 
 class ChangePasswordService {
   Future<Map<String, dynamic>> changePasswordForRestoreAccount(String email, String password) async {
     final response = await API().post(
-      url: 'http://10.0.2.2:8080/changePassword?password=$password&email=$email',
+      url: '$apiUrl/changePassword?password=$password&email=$email',
       data: null,
       token: null,
     );
@@ -32,7 +33,7 @@ class ChangePasswordService {
     final token = await LocalStorageAccessToken.getToken();
 
     final response = await API().post(
-      url: 'https://wellness-production.up.railway.app/changePasswordInternal?curPassword=$oldPassword&newPassword=$newPassword',
+      url: '$apiUrl/changePasswordInternal?curPassword=$oldPassword&newPassword=$newPassword',
       data: null,
       token: token,
     );

@@ -15,6 +15,9 @@ class GoalPage extends StatefulWidget {
 
 class _GoalPageState extends State<GoalPage> {
   String? selectedGoal;
+  /*
+  Weight Cut / Muscle Gain / Increase Strength
+   */
 
   // Maps frontend goal text to backend enum values
   String _getBackendGoalValue(String? frontendGoal) {
@@ -62,8 +65,8 @@ class _GoalPageState extends State<GoalPage> {
               SizedBox(height: height * 0.015),
               CheckboxButton(
                 text: "Muscles Gain",
-                isSelected: selectedGoal == "Muscles Gain",
-                onTap: () => setState(() => selectedGoal = "Muscles Gain"),
+                isSelected: selectedGoal == "muscles gain",
+                onTap: () => setState(() => selectedGoal = "muscles gain"),
               ),
               SizedBox(height: height * 0.015),
               CheckboxButton(
@@ -86,7 +89,7 @@ class _GoalPageState extends State<GoalPage> {
                     : () async {
                   // Save the properly formatted goal value for backend
                   await storage.saveUserGoal(
-                      _getBackendGoalValue(selectedGoal));
+                      _getBackendGoalValue(selectedGoal!));
                   Navigator.pushNamed(context, "ExperienceLevelPage");
                 },
               ),

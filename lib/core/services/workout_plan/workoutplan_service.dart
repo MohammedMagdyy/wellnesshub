@@ -3,12 +3,13 @@ import '../../helper_class/api.dart';
 import '../../models/fitness_plan/planexercises_model.dart';
 import '../../helper_class/network_exception_class.dart';
 import '../../helper_functions/HanleSessionExpired.dart';
+import '../../utils/global_var.dart';
 
 class WorkoutPlanService {
   Future<ExercisePlan> fetchUserPlan() async {
     final token = await LocalStorageAccessToken.getToken();
     final data = await API().get(
-      url: 'http://10.0.2.2:8080/workoutPlan/getUserPlan',
+      url: '$apiUrl/workoutPlan/getUserPlan',
       token: token,
     );
 

@@ -2,17 +2,18 @@ import '../../helper_class/accesstoken_storage.dart';
 import '../../helper_class/api.dart';
 import '../../helper_class/network_exception_class.dart';
 import '../../models/fitness_plan/exercises_model.dart';
+import '../../utils/global_var.dart';
 
 class SwapService {
   static Future<List<Exercise>> swapExercise(int exerciseId) async {
     final token = await LocalStorageAccessToken.getToken();
 
     final response = await API().get(
-      url: 'https://wellness-production.up.railway.app/exercise/swap?exerciseID=$exerciseId',
+      url: '$apiUrl/exercise/swap?exerciseID=$exerciseId',
       token: token,
     );
 
-    final data = response.data;
+    final data = response;
 
     if (data is List) {
       return data.map((e) => Exercise.fromJson(e)).toList();
@@ -32,7 +33,7 @@ class SwapService {
     final token = await LocalStorageAccessToken.getToken();
 
     final response = await API().post(
-      url: 'https://wellness-production.up.railway.app/exercise/setSwap',
+      url: '$apiUrl/exercise/setSwap',
       token: token,
       data: {
         "dayID": dayID,
@@ -42,7 +43,7 @@ class SwapService {
       },
     );
 
-    final data = response.data;
+    final data = response;
 
     if (data is Map<String, dynamic> && data['message'] != null) {
       return {

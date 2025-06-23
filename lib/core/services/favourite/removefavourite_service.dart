@@ -5,11 +5,13 @@ import '../../helper_class/network_exception_class.dart';
 import 'dart:io';
 import 'dart:async';
 
+import '../../utils/global_var.dart';
+
 class RemoveFromFavouriteService {
   Future<Map<String, String>> removeFromFav(int exerciseId) async {
     final token = await LocalStorageAccessToken.getToken();
     final response = await API().get(
-      url: 'https://wellness-production.up.railway.app/exercise/removeFromFavourite?exerciseID=$exerciseId',
+      url: '$apiUrl/exercise/removeFromFavourite?exerciseID=$exerciseId',
       token: token,
     );
 

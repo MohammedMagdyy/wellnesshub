@@ -23,7 +23,7 @@ class ChallengeList extends StatelessWidget {
           width: 300,
           child: MainpageCard(
             title: "Push Ups",
-            image: Assets.assetsImagesPushUps,
+            image: Assets.assetsImagesPushupImage,
             nextPage: "pushUps",
           ),
         ),
@@ -35,7 +35,7 @@ class ChallengeList extends StatelessWidget {
           width: 300,
           child: MainpageCard(
             title: "Plank",
-            image: Assets.assetsImagesPlank,
+            image: Assets.assetsImagesPlankImage,
             nextPage: "Plank",
           ),
         ),
@@ -48,7 +48,7 @@ class ChallengeList extends StatelessWidget {
           child: MainpageCard(
             title: "Squats",
             nextPage: "Squats",
-            image: Assets.assetsImagesSquats,
+            image: Assets.assetsImagesSquatImage,
           ),
         ),
         SizedBox(width: 12),

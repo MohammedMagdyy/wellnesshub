@@ -6,8 +6,8 @@ import '../helper_functions/HanleSessionExpired.dart';
 
 class API {
   static final Dio dio = Dio(BaseOptions(
-    connectTimeout: const Duration(seconds: 10),
-    receiveTimeout: const Duration(seconds: 10),
+    connectTimeout: const Duration(seconds: 120),
+    receiveTimeout: const Duration(seconds: 120),
   ));
 
   Future<dynamic> _handleRequest(Future<Response> Function() request) async {
@@ -66,7 +66,7 @@ class API {
     return _handleRequest(() => dio.get(
       url,
       queryParameters: data,
-      options: Options(headers: _buildHeaders(token)),
+      options: Options(headers: buildHeaders(token)),
     ));
   }
 
@@ -78,7 +78,7 @@ class API {
     return _handleRequest(() => dio.post(
       url,
       data: data,
-      options: Options(headers: _buildHeaders(token)),
+      options: Options(headers: buildHeaders(token)),
     ));
   }
 
@@ -90,7 +90,7 @@ class API {
     return _handleRequest(() => dio.put(
       url,
       data: data,
-      options: Options(headers: _buildHeaders(token)),
+      options: Options(headers: buildHeaders(token)),
     ));
   }
 
@@ -100,11 +100,11 @@ class API {
   }) async {
     return _handleRequest(() => dio.delete(
       url,
-      options: Options(headers: _buildHeaders(token)),
+      options: Options(headers: buildHeaders(token)),
     ));
   }
 
-  Map<String, String> _buildHeaders(String? token) {
+  Map<String, String> buildHeaders(String? token) {
     final headers = {'Content-Type': 'application/json'};
     if (token != null) {
       headers['Authorization'] = 'Bearer $token';

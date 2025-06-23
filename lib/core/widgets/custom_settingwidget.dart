@@ -36,7 +36,7 @@ class CustomSettingwidget extends StatefulWidget {
 }
 
 class _CustomSettingwidgetState extends State<CustomSettingwidget> {
-
+  bool _isDeleting = false;
   bool currentMode = false;
 
   void _showConfirmationDialog({
@@ -148,38 +148,51 @@ class _CustomSettingwidgetState extends State<CustomSettingwidget> {
                 },
               );
             }
-            else if(widget.onTapFunc == 4){
+            else if (widget.onTapFunc == 4) {
               _showConfirmationDialog(
                 title: "Delete Account",
                 content: "Are you sure you want to delete your account? This action is irreversible.",
-                onConfirm: () async{
-                  DeleteAccountService deleteAccountService = DeleteAccountService();
-                  final response=await deleteAccountService.deleteAccount();
-                 try{
-                   if(response['success']){
-                     Navigator.pushReplacementNamed(context,SignInPage.routeName);
-                   }
-                   else{
-                     print("EROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOR");
-                     ScaffoldMessenger.of(context).showSnackBar(
-                         SnackBar(
-                           content: Text(response['message']),
-                           backgroundColor: Colors.red,
-                         ),
-                     );
-                     }
-                 }catch(e){
-                   ScaffoldMessenger.of(context).showSnackBar(
-                     SnackBar(
-                       content: Text(e.toString()),
-                       backgroundColor: Colors.red,
-                     ),);
-                     }
+                onConfirm: () async {
+                  setState(() => _isDeleting = true); // Show loading
 
+                  try {
+                    DeleteAccountService deleteAccountService = DeleteAccountService();
+                    final response = await deleteAccountService.deleteAccount();
+
+                    if (!mounted) return;
+
+                    setState(() => _isDeleting = false); // Hide loading
+
+                    if (response['success']) {
+                      Navigator.pushReplacementNamed(context, SignInPage.routeName);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Account is Deleted Successfully'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(response['message']),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  } catch (e) {
+                    if (!mounted) return;
+                    setState(() => _isDeleting = false); // Hide loading
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Error: ${e.toString()}"),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
                 },
               );
-
             }
+
           },
           leading: Icon(
             widget.icon,

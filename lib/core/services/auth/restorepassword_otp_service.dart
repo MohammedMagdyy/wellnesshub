@@ -2,16 +2,18 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:wellnesshub/core/helper_class/api.dart';
 
+import '../../utils/global_var.dart';
+
 class RestorePasswordService {
   Future<Map<String, dynamic>> restorePassword(String email) async {
     try {
       final encodedEmail = Uri.encodeComponent(email);
 
       final response = await API().post(
-        url: 'https://wellness-production.up.railway.app/changePasswordRequest?email=$encodedEmail',
+        url: '$apiUrl/changePasswordRequest?email=$encodedEmail',
         token: null,
         data: null,
-      ).timeout(const Duration(seconds: 10));
+      );
 
       final decoded = response is Map<String, dynamic> ? response : jsonDecode(response.toString());
 

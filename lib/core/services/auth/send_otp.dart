@@ -3,14 +3,16 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:wellnesshub/core/helper_class/api.dart';
 
+import '../../utils/global_var.dart';
+
 class OTP {
   Future<Map<String, dynamic>> activeOtp({required String email, required String username}) async {
     try {
       final response = await API().post(
-        url: 'http://10.0.2.2:8080/active?email=$email&userName=$username',
+        url: '$apiUrl/active?email=$email&userName=$username',
         data: null,
         token: null,
-      ).timeout(const Duration(seconds: 10)); // <-- Added timeout
+      );
 
       if (response != null) {
         final decoded = response is Map<String, dynamic> ? response : jsonDecode(response.toString());
@@ -69,7 +71,7 @@ class OTP {
   Future<Map<String, dynamic>> verifyOtp({required String email, required String code}) async {
     try {
       final response = await API().post(
-        url: 'https://wellness-production.up.railway.app/verify?email=$email&code=$code',
+        url: '$apiUrl/verify?email=$email&code=$code',
         token: null,
         data: null,
       );

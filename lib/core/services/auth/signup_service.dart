@@ -3,12 +3,14 @@ import 'package:dio/dio.dart';
 import 'package:wellnesshub/core/helper_class/api.dart';
 import 'package:wellnesshub/core/models/sign_up/userinfo_model.dart';
 
+import '../../utils/global_var.dart';
+
 
 class SignupService {
   Future<Map<String, dynamic>> signup(String fname, String lname, String email, String password) async {
     try {
       final response = await API().post(
-        url: 'http://10.0.2.2:8080/register',
+        url: '$apiUrl/register',
         data: {
           'firstName': fname,
           'lastName': lname,
@@ -19,7 +21,7 @@ class SignupService {
           // }
         },
         token: null,
-      ).timeout(const Duration(seconds: 10));
+      );
 
       if (response != null && response['status'] == 'success') {
         return {'success': true, 'message': response['message'] ?? 'Signup successful'};
@@ -65,9 +67,9 @@ class SignupService {
       print('Sending user info: $userInfoJson');
 
       final response = await API().post(
-        url: 'http://10.0.2.2:8080/saveUserInfo?userEmail=$email',
+        url: '$apiUrl/saveUserInfo?userEmail=$email',
         data: userInfoJson,
-      ).timeout(const Duration(seconds: 10)); // <-- Added timeout
+      ); // <-- Added timeout
 
       print('API Response: $response');
 

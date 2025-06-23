@@ -149,9 +149,10 @@ class _Sign_UpState extends State<SignUp> {
                               setState(() => _isLoading = false);
                               return;
                             }
+                            await storage.saveUserEmail(email: email!.toLowerCase());
 
                             await storage.saveUserData(
-                              email: email!.toLowerCase(),
+                              //email: email!.toLowerCase(),
                               fname: firstName!,
                               lname: lastName!,
                               password: password!,

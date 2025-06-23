@@ -60,12 +60,6 @@ class _ProfilePageState extends State<ProfilePage> {
         age=userData.age;
         height=userData.height;
         weight=userData.weight;
-        // fName = storedUserData!.firstName ?? "User";
-        // lName = storedUserData.lastName ?? " ";
-        // email =storedUserData.email ?? " ";
-        // age = storedUserData.age ?? 0;
-        // height = storedUserData.height ;
-        // weight =storedUserData.weight ;
 
         firstNameController.text = fName;
         lastNameController.text = lName;
@@ -90,34 +84,69 @@ class _ProfilePageState extends State<ProfilePage> {
 
 
   Future<void> _loadProfileImage() async {
-  final prefs = await SharedPreferences.getInstance();
-  final path = prefs.getString('profile_image_path');
-  if (path != null && File(path).existsSync()) {
-    setState(() {
-      _imageFile = File(path);
-    });
+    try {
+      final file = await UpdateProfileService().downloadProfilePicture();
+
+      if (file != null && file.existsSync() && file.lengthSync() > 0) {
+        setState(() {
+          _imageFile = null;
+          profileImageNotifier.value = null;
+
+          _imageFile = file;
+          profileImageNotifier.value = file;
+        });
+
+      } else {
+        print("Profile image file not found or empty.");
+      }
+    } catch (e) {
+      print("Error loading profile picture: $e");
+    }
   }
-  profileImageNotifier.value = _imageFile;
-}
 
-Future<void> _pickImage() async {
-  final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-  if (pickedFile != null) {
-    final directory = await getApplicationDocumentsDirectory();
 
-    // Give each saved image a unique name using timestamp
-    final imagePath = '${directory.path}/profile_${DateTime.now().millisecondsSinceEpoch}.png';
 
-    final savedImage = await File(pickedFile.path).copy(imagePath);
 
-    // Save path in SharedPreferences
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('profile_image_path', savedImage.path);
+  Future<void> _pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      final file = File(pickedFile.path);
 
-    // Update notifier
-    profileImageNotifier.value = File(savedImage.path);
+      try {
+        await UpdateProfileService().uploadProfilePicture(file);
+
+        final directory = await getApplicationDocumentsDirectory();
+        final imagePath = '${directory.path}/profile_uploaded.png';
+        final savedImage = await file.copy(imagePath);
+
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('profile_image_path', savedImage.path);
+
+        setState(() {
+          _imageFile = savedImage;
+          profileImageNotifier.value = savedImage;
+          profileImageVersionNotifier.value++;
+        });
+
+        final snackBar = buildCustomSnackbar(
+          title: 'Success!',
+          message: 'Profile picture updated.',
+          backgroundColor: Colors.green,
+          type: ContentType.success,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } catch (e) {
+        final snackBar = buildCustomSnackbar(
+          title: 'Error!',
+          message: 'Upload failed: ${e.toString()}',
+          backgroundColor: Colors.red,
+          type: ContentType.failure,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    }
   }
-}
+
 
 void _showNumberPickerDialog(String field) {
   final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -215,20 +244,22 @@ void _showNumberPickerDialog(String field) {
           children: [
             ValueListenableBuilder(
               valueListenable: profileImageNotifier,
-              builder: (context,imageFile,_) {
+              builder: (context, imageFile, _) {
                 return GestureDetector(
                   onTap: _pickImage,
                   child: CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.grey[300],
-                    backgroundImage: imageFile != null ? FileImage(imageFile) :
-                    AssetImage('assets/default_avatar.png') as ImageProvider,
+                    backgroundImage: imageFile != null && imageFile.existsSync()
+                        ? FileImage(imageFile, scale: DateTime.now().millisecondsSinceEpoch.toDouble()) // force reload
+                        : const AssetImage('assets/default_avatar.png') as ImageProvider,
+
                     child: imageFile == null
                         ? const Icon(Icons.person, size: 50, color: Colors.white)
                         : null,
                   ),
                 );
-              }
+              },
             ),
             const SizedBox(height: 10),
             Text(

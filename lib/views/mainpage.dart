@@ -19,11 +19,11 @@ class _MainPageState extends State<MainPage> {
   late int _selectedIndex;
 
   final List<Widget> _pages = [
-    HomePage(),
-    ProgressPage(),
-    FavoritesPage(),
-    BMICalculator(),
-    SettingPage(),
+    const HomePage(),
+    const ProgressPage(),
+    const FavoritesPage(),
+    const BMICalculator(),
+     SettingPage(),
   ];
 
   @override
@@ -37,10 +37,7 @@ class _MainPageState extends State<MainPage> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _pages,
-      ),
+      body: _pages[_selectedIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: isDark ? Colors.black : Colors.white,
