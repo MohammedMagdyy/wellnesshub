@@ -140,7 +140,7 @@ class _SpecificExercisePageState extends State<SpecificExercisePage> {
                   flexibleSpace: FlexibleSpaceBar(
                     titlePadding: EdgeInsets.only(left: 20, bottom: 16),
                     title: Text(
-                      '${widget.title} Exercises',
+                      '${widget.title} EXERCISES',
                       style: TextStyle(
                         color: isDark? darkBmiTextColor_1 : lightBmiTextColor_1,
                         fontSize: 22,

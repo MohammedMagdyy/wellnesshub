@@ -42,12 +42,6 @@ class _WorkoutDaysPageState extends State<WorkoutDaysPage> {
               ),
               SizedBox(height: height * 0.03),
               CheckboxButton(
-                text: "1 Day",
-                isSelected: selectedDays == 1, // Compare with int
-                onTap: () => setState(() => selectedDays = 1), // Store as int
-              ),
-              SizedBox(height: height * 0.0001),
-              CheckboxButton(
                 text: "2 Days",
                 isSelected: selectedDays == 2,
                 onTap: () => setState(() => selectedDays = 2),

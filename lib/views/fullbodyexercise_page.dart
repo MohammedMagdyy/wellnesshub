@@ -46,27 +46,27 @@ class FullBodyExercisePage extends StatelessWidget {
                     CustomExerciseCategory(
                       name: "CHEST",
                       imagePath: Assets.assetsImagesChestIMg,
-                      details: "11 MINS • 11 EXERCISES",
+                      details: "29 EXERCISES",
                     ),
                     CustomExerciseCategory(
                       name: "BACK",
                       imagePath: Assets.assetsImagesBackImg,
-                      details: "11 MINS • 11 EXERCISES",
+                      details: "31 EXERCISES",
                     ),
                     CustomExerciseCategory(
                       name: "SHOULDER",
                       imagePath: Assets.assetsImagesShoulderImg,
-                      details: "11 MINS • 11 EXERCISES",
+                      details: "30 EXERCISES",
                     ),
                     CustomExerciseCategory(
                       name: "ARM",
                       imagePath: Assets.assetsImagesArmImg,
-                      details: "11 MINS • 11 EXERCISES",
+                      details: "36 EXERCISES",
                     ),
                     CustomExerciseCategory(
                       name: "LEG",
                       imagePath: Assets.assetsImagesLegImg,
-                      details: "11 MINS • 11 EXERCISES",
+                      details: "29 EXERCISES",
                     ),
                   ],
                 ),
