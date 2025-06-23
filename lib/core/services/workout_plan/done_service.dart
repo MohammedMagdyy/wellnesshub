@@ -8,7 +8,7 @@ class DoneService {
     try {
       final token = await LocalStorageAccessToken.getToken();
 
-      final response = await API().get(
+      final data = await API().post(
         url: '$apiUrl/exercise/done',
         token: token,
         data: {
@@ -17,8 +17,6 @@ class DoneService {
           'dayID': dayID,
         },
       );
-
-      final data = response.data;
 
       // If backend returns a new access token
       if (data != null && data['accessToken'] != null) {
@@ -39,3 +37,4 @@ class DoneService {
     }
   }
 }
+

@@ -222,10 +222,12 @@ class _SignInState extends State<SignInPage> {
                               }
                             }
                           } else {
+                            final fbErrorMessage = gResult['message'] ?? 'Login with Google failed';
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(gResult['message'] ?? 'Login with Google failed')),
+                              SnackBar(content: Text(fbErrorMessage)),
                             );
                           }
+
                         },
                         text: "Sign In Using Google",
                         image: Assets.assetsImagesGoogleLogo,
@@ -255,10 +257,12 @@ class _SignInState extends State<SignInPage> {
                               }
                             }
                           } else {
+                            final fbErrorMessage = fbSuccess['message'] ?? 'Login with Facebook failed';
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Login with Facebook failed')),
+                              SnackBar(content: Text(fbErrorMessage)),
                             );
                           }
+
                         },
                         text: "Sign In With Facebook",
                         image: Assets.assetsImagesFacebookLogo,

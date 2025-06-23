@@ -20,6 +20,7 @@ import 'package:wellnesshub/views/fitnessplanpage.dart';
 import 'package:wellnesshub/views/fullbodyexercise_page.dart';
 import 'package:wellnesshub/views/settings/setting_page.dart';
 import 'package:wellnesshub/views/signup_process/verify_email_page.dart';
+import 'package:wellnesshub/views/splash_screen.dart';
 import 'package:wellnesshub/views/test.dart';
 
 import 'core/helper_class/Dio_Interceptor _Handling401.dart';
@@ -49,7 +50,7 @@ class WellnessHub extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
           onGenerateRoute: OnGenerateRoute,
-          initialRoute:MainPage.routeName,
+          initialRoute:SplashScreen.routeName,
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
             brightness: Brightness.light

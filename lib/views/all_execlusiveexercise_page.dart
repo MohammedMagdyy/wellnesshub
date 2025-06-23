@@ -24,7 +24,7 @@ class AllExeclusiveExercisePage extends StatelessWidget {
               flexibleSpace: const FlexibleSpaceBar(
                 titlePadding: EdgeInsets.only(left: 20, bottom: 16),
                 title: Text(
-                  'BE STRONGER!',
+                  'EXCLUSIVE TRAINING!',
                   style: TextStyle(
                     color: Colors.amberAccent,
                     fontSize: 22,

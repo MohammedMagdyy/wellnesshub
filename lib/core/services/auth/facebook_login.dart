@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:dio/dio.dart';
@@ -28,29 +30,52 @@ class FacebookLoginService {
     try {
       final response = await _dio.post(
         '$apiUrl/facebook/login',
-       data: {'accessToken': fbAccessToken},
+        data: {'accessToken': fbAccessToken},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
 
       if (response.statusCode == 200) {
         final jwt = response.data['accessToken'];
         if (jwt == null) {
-          //Save Email  response.data['email']
-          String email=response.data['email'];
+          String email = response.data['email'];
           print(email);
           await storage.saveUserEmail(email: email);
           return {'success': true, 'message': 'Continue user Info'};
         }
         await LocalStorageAccessToken.saveToken(jwt);
-        debugPrint('✅ JWT Token stored: $jwt');
         return {'success': true, 'message': 'Login Success'};
       } else {
-        debugPrint('❌ Backend login failed: ${response.statusMessage}');
-        return {'success': false, 'message': 'Failed'};
+        // Optional fallback (shouldn’t happen if DioException is triggered for errors)
+        return {'success': false, 'message': response.statusMessage ?? 'Login failed'};
       }
+    } on DioException catch (e) {
+      String message = 'Login failed';
+
+      try {
+        dynamic errorData = e.response?.data;
+
+        if (errorData is String) {
+          errorData = jsonDecode(errorData);
+        }
+
+        if (errorData is Map && errorData['message'] != null) {
+          message = errorData['message'];
+        } else if (e.response?.statusCode == 401) {
+          message = 'Unauthorized Facebook login: Invalid or expired token.';
+        } else if (e.response?.statusCode == 404) {
+          message = 'Not Found: This Email may be registered via another provider';
+        }
+      } catch (err) {
+        debugPrint('Error decoding backend error: $err');
+        message = 'Failed to parse backend error';
+      }
+
+      return {'success': false, 'message': message};
     } catch (e) {
-      debugPrint('❌ Dio error: $e');
-      return {'success': false, 'message': e.toString()};
+      return {'success': false, 'message': 'Unexpected error: ${e.toString()}'};
     }
   }
+
+
+
 }

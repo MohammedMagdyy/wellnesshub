@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
+import '../core/helper_class/is_loggedIn.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,7 +11,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
-  bool logedIn = false;
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
 
@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
     _slideController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1 , milliseconds: 500),
+      duration: const Duration(milliseconds: 1500),
     );
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 15),
@@ -45,13 +45,19 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     _fadeController.forward();
     _slideController.forward();
 
-    Future.delayed(
-      const Duration(seconds: 6),
-      () {
-        logedIn
-            ? Navigator.pushReplacementNamed(context, "MainPage")
-            : Navigator.pushReplacementNamed(context, "LoginPage");
-      },
+    _startSplashLogic();
+  }
+
+  void _startSplashLogic() async {
+    final loggedIn = await IsLoggedin().isLoggedIn();
+
+    await Future.delayed(const Duration(seconds: 6));
+
+    if (!mounted) return;
+
+    Navigator.pushReplacementNamed(
+      context,
+      loggedIn ? "MainPage" : "LoginPage",
     );
   }
 
@@ -82,7 +88,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                 right: 0,
                 child: SlideTransition(
                   position: _slideAnimation,
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       'Welcome to WellnessHub',
                       style: TextStyle(

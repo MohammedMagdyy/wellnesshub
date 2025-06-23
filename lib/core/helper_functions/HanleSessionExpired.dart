@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../helper_class/accesstoken_storage.dart';
 import '../utils/global_var.dart';
 
 Future<void> handleSessionExpired() async {
@@ -17,6 +18,7 @@ Future<void> handleSessionExpired() async {
         actions: [
           TextButton(
             onPressed: () {
+              LocalStorageAccessToken.removeToken();
               Navigator.of(dialogContext).pop(); // Close the dialog
             },
             child: const Text('OK'),

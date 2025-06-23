@@ -26,6 +26,8 @@ class DeleteAccountService {
 
       // Successful deletion
       if (data is Map && data['message']?.toString().contains("Account has been deleted") == true) {
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        LocalStorageAccessToken.removeToken();
         return {'success': true, 'message': data['message']};
       }
 

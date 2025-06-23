@@ -7,7 +7,6 @@ import 'package:wellnesshub/views/challenges/challenge_pushups.dart';
 import 'package:wellnesshub/views/challenges/challenge_squats.dart';
 import 'package:wellnesshub/views/settings/changepassword_page.dart';
 import 'package:wellnesshub/views/fullbodyexercise_page.dart';
-import 'package:wellnesshub/views/facebookLoginPage.dart';
 import 'package:wellnesshub/views/fitnessplanpage.dart';
 import 'package:wellnesshub/views/mainpage.dart';
 import 'package:wellnesshub/views/community_page.dart';
@@ -136,13 +135,11 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
     case 'VersionInfoPage':
       return MaterialPageRoute(builder: (context) => VersionInfoPage());
     case 'ProfilesettingsPage':
-      return MaterialPageRoute(builder: (context) => ProfilesettingsPage());
+      return MaterialPageRoute(builder: (context) => ProfileSettingsPage());
     case 'CustomToggleSwitch':
       return MaterialPageRoute(builder: (context) => CustomToggleSwitch(isDarkModeSwitch: false));
     case 'WorkoutReminder':
       return MaterialPageRoute(builder: (context) => WorkoutReminderPage());
-    case 'FacebookLoginPage':
-      return MaterialPageRoute(builder: (context) => FacebookLoginPage());
     case 'ExperienceLevelPage':
       return MaterialPageRoute(builder: (context) => ExperienceLevelPage());
     case 'WorkoutDaysPage':

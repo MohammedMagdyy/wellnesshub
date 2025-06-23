@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/homepage_header.dart';
-import 'package:wellnesshub/core/widgets/mainpage_card.dart';
 import 'package:wellnesshub/core/widgets/search_bar.dart';
 import 'package:wellnesshub/core/widgets/categories.dart';
 
@@ -42,7 +40,9 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'AllExeclusiveExercisePage');
+                      },
                       child: Text(
                         "See all",
                         style: TextStyle(

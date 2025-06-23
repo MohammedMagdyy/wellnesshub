@@ -11,6 +11,7 @@ class FullUserInfo {
   String experienceLevel;
   int daysPerWeek;
   double bmi;
+  String provider;
 
   FullUserInfo({
     required this.firstName,
@@ -25,6 +26,7 @@ class FullUserInfo {
     required this.experienceLevel,
     required this.daysPerWeek,
     required this.bmi,
+    required this.provider,
   });
 
   factory FullUserInfo.fromJson(Map<String, dynamic> json) => FullUserInfo(
@@ -40,6 +42,7 @@ class FullUserInfo {
     experienceLevel: json["experienceLevel"],
     daysPerWeek: json["daysPerWeek"],
     bmi: json["bmi"]?.toDouble(),
+    provider: json["provider"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -55,5 +58,6 @@ class FullUserInfo {
     "experienceLevel": experienceLevel,
     "daysPerWeek": daysPerWeek,
     "bmi": bmi,
+    "provider": provider,
   };
 }

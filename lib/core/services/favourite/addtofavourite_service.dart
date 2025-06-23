@@ -14,13 +14,13 @@ class AddToFavouriteService {
     );
 
     // 🛡️ Handle OAuth fallback
-    if (response.data is String && response.data.toString().contains('<html')) {
+    if (response is String && response.toString().contains('<html')) {
       await handleSessionExpired();
       throw NetworkException('Session expired. Please login again.');
     }
 
     // ✅ Parse valid JSON response
-    final data = response.data;
+    final data = response;
     if (data is Map<String, dynamic>) {
       final status = data['status'];
       final message = data['message'];

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import '../helper_class/network_exception_class.dart';
@@ -28,25 +29,37 @@ class API {
 
       return response.data; // Always return just the data part
     } on DioException catch (e) {
-      final errorData = e.response?.data;
+      final statusCode = e.response?.statusCode;
+      dynamic errorData = e.response?.data;
 
-      if (errorData is Map && errorData['error'] == 'TokenExpired') {
-        await handleSessionExpired();
-        throw NetworkException('Authentication failed. Please login again.');
+      // Default error message
+      String message = 'Request failed: ${e.message}';
+
+      // Attempt to extract meaningful message from response body
+      try {
+        if (errorData is Map && errorData['message'] != null) {
+          message = errorData['message'];
+        } else if (errorData is String) {
+          final parsed = jsonDecode(errorData);
+          if (parsed is Map && parsed['message'] != null) {
+            message = parsed['message'];
+          }
+        }
+      } catch (_) {
+        // JSON parse error; keep default message
       }
 
-      // Map known errors to messages
-      if (e.response?.statusCode == 401) {
+      if (statusCode == 401) {
         await handleSessionExpired();
         throw NetworkException('Authentication failed. Please login again.');
+      } else if (statusCode == 500) {
+        throw NetworkException('Server error. Please try again later.');
       } else if (e.type == DioExceptionType.connectionTimeout) {
         throw NetworkException('Connection timeout. Please check your internet connection.');
       } else if (e.type == DioExceptionType.connectionError) {
         throw NetworkException('Could not connect to the server. Try again later.');
-      } else if (e.response?.statusCode == 500) {
-        throw NetworkException('Server error. Please try again later.');
       } else {
-        throw NetworkException('Request failed: ${e.message}');
+        throw NetworkException(message);
       }
     } on SocketException {
       throw NetworkException('No internet connection. Please check your network.');
@@ -57,6 +70,7 @@ class API {
       throw NetworkException('Unexpected error occurred: ${e.toString()}');
     }
   }
+
 
   Future<dynamic> get({
     required String url,

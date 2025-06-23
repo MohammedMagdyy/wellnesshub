@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:dio/dio.dart';
@@ -46,12 +48,9 @@ class GoogleLoginService {
 
       if (response.statusCode == 200) {
         final jwt = response.data['accessToken'];
-        print("🔍 Backend response: ${response.data}");
-
 
         if (jwt == null) {
-          //Save Email  response.data['email']
-          String email=response.data['email'];
+          String email = response.data['email'];
           print(email);
           await storage.saveUserEmail(email: email);
           return {'success': true, 'message': 'Continue user Info'};
@@ -62,12 +61,36 @@ class GoogleLoginService {
 
         return {'success': true, 'message': 'Login Success'};
       } else {
-        debugPrint('❌ Google backend login failed: ${response.statusMessage}');
-        return {'success': false, 'message': response.statusMessage ?? 'Unknown error'};
+        return {
+          'success': false,
+          'message': response.statusMessage ?? 'Unknown error occurred'
+        };
       }
+    } on DioException catch (e) {
+      String message = 'Login failed';
+
+      try {
+        dynamic errorData = e.response?.data;
+
+        if (errorData is String) {
+          errorData = jsonDecode(errorData);
+        }
+
+        if (errorData is Map && errorData['message'] != null) {
+          message = errorData['message'];
+        } else if (e.response?.statusCode == 401) {
+          message = 'Unauthorized Google login: Invalid or expired token.';
+        }
+      } catch (_) {
+        message = 'Failed to parse error response';
+      }
+
+      return {'success': false, 'message': message};
     } catch (e) {
-      debugPrint('❌ Dio error during Google login: $e');
-      return {'success': false, 'message': e.toString()};
+      debugPrint('❌ Unexpected error during Google login: $e');
+      return {'success': false, 'message': 'Unexpected error: ${e.toString()}'};
     }
   }
+
+
 }

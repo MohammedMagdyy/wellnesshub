@@ -5,6 +5,7 @@ import 'package:wellnesshub/core/widgets/custom_switchtoggle.dart';
 import 'package:wellnesshub/core/utils/global_var.dart';
 import 'package:wellnesshub/views/login_process/sign_in.dart';
 
+import '../helper_class/accesstoken_storage.dart';
 import '../services/auth/delete_account.dart';
 
 class CustomSettingwidget extends StatefulWidget {
@@ -144,6 +145,7 @@ class _CustomSettingwidgetState extends State<CustomSettingwidget> {
                 title: "Confirm Logout",
                 content: "Are you sure you want to log out?",
                 onConfirm: () {
+                  LocalStorageAccessToken.removeToken();
                   Navigator.pushReplacementNamed(context,SignInPage.routeName);
                 },
               );
