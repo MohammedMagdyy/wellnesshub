@@ -84,7 +84,7 @@ class _HeaderState extends State<Header> {
                       "Hi, $name",
                       style: TextStyle(
                         fontSize: screenWidth * 0.05,
-                        color: const Color(0xff0095FF),
+                        color: isDark? darkPrimaryTextColor : lightPrimaryTextColor,
                         fontWeight: FontWeight.bold,
                       ),
                     );

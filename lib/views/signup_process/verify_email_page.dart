@@ -52,6 +52,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     setState(() {
       _isLoading = true;
       _errorMessage = null;
+      _timerEndTime = DateTime.now().add(const Duration(seconds: 45));
     });
 
     try {

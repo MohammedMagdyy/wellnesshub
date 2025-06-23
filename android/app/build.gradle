@@ -39,13 +39,13 @@ android {
         ]
     }
     signingConfigs{
-        debug{
-
-            keyAlias 'androiddebugkey'
-            keyPassword 'magdyy'
-            storeFile file('mykey.jks')
-            storePassword 'magdyy'
-        }
+//        debug{
+//
+//            keyAlias 'androiddebugkey'
+//            keyPassword 'magdyy'
+//            storeFile file('mykey.jks')
+//            storePassword 'magdyy'
+//        }
     }
     buildTypes {
         debug{
