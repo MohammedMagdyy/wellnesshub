@@ -121,7 +121,9 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'ChallengePage');
+                      },
                       child: Text(
                         "See all",
                         style: TextStyle(

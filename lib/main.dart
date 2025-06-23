@@ -3,6 +3,7 @@ import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/helper_functions/on_generate_route.dart';
 import 'package:wellnesshub/core/utils/global_var.dart';
 import 'package:wellnesshub/views/mainpage.dart';
+import 'package:wellnesshub/views/signup_process/verify_email_page.dart';
 import 'core/helper_class/Dio_Interceptor _Handling401.dart';
 
 
@@ -30,7 +31,7 @@ class WellnessHub extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
           onGenerateRoute: OnGenerateRoute,
-          initialRoute:MainPage.routeName,
+          initialRoute:VerifyEmailPage.routeName,
           theme: ThemeData(
             scaffoldBackgroundColor: lightBackgroundColor,
             brightness: Brightness.light

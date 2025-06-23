@@ -68,10 +68,7 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                 color: Color(0xff0095FF),
               ),
               onPressed: () {
-                Navigator.pushAndRemoveUntil(context,
-                  MaterialPageRoute(builder: (_) => MainPage(
-                      selectedIndex: 3)),
-                        (Route<dynamic> route) => false,);
+                Navigator.pop(context);
               },
             ),
           ),
