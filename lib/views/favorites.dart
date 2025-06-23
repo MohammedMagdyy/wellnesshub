@@ -30,12 +30,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
           valueListenable: FavoriteManager.instance.favorites,
           builder: (context, exercises, child) {
             if (exercises.isEmpty) {
-              return const Center(
+              return Center(
                 child: Text(
                   'No favourite exercises found.',
                   style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
+                    fontSize: 22,
+                    color: isDark? darkPrimaryTextColor : lightPrimaryTextColor,
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center,

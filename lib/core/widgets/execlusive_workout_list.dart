@@ -24,7 +24,7 @@ class ExclusiveWorkoutList extends StatelessWidget {
         ExclusiveWorkoutCard(
           name: "RECOVERY",
           image: Assets.assetsImagesRecoveryImage,
-          details: "9 EXERCISES",
+          details: "10 EXERCISES",
         ),
         SizedBox(width: 12),
         ExclusiveWorkoutCard(

@@ -51,7 +51,7 @@ class AllExeclusiveExercisePage extends StatelessWidget {
                     CustomExerciseCategory(
                       name: "RECOVERY",
                       imagePath: Assets.assetsImagesRecoveryImage,
-                      details: "9 EXERCISES",
+                      details: "10 EXERCISES",
                     ),
                     CustomExerciseCategory(
                       name: "YOGA",

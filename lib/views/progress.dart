@@ -21,27 +21,28 @@ class _ProgressPageState extends State<ProgressPage> {
   late Stream<PedestrianStatus> _pedestrianStatusStream;
   String _status = '?', _steps = '?';
 
-  List <_progressData> data = [
+  List <_progressData> originalData = [
     _progressData("1", 5),
     _progressData("2", 4),
     _progressData("3", 3),
     _progressData("4", 6),
     _progressData("5", 7),
-    _progressData("6", 8),
-    _progressData("7", 5),
-    _progressData("8", 4),
-    _progressData("9", 2),
-    _progressData("10", 3),
-    _progressData("11", 4),
-    _progressData("12", 5),
-    _progressData("13", 6),
-    _progressData("14", 7),
-    _progressData("15", 9),
-    _progressData("16", 2),
-    _progressData("17", 1),
-    _progressData("18", 8),
-    _progressData("19", 5),
+    _progressData("6", 0),
+    _progressData("7", 0),
+    _progressData("8", 0),
+    _progressData("9", 6),
+    _progressData("10", 5),
+    _progressData("11", 0),
+    _progressData("12", 0),
+    _progressData("13", 3),
+    _progressData("14", 0),
+    _progressData("15", 0),
+    _progressData("16", 0),
+    _progressData("17", 0),
+    _progressData("18", 0),
+    _progressData("19", 0),
   ];
+
 
   late ZoomPanBehavior _zoomPanBehavior;
 
@@ -115,6 +116,8 @@ class _ProgressPageState extends State<ProgressPage> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    int lastNonZeroIndex = originalData.lastIndexWhere((d) => d.workout != 0);
+    List<_progressData> data = originalData.sublist(0, lastNonZeroIndex + 1);
 
     return Scaffold(
       appBar: CustomAppbar(title: "Progress Tracker"),
@@ -230,6 +233,8 @@ class _ProgressPageState extends State<ProgressPage> {
                                 borderRadius: BorderRadius.circular(15),
                                 child: SfCartesianChart(
                                   primaryYAxis: NumericAxis(
+                                    minimum: 0,
+                                    maximum: 10,
                                     majorGridLines: MajorGridLines(
                                       color: isDark? darkButtonTextColor : lightButtonTextColor
                                     ),
