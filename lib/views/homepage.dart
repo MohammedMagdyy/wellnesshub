@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-=======
 import 'package:wellnesshub/constant_colors.dart';
-import 'package:wellnesshub/core/utils/appimages.dart';
->>>>>>> dcc6df5aa01401de89e081c7e6cd6963db7a6b4c
 import 'package:wellnesshub/core/widgets/homepage_header.dart';
-import 'package:wellnesshub/core/widgets/search_bar.dart';
 import 'package:wellnesshub/core/widgets/categories.dart';
-
 import '../core/widgets/challenge_list.dart';
 import '../core/widgets/execlusive_workout_list.dart';
 
@@ -93,11 +87,7 @@ class HomePage extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-<<<<<<< HEAD
-                        Navigator.pushNamed(context, 'AllExeclusiveExercisePage');
-=======
                         Navigator.pushNamed(context, "AllExeclusiveExercisePage");
->>>>>>> dcc6df5aa01401de89e081c7e6cd6963db7a6b4c
                       },
                       child: Text(
                         "See all",

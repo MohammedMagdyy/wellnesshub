@@ -36,6 +36,15 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Adjust icon size based on screen width
+    final iconSize = screenWidth * 0.06; // ~24 for 400px wide screens
+    final tabPadding = EdgeInsets.symmetric(
+      horizontal: screenWidth * 0.04,
+      vertical: screenHeight * 0.015,
+    );
 
     return Scaffold(
       body: _pages[_selectedIndex],
@@ -51,25 +60,25 @@ class _MainPageState extends State<MainPage> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
+            padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
             child: GNav(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              rippleColor: isDark? darkButtonColor : lightButtonColor,
-              hoverColor: isDark? darkButtonColor : lightButtonColor,
+              rippleColor: isDark ? darkButtonColor : lightButtonColor,
+              hoverColor: isDark ? darkButtonColor : lightButtonColor,
               backgroundColor: isDark ? darkBackgroundColor : lightBackgroundColor,
-              gap: 4,
-              activeColor: isDark? darkNavBarBackgroundColor : lightNavBarBackgroundColor,
-              iconSize: 24,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              gap: screenWidth * 0.01,
+              activeColor: isDark ? darkNavBarBackgroundColor : lightNavBarBackgroundColor,
+              iconSize: iconSize,
+              padding: tabPadding,
               duration: const Duration(milliseconds: 400),
-              tabBackgroundColor: isDark? darkNavBarIconActiveColor : lightNavBarIconActiveColor,
-              color: isDark? darkNavBarIconInactiveColor : lightNavBarIconInactiveColor,
+              tabBackgroundColor: isDark ? darkNavBarIconActiveColor : lightNavBarIconActiveColor,
+              color: isDark ? darkNavBarIconInactiveColor : lightNavBarIconInactiveColor,
               tabs: const [
-                GButton(icon: Icons.home, text: 'Home' ,),
-                GButton(icon: Icons.show_chart, text: 'Progress',),
+                GButton(icon: Icons.home, text: 'Home'),
+                GButton(icon: Icons.show_chart, text: 'Progress'),
                 GButton(icon: Icons.favorite, text: 'Favourites'),
                 GButton(icon: Icons.calculate, text: 'BMI'),
-                GButton(icon: Icons.settings, text: 'Settings' ),
+                GButton(icon: Icons.settings, text: 'Settings'),
               ],
               selectedIndex: _selectedIndex,
               onTabChange: (index) {
@@ -81,4 +90,5 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
+
 }

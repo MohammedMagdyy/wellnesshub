@@ -2,22 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/helper_functions/on_generate_route.dart';
 import 'package:wellnesshub/core/utils/global_var.dart';
+import 'package:wellnesshub/views/settings/changepassword_page.dart';
+import 'package:wellnesshub/views/exercisedetails_page.dart';
+import 'package:wellnesshub/views/login_process/find_your_account.dart';
+import 'package:wellnesshub/views/login_process/forgetpassword_page.dart';
+import 'package:wellnesshub/views/progress.dart';
+import 'package:wellnesshub/views/login_process/sign_in.dart';
+import 'package:wellnesshub/views/challenges/challenge_plank.dart';
+import 'package:wellnesshub/views/challenges/challenge_pushups.dart';
+import 'package:wellnesshub/views/challenges/challenge_squats.dart';
 import 'package:wellnesshub/views/mainpage.dart';
-<<<<<<< HEAD
-import 'package:wellnesshub/views/signup_process/meal_plan.dart';
-import 'package:wellnesshub/views/signup_process/verify_email_page.dart';
-import 'package:wellnesshub/views/signup_process/activity_page.dart';
-import 'package:wellnesshub/views/signup_process/meal_plan.dart';
-import 'package:wellnesshub/views/signup_process/sign_up.dart';
-import 'package:wellnesshub/views/fitnessplanpage.dart';
-import 'package:wellnesshub/views/fullbodyexercise_page.dart';
-import 'package:wellnesshub/views/settings/setting_page.dart';
-import 'package:wellnesshub/views/signup_process/verify_email_page.dart';
 import 'package:wellnesshub/views/splash_screen.dart';
-import 'package:wellnesshub/views/test.dart';
-
-=======
->>>>>>> dcc6df5aa01401de89e081c7e6cd6963db7a6b4c
 import 'core/helper_class/Dio_Interceptor _Handling401.dart';
 
 

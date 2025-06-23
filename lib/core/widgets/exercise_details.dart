@@ -256,21 +256,7 @@ class _ExerciseDetailsState extends State<ExerciseDetails> {
               ],
             ),
           ),
-<<<<<<< HEAD
-          const SizedBox(height: 10),
-          // Text("dayId: ${widget.dayId}"),
-          // const SizedBox(height: 10),
-          // Text("weekId: ${widget.weekId}"),
-          // const SizedBox(height: 10),
-          Text("Sets: ${exercise.sets}"),
-          const SizedBox(height: 10),
-          Text("Target Muscle: ${exercise.targetMuscle}"),
-          const SizedBox(height: 10),
-          Text("Description:\n${exercise.description ?? 'No description available'}"),
-          const SizedBox(height: 20),
-=======
           const SizedBox(height: 30),
->>>>>>> dcc6df5aa01401de89e081c7e6cd6963db7a6b4c
           Row(
             children: [
               Expanded(
