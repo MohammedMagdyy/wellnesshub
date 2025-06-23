@@ -149,5 +149,9 @@ class Assets {
   /// Assets for assetsImagesYogaImage
   /// assets/images/YogaImage.jpg
   static const String assetsImagesYogaImage = "assets/images/YogaImage.jpg";
+
+  /// Assets for assetsImagesYogaImage
+  /// assets/images/YogaImage.jpg
+  static const String assetsImagesNutritionPage = "assets/images/nutritionPhoto.jpeg";
 }
 

@@ -19,11 +19,11 @@ class CustomComingsoon extends StatelessWidget {
         children: [
           Center(
             child: SizedBox(
-                height: 200,
-                width: 400,
+                height: double.infinity,
+                width: double.infinity,
                 child: Image.asset(
                   image,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 )),
           ),
 

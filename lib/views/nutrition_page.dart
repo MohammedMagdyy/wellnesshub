@@ -10,7 +10,7 @@ class NutritionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomComingsoon(
       title: "Nutrition Page",
-      image: Assets.assetsImagesCommingsoon,
+      image: Assets.assetsImagesNutritionPage,
     );
   }
 }
