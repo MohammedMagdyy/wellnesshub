@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/widgets/checkbox_button.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import '../../core/utils/global_var.dart';
@@ -19,6 +20,8 @@ class _WorkoutDaysPageState extends State<WorkoutDaysPage> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
 
     return Scaffold(
       appBar: CustomAppbar(title: ""),
@@ -34,6 +37,7 @@ class _WorkoutDaysPageState extends State<WorkoutDaysPage> {
                 style: TextStyle(
                   fontSize: width * 0.07,
                   fontWeight: FontWeight.bold,
+                  color: isDark? darkPrimaryTextColor : lightPrimaryTextColor
                 ),
               ),
               SizedBox(height: height * 0.03),

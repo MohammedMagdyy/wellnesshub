@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
@@ -35,6 +36,8 @@ class _ActivityPageState extends State<ActivityPage> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
 
     return Scaffold(
       appBar: CustomAppbar(title: "Activity Level"),
@@ -49,6 +52,7 @@ class _ActivityPageState extends State<ActivityPage> {
                 style: TextStyle(
                   fontSize: width * 0.07,
                   fontWeight: FontWeight.bold,
+                  color: isDark? darkPrimaryTextColor :lightPrimaryTextColor
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -57,7 +61,7 @@ class _ActivityPageState extends State<ActivityPage> {
                 "Please select your current activity level.",
                 style: TextStyle(
                   fontSize: width * 0.04,
-                  color: Colors.grey[600],
+                  color: isDark? darkSecondaryTextColor : lightSecondaryTextColor,
                 ),
                 textAlign: TextAlign.center,
               ),

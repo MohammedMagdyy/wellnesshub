@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import '../../core/services/auth/send_otp.dart';
 import '../../core/services/auth/signup_service.dart';
@@ -51,6 +52,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     setState(() {
       _isLoading = true;
       _errorMessage = null;
+      _timerEndTime = DateTime.now().add(const Duration(seconds: 45));
     });
 
     try {
@@ -168,13 +170,15 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     final defaultPinTheme = PinTheme(
       height: 60,
       width: 60,
       decoration: BoxDecoration(
-        color: const Color.fromARGB(70, 189, 189, 200),
+        color: isDark? darkButtonColor : lightButtonColor,
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: const Color(0xff80C9FC)),
+        border: Border.all(color: isDark? darkChatInputBarEnabledBorderColor : lightChatInputBarEnabledBorderColor),
       ),
     );
 
@@ -188,15 +192,17 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 20),
-              const Text(
+              Text(
                 "Email Verification",
-                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold ,
+                color: isDark? darkPrimaryTextColor : lightPrimaryTextColor
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 "Enter the 6-digit OTP sent to your email",
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+                style: TextStyle(fontSize: 16, color: isDark? darkSecondaryTextColor : lightSecondaryTextColor),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 50),
@@ -214,7 +220,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                 ),
                 focusedPinTheme: defaultPinTheme.copyWith(
                   decoration: defaultPinTheme.decoration!.copyWith(
-                    border: Border.all(color: Colors.blue),
+                    border: Border.all(color: isDark? darkChatInputBarFocusedBorderColor : lightChatInputBarFocusedBorderColor),
                   ),
                 ),
                 validator: (value) {
@@ -249,7 +255,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                 endTime: _timerEndTime,
                 enableDescriptions: false,
                 format: CountDownTimerFormat.minutesSeconds,
-                timeTextStyle: const TextStyle(color: Color(0xff80C9FC)),
+                timeTextStyle: TextStyle(color: isDark? darkBmiTextColor_1 : lightBmiTextColor_1 ),
                 onEnd: () {
                   setState(() {
                     _timerEnd = true;
@@ -263,14 +269,14 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Didn't receive OTP?", style: TextStyle(color: Colors.grey)),
+                  Text("Didn't receive OTP?", style: TextStyle(color: isDark? darkSecondaryTextColor : lightSecondaryTextColor)),
                   const SizedBox(width: 10),
                   GestureDetector(
                     onTap: _timerEnd ? _requestOTP : null,
                     child: Text(
                       "Resend OTP",
                       style: TextStyle(
-                        color: _timerEnd ? Colors.blue : Colors.grey,
+                        color: _timerEnd ? (isDark? darkBmiTextColor_1 : lightBmiTextColor_1) : (isDark? darkBmiTextColor_2 : lightBmiTextColor_2),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -284,7 +290,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
               ElevatedButton(
                 onPressed: _verifyOTP,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: isDark? darkImportantButtonEnd : lightImportantButtonEnd,
                   minimumSize: const Size(200, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -292,9 +298,9 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                 ),
                 child: _isLoading
                     ? const CircularProgressIndicator(color: Colors.white)
-                    : const Text(
+                    : Text(
                   "Verify",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  style: TextStyle(color: isDark? darkButtonTextColor : lightButtonTextColor, fontSize: 20),
                 ),
               ),
             ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import '../core/widgets/custom_exercise_cateogory.dart';
@@ -12,7 +13,7 @@ class FullBodyExercisePage extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: CustomAppbar(title: " "),
-      backgroundColor: isDark?Colors.black: Color(0xFF7F9CF5),
+      backgroundColor: isDark? darkForegroundColor : lightForegroundColor,
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[
@@ -20,13 +21,13 @@ class FullBodyExercisePage extends StatelessWidget {
               automaticallyImplyLeading: false,
               pinned: true,
               expandedHeight: 180.0,
-              backgroundColor: isDark?Colors.black:Color(0xFF7F9CF5),
-              flexibleSpace: const FlexibleSpaceBar(
-                titlePadding: EdgeInsets.only(left: 20, bottom: 16),
+              backgroundColor: isDark? darkForegroundColor : lightForegroundColor,
+              flexibleSpace: FlexibleSpaceBar(
+                titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
                 title: Text(
                   'BE STRONGER!',
                   style: TextStyle(
-                    color: Colors.amberAccent,
+                    color: isDark? darkForegroundTextColor : lightForegroundTextColor,
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
@@ -36,8 +37,8 @@ class FullBodyExercisePage extends StatelessWidget {
             SliverToBoxAdapter(
               child: Container(
                 padding: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
+                decoration: BoxDecoration(
+                  color: isDark? darkBackgroundColor : lightBackgroundColor,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
                 ),
                 child: Column(

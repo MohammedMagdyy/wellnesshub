@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/widgets/custom_gendericon.dart';
@@ -30,6 +31,8 @@ class _Gender_PageState extends State<GenderPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: CustomAppbar(
         title: "Gender Selection",
@@ -45,6 +48,7 @@ class _Gender_PageState extends State<GenderPage> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
+                    color: isDark? darkPrimaryTextColor : lightPrimaryTextColor
                   ),
                 ),
                 const SizedBox(height: 100),

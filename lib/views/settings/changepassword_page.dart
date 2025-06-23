@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
@@ -25,6 +26,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: CustomAppbar(title: "Change Password"),
       body: SafeArea(
@@ -35,7 +37,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               Spacer(flex: 6),
               Text(
                 "Change Password",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,
+                color: isDark?darkPrimaryTextColor: lightPrimaryTextColor
+                ),
               ),
               Spacer(flex: 3),
               CustomTextField(
@@ -74,7 +78,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               CustomButton(
                 name: "Update",
                 width: 180,
-                color: Colors.white,
+                color: isDark? darkButtonTextColor : lightButtonTextColor,
                 on_Pressed: _handlePasswordUpdate,
               ),
               Spacer(flex: 6),

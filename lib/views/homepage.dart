@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
+import 'package:wellnesshub/constant_colors.dart';
+import 'package:wellnesshub/core/utils/appimages.dart';
+>>>>>>> dcc6df5aa01401de89e081c7e6cd6963db7a6b4c
 import 'package:wellnesshub/core/widgets/homepage_header.dart';
 import 'package:wellnesshub/core/widgets/search_bar.dart';
 import 'package:wellnesshub/core/widgets/categories.dart';
@@ -12,6 +17,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> words = ["Show", "Your", "PLan"];
+    double screenWidth = MediaQuery.of(context).size.width;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -22,12 +30,56 @@ class HomePage extends StatelessWidget {
               children: [
                 const SizedBox(height: 50),
                 Header(),
-                const SizedBox(height: 30),
-                SearchBarWidget(),
-                const SizedBox(height: 30),
-                // Wrap Categories in an Expanded or Flexible if necessary
+                const SizedBox(height: 40),
                 const Categories(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "FitnessPlanPage");
+                  },
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: screenWidth * 0.85,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 32, vertical: 20),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              gradient: LinearGradient(
+                                colors: [
+                                  isDark
+                                      ? darkImportantButtonStart
+                                      : lightImportantButtonStart,
+                                  isDark
+                                      ? darkImportantButtonEnd
+                                      : lightImportantButtonEnd
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: isDark? darkBoxShadowColor : lightBoxShadowColor,
+                                  offset: Offset(5, 5),
+                                  blurRadius: 12,
+                                  spreadRadius: 1,
+                                ),
+                              ]),
+                          child: Text(
+                            'SHOW YOUR\nPLAN',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: isDark? darkButtonTextColor : lightButtonTextColor,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                        ),
+                      ]),
+                ),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -35,24 +87,27 @@ class HomePage extends StatelessWidget {
                       "Exclusive workout sets",
                       style: TextStyle(
                         fontSize: 18,
-                        color: Color(0xff0095FF),
+                        color: isDark? darkPrimaryTextColor : lightPrimaryTextColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     TextButton(
                       onPressed: () {
+<<<<<<< HEAD
                         Navigator.pushNamed(context, 'AllExeclusiveExercisePage');
+=======
+                        Navigator.pushNamed(context, "AllExeclusiveExercisePage");
+>>>>>>> dcc6df5aa01401de89e081c7e6cd6963db7a6b4c
                       },
                       child: Text(
                         "See all",
                         style: TextStyle(
-                          color: Color(0xff0095FF),
+                          color: isDark? darkSecondaryTextColor : lightSecondaryTextColor,
                         ),
                       ),
                     ),
                   ],
                 ),
-
                 SizedBox(
                   height: 180,
                   child: Padding(
@@ -69,16 +124,18 @@ class HomePage extends StatelessWidget {
                       "Challenges",
                       style: TextStyle(
                         fontSize: 18,
-                        color: Color(0xff0095FF),
+                        color: isDark? darkPrimaryTextColor : lightPrimaryTextColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'ChallengePage');
+                      },
                       child: Text(
                         "See all",
                         style: TextStyle(
-                          color: Color(0xff0095FF),
+                          color: isDark? darkSecondaryTextColor : lightSecondaryTextColor,
                         ),
                       ),
                     ),

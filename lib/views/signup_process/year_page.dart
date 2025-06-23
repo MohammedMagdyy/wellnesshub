@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 
@@ -19,6 +20,8 @@ class _YearPageState extends State<YearPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: CustomAppbar(title: "",),
       body: Column(
@@ -29,7 +32,7 @@ class _YearPageState extends State<YearPage> {
             Text(
               "How old are you ?",
               style: TextStyle(
-                color: Colors.black,
+                color: isDark? darkPrimaryTextColor : lightPrimaryTextColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 30
               ),
@@ -41,36 +44,36 @@ class _YearPageState extends State<YearPage> {
           '$_age',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: isDark? darkBmiTextColor_1 : lightBmiTextColor_1,
             fontSize: 50
           ),
           ),
         SizedBox(height: 50,),
-        Image.asset(Assets.assetsImagesArrow),
+        Image.asset(Assets.assetsImagesArrow , color: isDark? darkButtonTextColor : lightButtonTextColor,),
         SizedBox(height: 50,),
         Container(
           height: 100,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
-            color: Color(0xff0095FF),
+            color: isDark? darkBmiContainerColor : lightBmiContainerColor,
           ),
           child: NumberPicker(
             haptics: true,
             itemWidth: 120,
             axis: Axis.horizontal,
             selectedTextStyle: TextStyle(
-              color: Colors.black,
+              color: isDark? darkButtonTextColor:lightButtonTextColor,
               fontSize: 35,
               fontWeight: FontWeight.bold
             ),
             textStyle: TextStyle(
-              color: const Color.fromARGB(255, 57, 57, 57),
+              color: isDark?darkButtonTextInactiveColor:lightButtonTextInactiveColor,
               fontSize: 20,
             ),
             decoration: BoxDecoration(
               border: Border(
-                left: BorderSide(color: Colors.black , width: 1),
-                right: BorderSide(color: Colors.black , width: 1)
+                left: BorderSide(color: isDark? darkButtonTextColor:lightButtonTextColor, width: 1),
+                right: BorderSide(color: isDark? darkButtonTextColor:lightButtonTextColor , width: 1)
               ),
               ),
             value: _age,

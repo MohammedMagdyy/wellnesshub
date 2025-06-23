@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 
 class MessageInput extends StatefulWidget {
   final void Function(String) onSend;
@@ -19,30 +20,31 @@ class _MessageInputState extends State<MessageInput> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: TextField(
-        style:TextStyle(color: Colors.blue) ,
+        style:TextStyle(color: isDark? darkChatInputTextColor : lightChatInputTextColor) ,
         controller: _controller,
         decoration: InputDecoration(
           hintText: 'Type a message...',
-          hintStyle: TextStyle(color: Colors.blue),
+          hintStyle: TextStyle(color: isDark? darkChatInputTextColor : lightChatInputTextColor),
           suffixIcon: IconButton(
             icon: Icon(
               Icons.send,
-              color: Colors.blue,
+              color: isDark? darkChatSendIconColor : lightChatSendIconColor,
             ),
             onPressed: _send,
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.blue,
+              color: isDark? darkChatInputBarFocusedBorderColor : lightChatInputBarFocusedBorderColor,
             ),
             borderRadius: BorderRadius.all(Radius.circular(30)),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.blue,
+              color: isDark? darkChatInputBarEnabledBorderColor : lightChatInputBarEnabledBorderColor,
             ),
             borderRadius: BorderRadius.all(Radius.circular(30)),
           ),

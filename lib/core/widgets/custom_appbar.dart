@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 
 // ignore: must_be_immutable
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -35,7 +36,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: TextStyle(
-          color: Color(0xff0095FF),
+          color: isDark? darkAppbarTextColor : lightAppbarTextColor,
           fontWeight: FontWeight.w600,
           fontSize: 18,
         ),
@@ -50,17 +51,17 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.all(6),
         child: Container(
           decoration: BoxDecoration(
-            color: isDark ? Colors.black : const Color(0xFFE0E0E0),
+            color: isDark ? darkAppbarBackBkgnColor : lightAppbarBackBkgnColor,
             borderRadius: BorderRadius.circular(32),
             border: Border.all(
-              color: isDark ? Colors.blue : const Color(0xFFE0E0E0)
+              color: isDark ? darkAppbarBackBorderColor : lightAppbarBackBorderColor
             )
           ),
           child: IconButton(
             splashRadius: 24.0,
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: Color(0xff0095FF),
+              color: isDark? darkAppbarBackArrowColor : lightAppbarBackArrowColor,
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -72,7 +73,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: TextStyle(
-          color: Color(0xff0095FF),
+          color: isDark? darkAppbarTextColor : lightAppbarTextColor,
           fontWeight: FontWeight.w600,
           fontSize: 18,
         ),

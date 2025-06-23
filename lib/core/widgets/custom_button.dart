@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -18,14 +19,15 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return SizedBox(
       height: 50,
       width: width,
       child: ElevatedButton(
         onPressed: isLoading ? null : on_Pressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blue,
-          disabledBackgroundColor: Colors.blue.shade200,
+          backgroundColor: isDark? darkImportantButtonStart : lightImportantButtonStart,
+          disabledBackgroundColor: isDark? darkButtonColorInactive : lightButtonColorInactive,
         ),
         child: isLoading
             ? const SizedBox(

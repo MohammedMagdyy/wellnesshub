@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/views/mainpage.dart';
 import '../core/helper_functions/simplify_errormessage.dart';
 import '../core/models/fitness_plan/planexercises_model.dart';
@@ -46,8 +47,7 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      //backgroundColor: const Color(0xFF7F9CF5),
-      backgroundColor: isDark ? Colors.black : const Color(0xFF7F9CF5),
+      backgroundColor: isDark ? darkForegroundColor : lightForegroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -55,23 +55,20 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
           padding: const EdgeInsets.all(6),
           child: Container(
             decoration: BoxDecoration(
-                color: isDark ? Colors.black : const Color(0xFFE0E0E0),
+                color: isDark ? darkAppbarBackBkgnColor : lightAppbarBackBkgnColor,
                 borderRadius: BorderRadius.circular(32),
                 border: Border.all(
-                    color: isDark ? Colors.blue : const Color(0xFFE0E0E0)
+                    color: isDark ? darkAppbarBackBorderColor : lightAppbarBackBorderColor
                 )
             ),
             child: IconButton(
               splashRadius: 24.0,
-              icon: const Icon(
+              icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
-                color: Color(0xff0095FF),
+                color: isDark? darkAppbarBackArrowColor : lightAppbarBackArrowColor,
               ),
               onPressed: () {
-                Navigator.pushAndRemoveUntil(context,
-                  MaterialPageRoute(builder: (_) => MainPage(
-                      selectedIndex: 3)),
-                        (Route<dynamic> route) => false,);
+                Navigator.pop(context);
               },
             ),
           ),
@@ -80,7 +77,7 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
         title: Text(
           "",
           style: TextStyle(
-            color: Color(0xff0095FF),
+            color: isDark? darkPrimaryTextColor : lightPrimaryTextColor,
             fontWeight: FontWeight.w600,
             fontSize: 18,
           ),
@@ -156,14 +153,14 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                   automaticallyImplyLeading: false,
                   pinned: true,
                   expandedHeight: 140.0,
-                  backgroundColor:isDark ? Colors.black :  Color(0xFF7F9CF5),
+                  backgroundColor:isDark ? darkForegroundColor : lightForegroundColor,
 
                   flexibleSpace: FlexibleSpaceBar(
                     titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
                     title: Text(
                       'Your Fitness Plan!',
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: isDark? darkForegroundTextColor : lightForegroundTextColor,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
@@ -173,8 +170,8 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                 SliverToBoxAdapter(
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 2),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: isDark? darkBackgroundColor : lightBackgroundColor,
                       borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
                     ),
                     child: Column(
@@ -183,12 +180,12 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                         SizedBox(
                           height: 20,
                         ),
-                        const Text(
+                        Text(
                           "Week",
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: isDark? darkPrimaryTextColor : lightPrimaryTextColor,
                           ),
 
                         ),
@@ -204,17 +201,17 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                           totalIndex: weeks.length,
                           animationDuration: const Duration(milliseconds: 400),
                           initialSelectedIndex: selectedWeek,
-                          selectedColor: Colors.blue,
-                          unselectedColor: Colors.white,
-                          selectedTextColor: Colors.white,
-                          textColor: Colors.blue,
+                          selectedColor: isDark? darkButtonColor : lightButtonColor,
+                          unselectedColor: isDark? darkButtonColorInactive : lightButtonColorInactive,
+                          selectedTextColor: isDark? darkButtonTextColor : lightButtonTextColor,
+                          textColor: isDark? darkButtonTextInactiveColor : lightButtonTextInactiveColor,
                         ),
                         const SizedBox(height: 20),
-                        const Text(
+                        Text(
                           "Day",
                           style: TextStyle(
                               fontSize: 22,
-                              color: Colors.black,
+                              color: isDark? darkPrimaryTextColor : lightPrimaryTextColor,
                               fontWeight: FontWeight.bold
                           ),
                         ),
@@ -229,10 +226,10 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                           totalIndex: days.length,
                           animationDuration: const Duration(milliseconds: 400),
                           initialSelectedIndex: selectedDay,
-                          selectedColor: Colors.blue,
-                          unselectedColor: Colors.white,
-                          selectedTextColor: Colors.white,
-                          textColor: Colors.blue,
+                          selectedColor: isDark? darkButtonColor : lightButtonColor,
+                          unselectedColor: isDark? darkButtonColorInactive : lightButtonColorInactive,
+                          selectedTextColor: isDark? darkButtonTextColor : lightButtonTextColor,
+                          textColor: isDark? darkButtonTextInactiveColor : lightButtonTextInactiveColor,
                         ),
                         const SizedBox(height: 20),
                         ...day.exercises.map((exercise) =>

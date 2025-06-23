@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_workout_reminder.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
@@ -44,20 +45,41 @@ class _WorkoutReminderPageState extends State<WorkoutReminderPage> {
     String title = '';
     String subtitle = '';
     final TextEditingController timeController = TextEditingController();
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
+          backgroundColor: isDark? darkBmiContainerColor : lightBmiContainerColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          title: Text("Add Workout Reminder"),
+          title: Text("Add Workout Reminder" ,
+            style: TextStyle(
+              fontSize: 22,
+              color: isDark? darkBmiTextColor_1 : lightBmiTextColor_1,
+              fontWeight: FontWeight.bold
+            ),
+          ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
+                style:TextStyle(color: isDark? darkChatInputTextColor : lightChatInputTextColor) ,
                 decoration: InputDecoration(
-                  labelText: "Title",
-                  border: OutlineInputBorder(),
+                  hintText: 'Title',
+                  hintStyle: TextStyle(color: isDark? darkChatInputTextColor : lightChatInputTextColor),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: isDark? darkChatInputBarFocusedBorderColor : lightChatInputBarFocusedBorderColor,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: isDark? darkChatInputBarEnabledBorderColor : lightChatInputBarEnabledBorderColor,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
                 ),
                 onChanged: (value) => title = value,
               ),
@@ -66,8 +88,20 @@ class _WorkoutReminderPageState extends State<WorkoutReminderPage> {
                 controller: timeController,
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: "Time",
-                  border: OutlineInputBorder(),
+                  hintText: 'Time',
+                  hintStyle: TextStyle(color: isDark? darkChatInputTextColor : lightChatInputTextColor),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: isDark? darkChatInputBarFocusedBorderColor : lightChatInputBarFocusedBorderColor,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: isDark? darkChatInputBarEnabledBorderColor : lightChatInputBarEnabledBorderColor,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
                 ),
                 onTap: () async {
                   DateTime? pickedDateTime = await showOmniDateTimePicker(
@@ -91,7 +125,11 @@ class _WorkoutReminderPageState extends State<WorkoutReminderPage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text("Cancel"),
+              child: Text("Cancel" ,
+                style: TextStyle(
+                  color: isDark? darkBmiTextColor_3 : lightBmiTextColor_3,
+                ),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
@@ -103,7 +141,14 @@ class _WorkoutReminderPageState extends State<WorkoutReminderPage> {
                   Navigator.of(context).pop();
                 }
               },
-              child: Text("Add"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: isDark? darkImportantButtonStart : lightImportantButtonStart,
+              ),
+              child: Text("Add" ,
+                style: TextStyle(
+                  color: isDark? darkButtonTextColor : lightButtonTextColor
+                ),
+              ),
             ),
           ],
         );
@@ -114,6 +159,7 @@ class _WorkoutReminderPageState extends State<WorkoutReminderPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: CustomAppbar(title: "Workout Reminder"),
       body: SafeArea(
@@ -123,16 +169,22 @@ class _WorkoutReminderPageState extends State<WorkoutReminderPage> {
             return CustomWorkoutReminder(
               title: reminders[index]['title'] ?? '',
               subtitle: reminders[index]['subtitle'] ?? '',
+              onDelete: () {
+              setState(() {
+                reminders.removeAt(index);
+              });
+              _saveReminders();
+              },
             );
           },
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
+        backgroundColor: isDark? darkButtonColor : lightButtonColor,
         tooltip: "Add Workout Reminder",
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         onPressed: _showAddReminderDialog,
-        child: Icon(Icons.add, color: Colors.white),
+        child: Icon(Icons.add, color: isDark? darkButtonTextColor : lightButtonTextColor),
       ),
     );
   }

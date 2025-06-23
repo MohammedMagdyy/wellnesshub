@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/utils/global_var.dart';
 
 class CustomToggleSwitch extends StatefulWidget {
@@ -43,10 +44,10 @@ class _CustomToggleSwitchState extends State<CustomToggleSwitch> {
           isToggled = value;
         });
       },
-      activeColor: Colors.white, // Thumb color when ON
-      activeTrackColor: Colors.blue, // Track color when ON
-      inactiveThumbColor: Colors.blueAccent, // Thumb color when OFF
-      inactiveTrackColor: isDark? Colors.black: Colors.white, // Track color when OFF
+      activeColor: isDark? darkSwitchThumbOnColor : lightSwitchThumbOnColor, // Thumb color when ON
+      activeTrackColor: isDark? darkSwitchTrackOnColor : lightSwitchTrackOnColor, // Track color when ON
+      inactiveThumbColor: isDark? darkSwitchThumbOffColor : lightSwitchThumbOffColor, // Thumb color when OFF
+      inactiveTrackColor: isDark? darkSwitchTrackOffColor : lightSwitchTrackOffColor, // Track color when OFF
     );
   }
 }

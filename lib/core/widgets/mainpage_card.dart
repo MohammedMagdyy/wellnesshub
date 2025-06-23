@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 
 class MainpageCard extends StatelessWidget {
   final String title;
@@ -14,6 +15,8 @@ class MainpageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, nextPage);
@@ -23,7 +26,7 @@ class MainpageCard extends StatelessWidget {
         height: 185,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.lightBlueAccent),
+          border: Border.all(color: isDark? darkCardBorderColor : lightCardBorderColor),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),

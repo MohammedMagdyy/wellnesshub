@@ -13,13 +13,30 @@ class ChallengePlank extends StatefulWidget {
 }
 
 class _ChallengePlankState extends State<ChallengePlank> {
-  int totalSeconds = 120 ;
-  int currentSeconds = 120 ;
+  int totalSeconds = 120;
+  int currentSeconds = 120;
   Timer? timer;
-  bool hasStarted = false ;
+  bool hasStarted = false;
 
+  // Light mode (Sunrise Serenity) theme colors
+  final Color lightBackgroundColor = const Color(0xFFFDF8F2); // Soft ivory
+  final Color lightPrimaryTextColor = const Color(0xFF3A2D2D); // Deep cocoa
+  final Color lightSecondaryTextColor = const Color(0xFF867070); // Muted mauve
+  final Color lightImportantButtonStart = const Color(0xFFFF9A6C); // Bright coral
+  final Color lightImportantButtonEnd = const Color(0xFFFF6F61); // Passion orange
+  final Color lightButtonColorInactive = const Color(0xFFF2E5D7); // Almond milk
+  final Color lightCardBorderColor = const Color(0xFFE8D5C5); // Soft cinnamon
 
-  void startTimer(){
+  // Dark mode theme colors
+  final Color darkBackgroundColor = const Color(0xFF1A1A1A); // Deep charcoal
+  final Color darkPrimaryTextColor = const Color(0xFFEADBCB); // Warm ivory
+  final Color darkSecondaryTextColor = const Color(0xFFB9AFA7); // Earth clay
+  final Color darkImportantButtonStart = const Color(0xFFFF8C5E); // Flame orange
+  final Color darkImportantButtonEnd = const Color(0xFFFF5F49); // Bold sunrise
+  final Color darkButtonColorInactive = const Color(0xFF3A3A3A); // Midnight slate
+  final Color darkCardBorderColor = const Color(0xFF3F3F3F); // Coal edge
+
+  void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (currentSeconds > 0) {
         setState(() {
@@ -39,6 +56,7 @@ class _ChallengePlankState extends State<ChallengePlank> {
   }
 
   void _showCongratsDialog() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -48,20 +66,34 @@ class _ChallengePlankState extends State<ChallengePlank> {
             color: Colors.transparent,
             child: TweenAnimationBuilder<double>(
               tween: Tween(begin: 0.0, end: 1.0),
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               builder: (context, value, child) {
                 return Transform.scale(
                   scale: value,
                   child: AlertDialog(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.celebration, size: 60, color: Colors.amber),
-                        SizedBox(height: 10),
+                        Icon(
+                          Icons.celebration,
+                          size: 60,
+                          color: isDark
+                              ? darkImportantButtonStart
+                              : lightImportantButtonStart,
+                        ),
+                        const SizedBox(height: 10),
                         Text(
                           "🎉 Congratulations! 🎉",
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: isDark
+                                ? darkPrimaryTextColor
+                                : lightPrimaryTextColor,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -71,10 +103,18 @@ class _ChallengePlankState extends State<ChallengePlank> {
                         onPressed: () {
                           Navigator.pop(context);
                           setState(() {
-                            currentSeconds = totalSeconds ;
+                            currentSeconds = totalSeconds;
+                            hasStarted = false;
                           });
                         },
-                        child: Text("OK"),
+                        child: Text(
+                          "OK",
+                          style: TextStyle(
+                            color: isDark
+                                ? darkImportantButtonStart
+                                : lightImportantButtonStart,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -88,6 +128,7 @@ class _ChallengePlankState extends State<ChallengePlank> {
   }
 
   void _showMotivationDialog() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -97,20 +138,34 @@ class _ChallengePlankState extends State<ChallengePlank> {
             color: Colors.transparent,
             child: TweenAnimationBuilder<double>(
               tween: Tween(begin: 0.0, end: 1.0),
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               builder: (context, value, child) {
                 return Transform.scale(
                   scale: value,
                   child: AlertDialog(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.access_alarm, size: 60, color: Colors.amber),
-                        SizedBox(height: 10),
+                        Icon(
+                          Icons.access_alarm,
+                          size: 60,
+                          color: isDark
+                              ? darkImportantButtonStart
+                              : lightImportantButtonStart,
+                        ),
+                        const SizedBox(height: 10),
                         Text(
                           "💪 YOU CAN DO BETTER NEXT TIME 💪",
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: isDark
+                                ? darkPrimaryTextColor
+                                : lightPrimaryTextColor,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -120,10 +175,18 @@ class _ChallengePlankState extends State<ChallengePlank> {
                         onPressed: () {
                           Navigator.pop(context);
                           setState(() {
-                            currentSeconds = totalSeconds ;
+                            currentSeconds = totalSeconds;
+                            hasStarted = false;
                           });
                         },
-                        child: Text("OK"),
+                        child: Text(
+                          "OK",
+                          style: TextStyle(
+                            color: isDark
+                                ? darkImportantButtonStart
+                                : lightImportantButtonStart,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -136,94 +199,115 @@ class _ChallengePlankState extends State<ChallengePlank> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildImageCard() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      height: 200,
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      decoration: BoxDecoration(
+        color: isDark? darkBackgroundColor : lightBackgroundColor,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+            color: isDark ? darkCardBorderColor : lightCardBorderColor, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: (isDark ? darkSecondaryTextColor : lightSecondaryTextColor)
+                .withOpacity(0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+        image: DecorationImage(
+          image: AssetImage(Assets.assetsImagesPlank),
+          fit: BoxFit.fill,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTimerButton() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     double percent = currentSeconds / totalSeconds;
     int minutes = currentSeconds ~/ 60;
     int seconds = currentSeconds % 60;
 
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        borderRadius: BorderRadius.circular(150),
+        onTap: () {
+          if (!hasStarted) {
+            startTimer();
+            setState(() {
+              hasStarted = true;
+            });
+          } else {
+            timer?.cancel();
+            setState(() {
+              _showMotivationDialog();
+            });
+          }
+        },
+        child: CircularPercentIndicator(
+          header: Column(
+            children: [
+              Text(
+                "Press Here",
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: isDark ? darkPrimaryTextColor : lightPrimaryTextColor,
+                ),
+              ),
+              const SizedBox(height: 12),
+            ],
+          ),
+          radius: 150,
+          lineWidth: 12,
+          percent: percent.clamp(0.0, 1.0),
+          center: Text(
+            "${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}",
+            style: TextStyle(
+              fontSize: 48,
+              fontWeight: FontWeight.bold,
+              color: isDark ? darkPrimaryTextColor : lightPrimaryTextColor,
+            ),
+          ),
+          backgroundColor:
+          isDark ? darkButtonColorInactive : lightButtonColorInactive,
+          linearGradient: LinearGradient(
+            colors: [
+              isDark ? darkImportantButtonStart : lightImportantButtonStart,
+              isDark ? darkImportantButtonEnd : lightImportantButtonEnd,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          circularStrokeCap: CircularStrokeCap.round,
+          animation: false,
+          animationDuration: 300,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: CustomAppbar(title: "Plank Challenge"),
+      backgroundColor: isDark ? darkBackgroundColor : lightBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
-            Expanded(
-              flex: 1,
-              child: SizedBox(
-                width: double.infinity,
-                child: Container(
-                  margin: EdgeInsets.all(10),
-                  // width: 300,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.blue
-                    ),
-                  borderRadius: BorderRadius.circular(20)
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child:
-                  Image.asset(Assets.assetsImagesPlank , fit: BoxFit.fill,))
-                  ),
-              ),
-            ),
-            
-            Expanded(
-              flex: 2,
-              child: MaterialButton(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                enableFeedback: true,
-                onPressed: () {
-                  if(!hasStarted){
-                    startTimer();
-                    hasStarted = true ;
-                  }
-                  else {
-                    timer?.cancel();
-                    setState(() {
-                      currentSeconds = totalSeconds ;
-                      hasStarted = false;
-                      _showMotivationDialog();
-                    });
-                  }
-                },
-                child: CircularPercentIndicator(
-                  header: Column(
-                    children: [
-                      Text(
-                        "Press Here" ,
-                        style: TextStyle(
-                          fontSize: 30 ,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      SizedBox(height: 20,),
-                    ],
-                  ),
-                  radius: 150.0,
-                  lineWidth: 10.0,
-                  percent: percent,
-                  center: Text(
-                    "${minutes.toString().padLeft(2, '0')}:${seconds.toString()
-                    .padLeft(2, '0')}" ,
-                    style: TextStyle(
-                      fontSize: 45,
-                      fontWeight: FontWeight.bold ,
-                      color: Colors.blue
-                    ),
-                    ),
-                  backgroundColor: const Color.fromARGB(103, 158, 158, 158),
-                  progressColor: Colors.blue,
-                  animation: false,
-                  circularStrokeCap: CircularStrokeCap.round,
-                  restartAnimation: false,
-                ),
-              ),
-            )
+            _buildImageCard(),
+            Expanded(child: Center(child: _buildTimerButton())),
+            const SizedBox(height: 24),
           ],
-        )
         ),
+      ),
     );
   }
 }

@@ -89,7 +89,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                         widget.exercise.exerciseName,
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -98,7 +98,8 @@ class _ExerciseCardState extends State<ExerciseCard> {
                         widget.exercise.sets ?? '',
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold
                         ),
                       ),
                       const SizedBox(height: 2),
@@ -106,7 +107,8 @@ class _ExerciseCardState extends State<ExerciseCard> {
                         "Target: ${widget.exercise.targetMuscle}",
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold
                         ),
                       ),
                     ],

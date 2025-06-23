@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import '../core/helper_class/favourite_manager.dart';
 import '../core/models/fitness_plan/exercises_model.dart';
 import '../core/widgets/ExerciseCard.dart';
@@ -21,8 +22,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor:  Colors.black,
+      backgroundColor:  isDark? darkBackgroundColor :lightBackgroundColor,
       body: SafeArea(
         child: ValueListenableBuilder<List<Exercise>>(
           valueListenable: FavoriteManager.instance.favorites,
@@ -47,13 +49,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   automaticallyImplyLeading: false,
                   pinned: true,
                   expandedHeight: 120.0,
-                  backgroundColor: Colors.black,
-                  flexibleSpace: const FlexibleSpaceBar(
-                    titlePadding: EdgeInsets.only(left: 20, bottom: 16),
+                  backgroundColor: isDark? darkBackgroundColor : lightBackgroundColor,
+                  flexibleSpace: FlexibleSpaceBar(
+                    titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
                     title: Text(
                       'Favourites Exercises',
                       style: TextStyle(
-                        color: Color(0xFFFCD60D),
+                        color: isDark? darkPrimaryTextColor : lightPrimaryTextColor,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 
 class CustomTextFieldProfile extends StatelessWidget {
   final String name;
@@ -21,24 +22,24 @@ class CustomTextFieldProfile extends StatelessWidget {
     return TextFormField(
       controller: controller,
       readOnly: readOnly,
-      cursorColor: Colors.lightBlue,
-      cursorErrorColor: Colors.lightBlue,
+      cursorColor: isDark? darkButtonTextColor : lightButtonTextColor,
+      cursorErrorColor: isDark? darkButtonTextColor : lightButtonTextColor,
       decoration: InputDecoration(
         labelText: name,
-        labelStyle: const TextStyle(color: Colors.grey),
+        labelStyle: TextStyle(color: isDark? darkButtonTextColor:lightButtonTextColor),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50)
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50),
-          borderSide: BorderSide(color: Colors.lightBlue)
+          borderSide: BorderSide(color: isDark? darkCardBorderColor : lightCardBorderColor)
         ),
         filled: readOnly,
         fillColor: readOnly ?
         (editable?
         (isDark? Colors.black: Colors.white)
-        : (isDark ? const Color.fromARGB(124, 230, 230, 230)
-          : const Color.fromARGB(124, 190, 190, 190))) : null,
+        : (isDark ? darkButtonColorInactive
+          : lightButtonColorInactive)) : null,
       ),
     );
   }

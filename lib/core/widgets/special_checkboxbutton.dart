@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
+import 'package:wellnesshub/constant_colors.dart';
 
 class SpecialCheckboxbutton extends StatelessWidget {
      const SpecialCheckboxbutton({
@@ -20,6 +21,8 @@ class SpecialCheckboxbutton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return GestureDetector(
       onTap: onTap, // Handle click
       child: Container(
@@ -28,7 +31,7 @@ class SpecialCheckboxbutton extends StatelessWidget {
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50),
-          color: isSelected ? Colors.blue : Colors.grey, // Change color
+          color: isSelected ? (isDark? darkImportantButtonEnd : lightImportantButtonEnd) : (isDark? darkButtonColorInactive : lightButtonColorInactive), // Change color
         ),
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Row(
@@ -43,7 +46,7 @@ class SpecialCheckboxbutton extends StatelessWidget {
                   text1,
                   style: TextStyle(
                     fontSize: 24,
-                    color: Colors.white,
+                    color: isSelected? (isDark? darkButtonTextColor : lightButtonTextColor) : (isDark? darkButtonTextInactiveColor : lightButtonTextInactiveColor),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -51,7 +54,7 @@ class SpecialCheckboxbutton extends StatelessWidget {
                   text2,
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.white,
+                    color: isSelected? (isDark? darkButtonTextColor : lightButtonTextColor) : (isDark? darkButtonTextInactiveColor : lightButtonTextInactiveColor),
                     fontWeight: FontWeight.bold,
                   ),
                 ),

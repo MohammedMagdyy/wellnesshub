@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/custom_switchtoggle.dart';
+import 'package:wellnesshub/views/challenge_page.dart';
 import 'package:wellnesshub/views/settings/about_us_page.dart';
 import 'package:wellnesshub/views/settings/appinfo_page.dart';
 import 'package:wellnesshub/views/challenges/challenge_plank.dart';
@@ -162,6 +163,8 @@ Route<dynamic> OnGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => ChallengePlank());
     case AllExeclusiveExercisePage.routeName:
       return MaterialPageRoute(builder: (context) => AllExeclusiveExercisePage());
+    case 'ChallengePage':
+      return MaterialPageRoute(builder: (context)=> ChallengePage());
     case 'RestorePasswordOtp':
       return MaterialPageRoute(builder: (context) => RestorePasswordOtp());
     default:

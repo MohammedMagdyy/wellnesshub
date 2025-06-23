@@ -39,7 +39,7 @@ class _SettingPageState extends State<SettingPage> {
                 title: "Notification",
                 icon: Icons.notifications_active,
                 switchcheck: true,
-                onTapFunc: 3,
+                onTapFunc: 5,
                 pageName: "SettingPage",
               ),
               CustomSettingwidget(
@@ -60,7 +60,7 @@ class _SettingPageState extends State<SettingPage> {
                 title: "Dark Mode",
                 icon: Icons.dark_mode,
                 switchcheck: true,
-                onTapFunc: 3,
+                onTapFunc: 5,
                 pageName: "SettingPage",
                 isDarkModeSwitch: true,
               ),

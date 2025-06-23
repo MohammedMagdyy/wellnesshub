@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/utils/global_var.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,17 +13,10 @@ class Header extends StatefulWidget {
 }
 
 class _HeaderState extends State<Header> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _initializeUserName();
-  //
-  //   profileImageVersionNotifier.addListener(() {
-  //     _loadProfileImage();
-  //   });
-  //
-  //   _loadProfileImage();
-  // }
+  String _name = "User"; // Use _name for private variable
+
+  File? _profileImage;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -49,6 +43,7 @@ class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
@@ -89,17 +84,18 @@ class _HeaderState extends State<Header> {
                       "Hi, $name",
                       style: TextStyle(
                         fontSize: screenWidth * 0.05,
-                        color: const Color(0xff0095FF),
+                        color: isDark? darkPrimaryTextColor : lightPrimaryTextColor,
                         fontWeight: FontWeight.bold,
                       ),
                     );
                   },
                 ),
-                const Text(
+                Text(
+                  // Added const
                   "Let's make your body stronger today!",
                   style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xff0095FF),
+                    fontSize: 14, // Changed to a fixed value
+                    color: isDark? darkSecondaryTextColor : lightSecondaryTextColor,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -117,8 +113,8 @@ class _HeaderState extends State<Header> {
             },
             child: Icon(
               Icons.person,
-              size: screenWidth * 0.065,
-              color: const Color(0xff0095FF),
+              size: screenWidth * 0.07,
+              color: isDark? darkIconColor : lightIconColor,
             ),
           ),
 
@@ -127,4 +123,5 @@ class _HeaderState extends State<Header> {
     );
   }
 }
+
 

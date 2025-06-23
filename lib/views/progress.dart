@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:pedometer/pedometer.dart';
@@ -126,7 +127,6 @@ class _ProgressPageState extends State<ProgressPage> {
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
                   borderRadius: BorderRadius.circular(20)
                 ),
                 margin: EdgeInsets.symmetric(horizontal: 15),
@@ -149,7 +149,7 @@ class _ProgressPageState extends State<ProgressPage> {
                       child: Text(
                       "Your \nProgress \nPlan",
                       style: TextStyle(
-                        color: Colors.white,
+                        color:  lightButtonTextColor,
                         fontSize: 25,
                         fontWeight: FontWeight.bold
                       ),
@@ -165,8 +165,12 @@ class _ProgressPageState extends State<ProgressPage> {
                 width: double.infinity,
                 margin: EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
-                  color: isDark ? Colors.grey[800] : Color(0xFFB7B9BB),
-                  borderRadius: BorderRadius.circular(15)
+                  color: isDark ? darkBmiContainerColor : lightBmiContainerColor,
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(
+                    color: isDark? darkAppbarBackBorderColor : lightAppbarBackBorderColor,
+                    width: 2.5
+                  )
                 ),
                 child: Column(
                   children: [
@@ -176,8 +180,12 @@ class _ProgressPageState extends State<ProgressPage> {
                         margin: EdgeInsets.symmetric(horizontal: 12,vertical: 10),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15)
+                          color: isDark? darkCardColor : lightCardColor,
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            color: isDark? darkAppbarBackBorderColor : lightAppbarBackBorderColor,
+                            width: 1.5
+                          )
                         ),
                         child: Column(
                           children: [
@@ -185,17 +193,18 @@ class _ProgressPageState extends State<ProgressPage> {
                               'Steps',
                               style: TextStyle(fontSize: 20
                               , fontWeight: FontWeight.bold,
-                              color: Colors.black
+                              color: isDark? darkCardTextColor : lightCardTextColor
                               ),
                             ),
                             Divider(
                               height: 20,
-                              color: Colors.white,
+                              color: isDark? darkButtonTextColor : lightButtonTextColor,
                             ),
                             Text(
                               _steps,
                               style: TextStyle(fontSize: 20,
-                              color: Colors.blue),
+                              color: isDark? darkBmiTextColor_1 : lightBmiTextColor_1
+                              ),
                             ),
                           ],
                         )
@@ -207,8 +216,12 @@ class _ProgressPageState extends State<ProgressPage> {
                         margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 10),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15)
+                          color: isDark? darkCardColor : lightCardColor,
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            color: isDark? darkAppbarBackBorderColor : lightAppbarBackBorderColor,
+                            width: 1.5
+                          )
                         ),
                         child: Column(
                           children: [
@@ -218,35 +231,37 @@ class _ProgressPageState extends State<ProgressPage> {
                                 child: SfCartesianChart(
                                   primaryYAxis: NumericAxis(
                                     majorGridLines: MajorGridLines(
-                                      color: Colors.grey[300]
+                                      color: isDark? darkButtonTextColor : lightButtonTextColor
                                     ),
                                     interval: 1,
                                     title: AxisTitle(
                                       text: "Number of Exercises",
                                       textStyle: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.blue
+                                        color: isDark? darkButtonTextColor : lightButtonTextColor,
+                                        fontWeight: FontWeight.bold
                                     )
                                     ),
                                     labelStyle: TextStyle(
-                                      color: Colors.black
+                                      color: isDark? darkPrimaryTextColor : lightPrimaryTextColor
                                     ),
                                   ),
                                   primaryXAxis: CategoryAxis(
                                     title: AxisTitle(text: "Day" , textStyle: TextStyle(
                                       fontSize: 15,
-                                      color: Colors.blue
+                                      color: isDark? darkButtonTextColor : lightButtonTextColor,
+                                      fontWeight: FontWeight.bold
                                     )),
                                     interval: 1,
                                     labelPlacement: LabelPlacement.onTicks,
                                     majorGridLines: MajorGridLines(
-                                      color: Colors.grey[300]
+                                        color: isDark? darkButtonTextColor : lightButtonTextColor
                                     ),
                                     initialVisibleMinimum: data.length > 10 ?
                                     data.length -10 : 0,
                                     initialVisibleMaximum: data.length - 1,
                                     labelStyle: TextStyle(
-                                      color: Colors.black
+                                      color: isDark? darkPrimaryTextColor : lightPrimaryTextColor
                                     ),
                                   ),
                                   zoomPanBehavior: _zoomPanBehavior,
@@ -255,12 +270,12 @@ class _ProgressPageState extends State<ProgressPage> {
                                     textStyle: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
-                                      color: Colors.black
+                                      color: isDark? darkPrimaryTextColor : lightPrimaryTextColor
                                     )
                                     ),
                                   legend: Legend(isVisible: false),
                                   tooltipBehavior: TooltipBehavior(enable: true),
-                                  palette: [Colors.blue],
+                                  palette: [isDark? darkBmiTextColor_1 : lightBmiTextColor_1],
                                   plotAreaBorderColor: Colors.grey,
                                   borderColor: Colors.grey,
                                   series: <CartesianSeries<_progressData, String>>[
@@ -271,9 +286,6 @@ class _ProgressPageState extends State<ProgressPage> {
                                         name: 'number of workout',
                                         dataLabelSettings: DataLabelSettings(
                                           isVisible: false ,
-                                          textStyle: TextStyle(
-                                            color: Colors.black
-                                          )
                                           ))
                                   ]
                                 ),
