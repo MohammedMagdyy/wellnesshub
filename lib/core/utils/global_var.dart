@@ -4,9 +4,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import '../helper_class/userInfo_local.dart';
 
+final String apiUrl='http://10.0.2.2:8080';
 final storage = UserInfoLocalStorage(); // Assuming you use this elsewhere
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 ValueNotifier<File?> profileImageNotifier = ValueNotifier<File?>(null);
+//ValueNotifier<int> profileImageVersionNotifier = ValueNotifier<int>(0);
+final ValueNotifier<int> profileImageVersionNotifier = ValueNotifier(0);
+
+ValueNotifier<String> userNameNotifier = ValueNotifier<String>("User");
+bool googleFlag = false;
+bool facebookFlag = false;
 
 class GlobalVar {
   static final GlobalVar _instance = GlobalVar._internal();

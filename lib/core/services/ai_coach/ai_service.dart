@@ -3,12 +3,13 @@ import 'package:http/http.dart' as http;
 
 import '../../helper_class/userInfo_local.dart';
 import '../../utils/global_var.dart';
+import '../getUserInfo_service.dart';
 
 
 class GeminiService {
-  static const String _apiKey = 'AIzaSyAt_qPOoVYM9jZgIYaRSqZ6Ds1Pmwysk-c';
+  static const String _apiKey = 'AIzaSyDaGyY5_PpGYrAsCdSD3fF0Ndw5Xb1vZVo';
   static const String _apiUrl =
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=$_apiKey";
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$_apiKey";
 
   static final List<Map<String, dynamic>> _conversation = [];
 
@@ -25,26 +26,25 @@ class GeminiService {
 
   /// 🔥 Load real user data from SharedPreferences
   static Future<void> initClientData() async {
-    final localStorage = storage;
-
-    final userData = await localStorage.getUserData();
-    final height = await localStorage.getUserHeight();
-    final weight = await localStorage.getUserWeight();
-    final activity = await localStorage.getUserActivityLevel();
-    final experience = await localStorage.getUserExperienceLevel();
-    final goal = await localStorage.getUserGoal();
-    final injury = await localStorage.getUserInjury();
+    final userData = await GetUserInfoService().getUserInfo();
+    // final localStorage = storage;
+    //
+    // final userData = await localStorage.getUserData();
+    // final height = await localStorage.getUserHeight();
+    // final weight = await localStorage.getUserWeight();
+    // final activity = await localStorage.getUserActivityLevel();
+    // final experience = await localStorage.getUserExperienceLevel();
+    // final goal = await localStorage.getUserGoal();
+    // final injury = await localStorage.getUserInjury();
 
 
     _client = {
-      "name": userData['fname'] ?? "User",
-      "height": height ?? 0,
-      "weight": weight ?? 0,
-      "activity": activity ?? "Moderate",
-      "experience": experience ?? "Beginner",
-      "goal": goal ?? "None",
-      "injury": injury ?? "None",
-      //"exercises": exercises ?? "None",
+      "name": userData.firstName ?? "User",
+      "height": userData.height ?? 0,
+      "weight": userData.weight ?? 0,
+      "activity": userData.activityLevel ?? "Moderate",
+      "experience": userData.experienceLevel ?? "Beginner",
+      "goal": userData.goal ?? "None",
     };
   }
 
@@ -132,7 +132,9 @@ First Interaction:
 
       return reply;
     } else {
+      print(response.body);
       return "❌ Error: ${response.body}";
+
     }
   }
 }

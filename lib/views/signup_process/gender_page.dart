@@ -109,8 +109,10 @@ class _Gender_PageState extends State<GenderPage> {
                       ? null // Disable button if no gender is selected
                       : () async {
                     // Save the properly formatted gender value for backend
-                    await storage.saveUserActivityLevel(
-                        _getBackendGenderValue(selectedGender));
+                    await storage.saveUserGender(
+                        _getBackendGenderValue(selectedGender!));
+                    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+                    print(selectedGender);
                     Navigator.pushNamed(context, "GoalPage");
                   },
                 ),

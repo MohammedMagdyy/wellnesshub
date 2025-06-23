@@ -58,7 +58,7 @@ class ServerErrorWidget extends StatelessWidget {
                 const SizedBox(width: 16),
                 TextButton(
                   onPressed: () {
-                    // Optionally add contact support action
+                   Navigator.pushNamed(context, 'AboutUsPage');
                   },
                   child: const Text('Contact Support'),
                 ),

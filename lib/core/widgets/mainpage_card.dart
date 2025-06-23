@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wellnesshub/constant_colors.dart';
 
 class MainpageCard extends StatelessWidget {
   final String title;
@@ -15,7 +14,6 @@ class MainpageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return InkWell(
       onTap: () {
@@ -23,9 +21,9 @@ class MainpageCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: isDark? darkCardColor : lightCardColor,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: isDark? darkCardBorderColor : lightCardBorderColor),
+          border: Border.all(color: Colors.lightBlueAccent)
         ),
         padding: const EdgeInsets.all(16),
         child: Row(
@@ -38,7 +36,7 @@ class MainpageCard extends StatelessWidget {
                   Text(
                     title,
                     style: TextStyle(
-                      color: isDark? darkCardTextColor :lightCardTextColor ,
+                      color: Colors.lightBlueAccent ,
                       fontSize: 25,
                       fontWeight: FontWeight.bold
                     ),

@@ -1,46 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../helper_class/accesstoken_storage.dart';
+import '../../utils/global_var.dart';
 
 class FacebookLoginService {
   final Dio _dio = Dio();
 
-  Future<void> loginWithFacebook(BuildContext context) async {
+  Future<Map<String, dynamic>> loginWithFacebook() async {
     try {
       final LoginResult result = await FacebookAuth.instance.login();
       if (result.status == LoginStatus.success) {
         final token = result.accessToken!.token;
-        await _loginToBackend(context, token);
+        final backendResult = await _loginToBackend(token);
+        return backendResult;
       } else {
         debugPrint('Facebook login failed: ${result.message}');
+        return {'success': false, 'message': 'Failed'};
       }
     } catch (e) {
       debugPrint('Facebook login error: $e');
+      return {'success': false, 'message': e.toString()};
     }
   }
 
-  Future<void> _loginToBackend(BuildContext context, String fbAccessToken) async {
+  Future<Map<String, dynamic>> _loginToBackend(String fbAccessToken) async {
     try {
       final response = await _dio.post(
-        'https://wellness-production.up.railway.app/facebook/login',
-        data: {'accessToken': fbAccessToken},
+        '$apiUrl/facebook/login',
+       data: {'accessToken': fbAccessToken},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
 
       if (response.statusCode == 200) {
-        final data = response.data;
-        final jwt = data['accessToken'];
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('accessToken', jwt);
-
-        Navigator.pushReplacementNamed(context, 'MainPage', arguments: jwt);
+        final jwt = response.data['accessToken'];
+        if (jwt == null) {
+          //Save Email  response.data['email']
+          String email=response.data['email'];
+          print(email);
+          await storage.saveUserEmail(email: email);
+          return {'success': true, 'message': 'Continue user Info'};
+        }
+        await LocalStorageAccessToken.saveToken(jwt);
         debugPrint('✅ JWT Token stored: $jwt');
+        return {'success': true, 'message': 'Login Success'};
       } else {
         debugPrint('❌ Backend login failed: ${response.statusMessage}');
+        return {'success': false, 'message': 'Failed'};
       }
     } catch (e) {
       debugPrint('❌ Dio error: $e');
+      return {'success': false, 'message': e.toString()};
     }
   }
 }

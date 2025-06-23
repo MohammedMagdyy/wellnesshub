@@ -17,13 +17,20 @@ class ActivityPage extends StatefulWidget {
 class _ActivityPageState extends State<ActivityPage> {
   String? selectedActivity;
 
-  // Directly uses the enum string values to ensure perfect backend compatibility
+  //Directly uses the enum string values to ensure perfect backend compatibility
   static const Map<String, String> activityOptions = {
     'Sedentary': '(little or no exercise)',
     'Lightly_active': '(1–3 days/week)',
     'Moderately_active': '(3–5 days/week)',
     'Very active': '(6–7 days/week)',
   };
+  // static const Map<String, String> activityOptions = {
+  //   'Sedentary': '(little or no exercise)',
+  //   'Lightly active': '(1–3 days/week)',
+  //   'Moderately active': '(3–5 days/week)',
+  //   'Very active': '(6–7 days/week)',
+  // };
+
 
   @override
   Widget build(BuildContext context) {

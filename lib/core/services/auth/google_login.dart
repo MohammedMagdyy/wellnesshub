@@ -1,57 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wellnesshub/core/utils/global_var.dart';
+
+import '../../helper_class/accesstoken_storage.dart';
 
 class GoogleLoginService {
   final Dio _dio = Dio();
   final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: ['email', 'profile'],
-    serverClientId: 'http://815763135583-l8n3k6e0f8mk0b6nki32umaug4vavpi5.apps.googleusercontent.com',
+    scopes: ['email'],
+    serverClientId: '815763135583-f1udmtgqbrd86f64kmval97nu57icoss.apps.googleusercontent.com',
   );
 
-  Future<void> loginWithGoogle(BuildContext context) async {
+  Future<Map<String, dynamic>> loginWithGoogle() async {
     try {
       final account = await _googleSignIn.signIn();
       if (account == null) {
         debugPrint('Google sign-in cancelled by user.');
-        return;
+        return {'success': false, 'message': 'Google sign-in cancelled by user'};
       }
 
       final auth = await account.authentication;
       final idToken = auth.idToken;
 
       if (idToken != null) {
-        await _loginToBackend(context, idToken);
+        final backendResult = await _loginToBackend(idToken);
+        return backendResult;
       } else {
         debugPrint('Failed to get Google ID token.');
+        return {'success': false, 'message': 'Google ID token is null'};
       }
     } catch (e) {
       debugPrint('Google login error: $e');
+      return {'success': false, 'message': e.toString()};
     }
   }
 
-  Future<void> _loginToBackend(BuildContext context, String idToken) async {
+  Future<Map<String, dynamic>> _loginToBackend(String idToken) async {
     try {
       final response = await _dio.post(
-        'https://wellness-production.up.railway.app/google/login',
-        data: {'idToken': idToken},
+        '$apiUrl/google/login',
+        data: {'accessToken': idToken},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
 
       if (response.statusCode == 200) {
-        final data = response.data;
-        final jwt = data['accessToken'];
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('accessToken', jwt);
+        final jwt = response.data['accessToken'];
+        print("🔍 Backend response: ${response.data}");
 
-        Navigator.pushReplacementNamed(context, 'MainPage', arguments: jwt);
+
+        if (jwt == null) {
+          //Save Email  response.data['email']
+          String email=response.data['email'];
+          print(email);
+          await storage.saveUserEmail(email: email);
+          return {'success': true, 'message': 'Continue user Info'};
+        }
+
+        await LocalStorageAccessToken.saveToken(jwt);
         debugPrint('✅ JWT Token stored from Google: $jwt');
+
+        return {'success': true, 'message': 'Login Success'};
       } else {
         debugPrint('❌ Google backend login failed: ${response.statusMessage}');
+        return {'success': false, 'message': response.statusMessage ?? 'Unknown error'};
       }
     } catch (e) {
       debugPrint('❌ Dio error during Google login: $e');
+      return {'success': false, 'message': e.toString()};
     }
   }
 }

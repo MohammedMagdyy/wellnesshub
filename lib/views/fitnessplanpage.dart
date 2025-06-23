@@ -68,10 +68,10 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
                 color: Color(0xff0095FF),
               ),
               onPressed: () {
-                // Navigator.pushAndRemoveUntil(context,
-                //   MaterialPageRoute(builder: (_) => MainPage(selectedIndex: 3)),
-                //         (Route<dynamic> route) => false,);
-                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(context,
+                  MaterialPageRoute(builder: (_) => MainPage(
+                      selectedIndex: 3)),
+                        (Route<dynamic> route) => false,);
               },
             ),
           ),
@@ -95,15 +95,45 @@ class _FitnessPlanPageState extends State<FitnessPlanPage> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              if (snapshot.error.toString().contains('server')) {
+              final errorString = snapshot.error.toString().toLowerCase();
+
+              if (errorString.contains('session timeout')) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text("Session Expired"),
+                        content: const Text("Your session has timed out. Please log in again."),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                'LoginPage', // or whatever your login route is
+                                    (route) => false,
+                              );
+                            },
+                            child: const Text("OK"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                });
+
+                return const SizedBox(); // Return empty widget after dialog is scheduled
+              }
+
+              if (errorString.contains('server')) {
                 return ServerErrorWidget(onRetry: _retryFetch);
               }
-              // General error handling
+
               return ErrorDisplayWidget(
                 errorMessage: simplifyErrorMessage(snapshot.error.toString()),
                 onRetry: _retryFetch,
               );
-            } else if (!snapshot.hasData || snapshot.data!.weeks.isEmpty) {
+            }
+            else if (!snapshot.hasData || snapshot.data!.weeks.isEmpty) {
               return ErrorDisplayWidget(
                 errorMessage: 'No fitness plan found. Please check back later.',
                 onRetry: _retryFetch,

@@ -10,6 +10,7 @@ import '../../core/helper_class/accesstoken_storage.dart';
 import '../../core/helper_functions/build_customSnackbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import '../../core/services/auth/login_service.dart';
+import '../../core/utils/global_var.dart';
 import 'find_your_account.dart';
 
 class SignInPage extends StatefulWidget {
@@ -121,30 +122,34 @@ class _SignInState extends State<SignInPage> {
                           if (formkey.currentState!.validate()) {
                             setState(() => _isLoading = true);
                             try {
-                              print(password);
-                              print("email");
-                              final result =
-                              await LoginService().login(email, password);
+                              await storage.saveUserEmail(email: email);
+                              final result = await LoginService().login(email, password);
+
                               if (result['success']) {
-                                final token =
-                                await LocalStorageAccessToken.getToken();
-                                //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                                final token = await LocalStorageAccessToken.getToken();
                                 debugPrint('Access token: $token');
+
                                 final snackBar = buildCustomSnackbar(
                                   backgroundColor: Colors.greenAccent,
                                   title: 'Success!',
                                   message: result['message'],
                                   type: ContentType.success,
                                 );
-                                ScaffoldMessenger.of(context).
-                                showSnackBar(snackBar);
-                                Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  'MainPage',
-                                      (Route<dynamic> route) => false,
-                                );
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
+                                // ✅ Check if access token is null or not
+                                if (result['message']=='Continue user Info') {
+                                  if (!mounted) return;
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context, 'AgePage', (route) => false);
+                                } else {
+                                  if (!mounted) return;
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context, 'MainPage', (route) => false);
+                                }
                               } else {
+                                print('@@@@@@@@@@@@@@@@@@@@@@@@@');
+                                print(result['message']);
                                 final snackBar = buildCustomSnackbar(
                                   backgroundColor: Colors.redAccent,
                                   title: 'Login Failed!',
@@ -162,10 +167,12 @@ class _SignInState extends State<SignInPage> {
                               );
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             } finally {
+                              if (!mounted) return;
                               setState(() => _isLoading = false);
                             }
                           }
                         },
+
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.02),
@@ -203,27 +210,57 @@ class _SignInState extends State<SignInPage> {
                           horizontal: screenWidth * 0.04, vertical: screenHeight * 0.01),
                       child: CustomListTile(
                         on_Pressed: () async {
-                          try {
-                            final googleLogin = GoogleLoginService();
-                            await googleLogin.loginWithGoogle(context);
-                          } catch (e) {
-                            debugPrint(e.toString());
+                          final googleLogin = GoogleLoginService();
+                          final gResult = await googleLogin.loginWithGoogle();
+
+                          if (gResult['success'] == true) {
+                            if (gResult['message'] == 'Login Success') {
+                              if (context.mounted) {
+                                Navigator.pushReplacementNamed(context, 'MainPage');
+                              }
+                            } else if (gResult['message'] == 'Continue user Info') {
+                              googleFlag = true;
+                              if (context.mounted) {
+                                Navigator.pushNamedAndRemoveUntil(context, 'AgePage', (route) => false);
+                              }
+                            }
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(gResult['message'] ?? 'Login with Google failed')),
+                            );
                           }
                         },
                         text: "Sign In Using Google",
                         image: Assets.assetsImagesGoogleLogo,
                       ),
                     ),
+
                     Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: screenWidth * 0.04, vertical: screenHeight * 0.01),
                       child: CustomListTile(
                         on_Pressed: () async {
-                          try {
-                            final fbLogin = FacebookLoginService();
-                            await fbLogin.loginWithFacebook(context);
-                          } catch (e) {
-                            debugPrint(e.toString());
+                          final fbLogin = FacebookLoginService();
+                          final fbSuccess = await fbLogin.loginWithFacebook();
+                          if (fbSuccess['success']==true) {
+                            // final token = await LocalStorageAccessToken.getToken();
+                            if (fbSuccess['message']=='Login Success') {
+                              final token = await LocalStorageAccessToken.getToken();
+                              if (context.mounted) {
+                                Navigator.pushReplacementNamed(context, 'MainPage');
+                              }
+
+                            } else if(fbSuccess['message']=='Continue user Info') {
+                              facebookFlag = true;
+                              // ➡ Navigate to AgePage
+                              if (context.mounted) {
+                                Navigator.pushNamedAndRemoveUntil(context, 'AgePage', (route) => false);
+                              }
+                            }
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Login with Facebook failed')),
+                            );
                           }
                         },
                         text: "Sign In With Facebook",

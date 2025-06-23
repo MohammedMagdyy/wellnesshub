@@ -4,6 +4,7 @@ import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/utils/appimages.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
 
+import '../../core/services/auth/signup_service.dart';
 import '../../core/utils/global_var.dart';
 import '../../core/widgets/custom_appbar.dart';
 
@@ -83,10 +84,16 @@ class _WeightPageState extends State<WeightPage> {
           ),
         ),
         SizedBox(height: 100,),
-        CustomButton(name: "Continue", width: 200, color: Colors.black , on_Pressed: () async{
-          await storage.saveUserWeight(_weight);
-          Navigator.pushNamed(context, 'HeightPage');
-        },)
+        CustomButton(
+          name: "Continue",
+          width: 200,
+          color: Colors.black,
+          on_Pressed: () async {
+            await storage.saveUserWeight(_weight);
+            Navigator.pushNamed(context, 'HeightPage');
+
+          },
+        )
       ],
     ),
     );

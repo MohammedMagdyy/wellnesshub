@@ -1,108 +1,60 @@
-import 'package:dio/dio.dart';
-import 'package:wellnesshub/core/models/fitness_plan/exercises_model.dart';
 import '../../helper_class/accesstoken_storage.dart';
 import '../../helper_class/api.dart';
-import 'dart:io';
-import 'dart:async';
 import '../../helper_class/network_exception_class.dart';
+import '../../models/fitness_plan/exercises_model.dart';
+import '../../utils/global_var.dart';
 
-class SwapService{
- static Future<List<Exercise>> swapExercise(int exerciseId) async {
-    try {
-      final token = await LocalStorageAccessToken.getToken();
-      final response = await API().get(
-        url: 'https://wellness-production.up.railway.app/exercise/swap?exerciseID=$exerciseId',
+class SwapService {
+  static Future<List<Exercise>> swapExercise(int exerciseId) async {
+    final token = await LocalStorageAccessToken.getToken();
 
-        token: token,
-      ).timeout(const Duration(seconds: 10));
+    final response = await API().get(
+      url: '$apiUrl/exercise/swap?exerciseID=$exerciseId',
+      token: token,
+    );
 
-      print('API response received: ${response.runtimeType}'); // Debug
+    final data = response;
 
-      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      // Handle both array and single object responses
-      if (response is List) {
-        return response.map((e) => Exercise.fromJson(e)).toList();
-      } else if (response is Map<String, dynamic>) {
-        return [Exercise.fromJson(response)];
-      } else {
-        throw FormatException('Unexpected response format: $response');
-      }
-
-    } on DioException catch (e) {
-      print('DioError: ${e.response?.data}'); // Debug
-      if (e.response?.statusCode == 401) {
-        throw NetworkException('Authentication failed. Please login again.');
-      } else if (e.type == DioExceptionType.connectionTimeout) {
-        throw NetworkException('Connection timeout. Please check your internet connection.');
-      } else if (e.type == DioExceptionType.connectionError) {
-        throw NetworkException('Could not connect to server. Please try again later.');
-      } else if (e.response?.statusCode == 500) {
-        throw NetworkException('Our servers are having issues. Please try again later.');
-      } else {
-        throw NetworkException('Failed to Mark as Done: ${e.message}');
-      }
-    } on SocketException {
-      throw NetworkException('No internet connection. Please check your network settings.');
-    } on TimeoutException {
-      throw NetworkException('Request timed out. Please try again.');
-    } on FormatException catch (e) {
-      throw NetworkException('Data format error: ${e.message}');
-    } catch (e, stackTrace) {
-      print('Unexpected error: $e\n$stackTrace'); // Debug
-      throw NetworkException('An unexpected error occurred: ${e.toString()}');
+    if (data is List) {
+      return data.map((e) => Exercise.fromJson(e)).toList();
+    } else if (data is Map<String, dynamic>) {
+      return [Exercise.fromJson(data)];
+    } else {
+      throw FormatException('Unexpected response format: $data');
     }
   }
+
   static Future<Map<String, dynamic>> setSwap(
-      int dayID,int weekID,int oldExerciseID,int newExerciseID
+      int dayID,
+      int weekID,
+      int oldExerciseID,
+      int newExerciseID,
       ) async {
-    try {
-      final token = await LocalStorageAccessToken.getToken();
-      final response = await API().post(
-        url: 'https://wellness-production.up.railway.app/exercise/setSwap',
-        data:{
-          "dayID":dayID,
-          "weekID":weekID,
-          "oldExerciseID":oldExerciseID,
-          "newExerciseID":newExerciseID,
-        },
-        token: token,
-      ).timeout(const Duration(seconds: 10));
+    final token = await LocalStorageAccessToken.getToken();
 
-      print('API response received: ${response.runtimeType}'); // Debug
+    final response = await API().post(
+      url: '$apiUrl/exercise/setSwap',
+      token: token,
+      data: {
+        "dayID": dayID,
+        "weekID": weekID,
+        "oldExerciseID": oldExerciseID,
+        "newExerciseID": newExerciseID,
+      },
+    );
 
-      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      // Handle both array and single object responses
-      if (response != null && response['accessToken'] != null) {
-        return {'success': true, 'message': 'Login successful'};
-      }
+    final data = response;
+
+    if (data is Map<String, dynamic> && data['message'] != null) {
       return {
-        'success': false,
-        'message': response['message'] ?? 'Invalid credentials'
+        'success': true,
+        'message': data['message'],
       };
-
-    } on DioException catch (e) {
-      print('DioError: ${e.response?.data}'); // Debug
-      if (e.response?.statusCode == 401) {
-        throw NetworkException('Authentication failed. Please login again.');
-      } else if (e.type == DioExceptionType.connectionTimeout) {
-        throw NetworkException('Connection timeout. Please check your internet connection.');
-      } else if (e.type == DioExceptionType.connectionError) {
-        throw NetworkException('Could not connect to server. Please try again later.');
-      } else if (e.response?.statusCode == 500) {
-        throw NetworkException('Our servers are having issues. Please try again later.');
-      } else {
-        throw NetworkException('Failed to Mark as Done: ${e.message}');
-      }
-    } on SocketException {
-      throw NetworkException('No internet connection. Please check your network settings.');
-    } on TimeoutException {
-      throw NetworkException('Request timed out. Please try again.');
-    } on FormatException catch (e) {
-      throw NetworkException('Data format error: ${e.message}');
-    } catch (e, stackTrace) {
-      print('Unexpected error: $e\n$stackTrace'); // Debug
-      throw NetworkException('An unexpected error occurred: ${e.toString()}');
     }
-  }
 
+    return {
+      'success': false,
+      'message': data?['message'] ?? 'Swap failed',
+    };
+  }
 }

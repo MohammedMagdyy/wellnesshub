@@ -1,44 +1,29 @@
-import 'package:dio/dio.dart';
 import '../../helper_class/accesstoken_storage.dart';
 import '../../helper_class/api.dart';
 import '../../models/fitness_plan/planexercises_model.dart';
-import 'dart:io';
-import 'dart:async';
+import '../../helper_class/network_exception_class.dart';
+import '../../helper_functions/HanleSessionExpired.dart';
+import '../../utils/global_var.dart';
 
 class WorkoutPlanService {
   Future<ExercisePlan> fetchUserPlan() async {
-    dynamic token = await LocalStorageAccessToken.getToken();
-    try {
-      final response = await API().get(
-        url: 'https://wellness-production.up.railway.app/workoutPlan/getUserPlan',
-        token: token,
-      ).timeout(const Duration(seconds: 10)); // Add timeout
+    final token = await LocalStorageAccessToken.getToken();
+    final data = await API().get(
+      url: '$apiUrl/workoutPlan/getUserPlan',
+      token: token,
+    );
 
-      return ExercisePlan.fromJson(response);
-    } on DioException catch (e) {
-      if (e.type == DioExceptionType.connectionTimeout) {
-        throw NetworkException('Connection timeout. Please check your internet connection.');
-      } else if (e.type == DioExceptionType.connectionError) {
-        throw NetworkException('Could not connect to server. Please try again later.');
-      } else if (e.response?.statusCode == 500) {
-        throw NetworkException('Our servers are having issues. Please try again later.');
-      } else {
-        throw NetworkException('Failed to load workout plan: ${e.message}');
-      }
-    } on SocketException {
-      throw NetworkException('No internet connection. Please check your network settings.');
-    } on TimeoutException {
-      throw NetworkException('Request timed out. Please try again.');
-    } catch (e) {
-      throw NetworkException('An unexpected error occurred: ${e.toString()}');
+
+    if (data is String && data.contains('<html')) {
+      await handleSessionExpired();
+      throw NetworkException('Session expired. Please login again.');
     }
+
+    if (data is Map<String, dynamic>) {
+      return ExercisePlan.fromJson(data);
+    } else {
+      throw FormatException('Unexpected response format');
+    }
+
   }
-}
-
-class NetworkException implements Exception {
-  final String message;
-  NetworkException(this.message);
-
-  @override
-  String toString() => message;
 }

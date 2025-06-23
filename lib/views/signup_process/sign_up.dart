@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:wellnesshub/core/widgets/custom_button.dart';
 import 'package:wellnesshub/core/helper_functions/build_customSnackbar.dart';
 import 'package:wellnesshub/core/widgets/custom_textfield.dart';
 import '../../core/services/auth/signup_service.dart';
@@ -154,27 +153,14 @@ class _Sign_UpState extends State<SignUp> {
                               setState(() => _isLoading = false);
                               return;
                             }
+                            await storage.saveUserEmail(email: email!.toLowerCase());
 
                             await storage.saveUserData(
-                              email: email!.toLowerCase(),
+                              //email: email!.toLowerCase(),
                               fname: firstName!,
                               lname: lastName!,
                               password: password!,
                             );
-
-                            SignupService signupService = SignupService();
-                            final signupResult = await signupService.signup(
-                              firstName!,
-                              lastName!,
-                              email!,
-                              password!,
-                            );
-
-                            if (!signupResult['success']) {
-                              throw Exception(
-                                  signupResult['message'] ?? 'Signup failed');
-                            }
-
                             Navigator.pushNamed(context, 'VerifyEmailPage');
                           } catch (e) {
                             ScaffoldMessenger.of(context)

@@ -1,62 +1,56 @@
 import 'package:dio/dio.dart';
 import '../../helper_class/api.dart';
+import '../../helper_class/accesstoken_storage.dart';
+import '../../helper_class/network_exception_class.dart';
+import '../../helper_functions/HanleSessionExpired.dart';
+import '../../utils/global_var.dart';
 
 class ChangePasswordService {
   Future<Map<String, dynamic>> changePasswordForRestoreAccount(String email, String password) async {
-    try {
-      final response = await API().post(
-        url: 'https://wellness-production.up.railway.app/changePassword?password=$password&email=$email',
-        data: null,
-        token: null,
-      );
+    final response = await API().post(
+      url: '$apiUrl/changePassword?password=$password&email=$email',
+      data: null,
+      token: null,
+    );
 
-      if (response != null && response['status'] == "success") {
-        return {
-          'success': true,
-          'message': response['message'] ?? 'Password changed successfully!'
-        };
-      }
+    final data = response;
 
+    if (data is Map && data['status'] == "success") {
       return {
-        'success': false,
-        'message': 'Something went wrong!'
+        'success': true,
+        'message': data['message'] ?? 'Password changed successfully!'
       };
-    } on DioException catch (e) {
-      return {
-        'success': false,
-        'message': e.response?.data['message'] ?? 'Error changing password'
-      };
-    } catch (e) {
-      return {'success': false, 'message': 'Unexpected error!'};
     }
+
+    return {
+      'success': false,
+      'message': data is Map ? data['message'] ?? 'Something went wrong!' : 'Unexpected response type'
+    };
+
   }
 
   Future<Map<String, dynamic>> changePassword(String oldPassword, String newPassword) async {
-    try {
-      final response = await API().post(
-        url: 'http://10.0.2.2:8080/changePasswordInternal?curPassword=$oldPassword&newPassword=$newPassword',
-        data: null,
-        token: null,
-      );
+    final token = await LocalStorageAccessToken.getToken();
 
-      if (response != null && response['status'] == "success") {
-        return {
-          'success': true,
-          'message': response['message'] ?? 'Password changed successfully!'
-        };
-      }
+    final response = await API().post(
+      url: '$apiUrl/changePasswordInternal?curPassword=$oldPassword&newPassword=$newPassword',
+      data: null,
+      token: token,
+    );
 
+    final data = response;
+
+    if (data is Map && data['status'] == "success") {
       return {
-        'success': false,
-        'message': 'Something went wrong!'
+        'success': true,
+        'message': data['message'] ?? 'Password changed successfully!'
       };
-    } on DioException catch (e) {
-      return {
-        'success': false,
-        'message': e.response?.data['message'] ?? 'Error changing password'
-      };
-    } catch (e) {
-      return {'success': false, 'message': 'Unexpected error!'};
     }
+
+    return {
+      'success': false,
+      'message': data is Map ? data['message'] ?? 'Something went wrong!' : 'Unexpected response type'
+    };
+
   }
 }
