@@ -41,7 +41,7 @@ class _ProgressPageState extends State<ProgressPage> {
       final progressList = await UserProgressService().getUserProgress();
       setState(() {
         originalData = progressList
-            .map((e) => _progressData(e.dayNumber.toString(), e.totalExercises))
+            .map((e) => _progressData(e.dayNumber.toString(), e.completedExercises))
             .toList();
         _isLoading = false;
 
