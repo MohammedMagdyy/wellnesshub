@@ -174,24 +174,30 @@ class UserInfoLocalStorage {
     static const String _key = 'user_info';
 
     /// Save FullUserInfo to local storage
-    static Future<void> saveUserInfoForProfile(FullUserInfo userInfo) async {
-      final prefs = await SharedPreferences.getInstance();
-      final userJson = jsonEncode(userInfo.toJson());
-      await prefs.setString(_key, userJson);
-    }
+  static Future<void> saveUserInfoForProfile(FullUserInfo userInfo) async {
+    final prefs = await SharedPreferences.getInstance();
+    final userJson = jsonEncode(userInfo.toJson());
+    await prefs.setString(_key, userJson);
+  }
 
-    /// Retrieve FullUserInfo from local storage
-    static Future<FullUserInfo?> getUserInfoForProfile() async {
+  /// Retrieve FullUserInfo from local storage with safe error handling
+  static Future<FullUserInfo?> getUserInfoForProfile() async {
+    try {
       final prefs = await SharedPreferences.getInstance();
       final userJson = prefs.getString(_key);
       if (userJson != null) {
         final Map<String, dynamic> jsonMap = jsonDecode(userJson);
         return FullUserInfo.fromJson(jsonMap);
       }
-      return null;
+    } catch (e) {
+      // Log error or ignore corrupted data silently
+      print('Error reading user info from local storage: $e');
     }
+    return null;
+  }
 
-    /// Clear user info (e.g., on logout)
+
+  /// Clear user info (e.g., on logout)
     static Future<void> clearUserInfoForProfile() async {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove(_key);

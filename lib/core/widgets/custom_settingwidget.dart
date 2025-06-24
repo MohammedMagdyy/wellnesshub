@@ -164,44 +164,53 @@ class _CustomSettingwidgetState extends State<CustomSettingwidget> {
                 title: "Delete Account",
                 content: "Are you sure you want to delete your account? This action is irreversible.",
                 onConfirm: () async {
-                  setState(() => _isDeleting = true); // Show loading
+                  setState(() => _isDeleting = true);
 
                   try {
-                    DeleteAccountService deleteAccountService = DeleteAccountService();
+                    final deleteAccountService = DeleteAccountService();
                     final response = await deleteAccountService.deleteAccount();
 
                     if (!mounted) return;
+                    setState(() => _isDeleting = false);
 
-                    setState(() => _isDeleting = false); // Hide loading
+                    if (response['success'] == true) {
+                      // Clear all local storage if needed
+                      await LocalStorageAccessToken.removeToken();
 
-                    if (response['success']) {
-                      Navigator.pushReplacementNamed(context, SignInPage.routeName);
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        SignInPage.routeName,
+                            (route) => false,
+                      );
+
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Account is Deleted Successfully'),
+                        const SnackBar(
+                          content: Text('Account deleted successfully'),
                           backgroundColor: Colors.green,
                         ),
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(response['message']),
+                          content: Text(response['message'] ?? 'Account deletion failed'),
                           backgroundColor: Colors.red,
                         ),
                       );
                     }
                   } catch (e) {
                     if (!mounted) return;
-                    setState(() => _isDeleting = false); // Hide loading
+                    setState(() => _isDeleting = false);
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text("Error: ${e.toString()}"),
+                        content: Text('Unexpected error: ${e.toString()}'),
                         backgroundColor: Colors.red,
                       ),
                     );
                   }
                 },
               );
+
 
             }
             else if(widget.onTapFunc == 5){

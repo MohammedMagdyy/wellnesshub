@@ -4,6 +4,7 @@ import 'package:wellnesshub/constant_colors.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/profile_info_card.dart';
 import 'package:wellnesshub/core/widgets/custom_button.dart';
+import '../../core/helper_class/userInfo_local.dart';
 import '../../core/models/update_model.dart';
 import '../../core/services/auth/updateprofile_service.dart';
 import '../../core/services/getUserInfo_service.dart';
@@ -32,7 +33,6 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController weightController = TextEditingController();
   final TextEditingController heightController = TextEditingController();
 
-  // Data for display (can be split or parsed if needed)
   String fName = " ";
   String lName = " ";
   String email = " ";
@@ -49,19 +49,16 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _loadUserData() async {
-    //final storedUserData = await UserInfoLocalStorage.getUserInfoForProfile();
-    final userData = await GetUserInfoService().getUserInfo();
-
-
-
-    if (mounted) {
+    // Load cached data first (instant UI)
+    final storedUserData = await UserInfoLocalStorage.getUserInfoForProfile();
+    if (storedUserData != null && mounted) {
       setState(() {
-        fName=userData.firstName;
-        lName=userData.lastName;
-        email=userData.email;
-        age=userData.age;
-        height=userData.height;
-        weight=userData.weight;
+        fName = storedUserData.firstName;
+        lName = storedUserData.lastName;
+        email = storedUserData.email;
+        age = storedUserData.age;
+        height = storedUserData.height;
+        weight = storedUserData.weight;
 
         firstNameController.text = fName;
         lastNameController.text = lName;
@@ -71,7 +68,33 @@ class _ProfilePageState extends State<ProfilePage> {
         heightController.text = height.toString();
       });
     }
+
+    // Fetch latest data in background and update cache/UI
+    try {
+      final userData = await GetUserInfoService().getUserInfo();
+      if (mounted) {
+        setState(() {
+          fName = userData.firstName;
+          lName = userData.lastName;
+          email = userData.email;
+          age = userData.age;
+          height = userData.height;
+          weight = userData.weight;
+
+          firstNameController.text = fName;
+          lastNameController.text = lName;
+          emailController.text = email;
+          ageController.text = age.toString();
+          weightController.text = weight.toString();
+          heightController.text = height.toString();
+        });
+      }
+      await UserInfoLocalStorage.saveUserInfoForProfile(userData);
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
   }
+
 
   @override
   void dispose() {
@@ -83,7 +106,6 @@ class _ProfilePageState extends State<ProfilePage> {
     heightController.dispose();
     super.dispose();
   }
-
 
   Future<void> _loadProfileImage() async {
     try {
@@ -105,7 +127,6 @@ class _ProfilePageState extends State<ProfilePage> {
       print("Error loading profile picture: $e");
     }
   }
-
 
 
 
@@ -231,10 +252,6 @@ void _showNumberPickerDialog(String field) {
     },
   );
 }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -368,7 +385,10 @@ void _showNumberPickerDialog(String field) {
                           ..showSnackBar(snackBar);
                       });
                     }
-                  }else {
+
+                    // Save the updated user locally to keep cache consistent
+                    await UserInfoLocalStorage.saveUserInfoForProfile(updatedUser);
+                  } else {
                     final snackBar = buildCustomSnackbar(
                       title: 'Update Failed!',
                       message: result['message'],
@@ -390,12 +410,6 @@ void _showNumberPickerDialog(String field) {
                     ..hideCurrentSnackBar()
                     ..showSnackBar(snackBar);
                 }
-
-
-
-
-
-
               },
             ),
           ],
@@ -405,55 +419,85 @@ void _showNumberPickerDialog(String field) {
   }
 }
 
-// int parsedAge = int.tryParse(ageController.text) ?? 0;
-// int parsedWeight = int.tryParse(weightController.text) ?? 0;
-// int parsedHeight = int.tryParse(heightController.text) ?? 0;
+
+// class _ProfilePageState extends State<ProfilePage> {
+//   final TextEditingController firstNameController = TextEditingController();
+//   final TextEditingController lastNameController = TextEditingController();
+//   final TextEditingController emailController = TextEditingController();
+//   final TextEditingController ageController = TextEditingController();
+//   final TextEditingController weightController = TextEditingController();
+//   final TextEditingController heightController = TextEditingController();
 //
-// await storage.saveUserAge(parsedAge);
-// await storage.saveUserWeight(parsedWeight);
-// await storage.saveUserHeight(parsedHeight);
+//   // Data for display (can be split or parsed if needed)
+//   String fName = " ";
+//   String lName = " ";
+//   String email = " ";
+//   int age = 0;
+//   int weight = 0;
+//   File? _imageFile;
+//   double height = 0;
 //
-// setState(() {
-//   age = parsedAge;
-//   weight = parsedWeight;
-//   height = parsedHeight.toDouble();
-// });
-
-
-
-/*
-on_Pressed: () async {
-  final updatedUser = FullUserInfo(
-    firstName: firstNameController.text,
-    lastName: lastNameController.text,
-    email: emailController.text,
-    age: int.tryParse(ageController.text) ?? 0,
-    weight: int.tryParse(weightController.text) ?? 0,
-    height: int.tryParse(heightController.text) ?? 0,
-    // If your model includes these, provide default/fetched values
-    gender: null,
-    goal: null,
-    activityLevel: null,
-    experienceLevel: null,
-    daysPerWeek: 0,
-    bmi: 0,
-  );
-
-  await UserInfoLocalStorage.saveUserInfo(updatedUser);
-
-  if (mounted) {
-    setState(() {
-      fName = updatedUser.firstName ?? "";
-      lName = updatedUser.lastName ?? "";
-      email = updatedUser.email ?? "";
-      age = updatedUser.age ?? 0;
-      height = updatedUser.height ?? 0;
-      weight = updatedUser.weight ?? 0;
-    });
-  }
-
-  ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(content: Text('Profile updated successfully!')),
-  );
-},
- */
+//   @override
+//   void initState() {
+//     super.initState();
+//     _loadUserData();
+//     _loadProfileImage();
+//   }
+//
+//   Future<void> _loadUserData() async {
+//     //final storedUserData = await UserInfoLocalStorage.getUserInfoForProfile();
+//     final userData = await GetUserInfoService().getUserInfo();
+//
+//
+//
+//     if (mounted) {
+//       setState(() {
+//         fName=userData.firstName;
+//         lName=userData.lastName;
+//         email=userData.email;
+//         age=userData.age;
+//         height=userData.height;
+//         weight=userData.weight;
+//
+//         firstNameController.text = fName;
+//         lastNameController.text = lName;
+//         emailController.text = email;
+//         ageController.text = age.toString();
+//         weightController.text = weight.toString();
+//         heightController.text = height.toString();
+//       });
+//     }
+//   }
+//
+//   @override
+//   void dispose() {
+//     firstNameController.dispose();
+//     lastNameController.dispose();
+//     emailController.dispose();
+//     ageController.dispose();
+//     weightController.dispose();
+//     heightController.dispose();
+//     super.dispose();
+//   }
+//
+//
+//   Future<void> _loadProfileImage() async {
+//     try {
+//       final file = await UpdateProfileService().downloadProfilePicture();
+//
+//       if (file != null && file.existsSync() && file.lengthSync() > 0) {
+//         setState(() {
+//           _imageFile = null;
+//           profileImageNotifier.value = null;
+//
+//           _imageFile = file;
+//           profileImageNotifier.value = file;
+//         });
+//
+//       } else {
+//         print("Profile image file not found or empty.");
+//       }
+//     } catch (e) {
+//       print("Error loading profile picture: $e");
+//     }
+//   }
