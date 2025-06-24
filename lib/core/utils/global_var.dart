@@ -5,6 +5,7 @@ import 'dart:io';
 import '../helper_class/userInfo_local.dart';
 
 final String apiUrl='http://10.0.2.2:8080';
+//https://wellness-production.up.railway.app
 final storage = UserInfoLocalStorage(); // Assuming you use this elsewhere
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 ValueNotifier<File?> profileImageNotifier = ValueNotifier<File?>(null);

@@ -63,6 +63,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       final lname = userData['lname'];
       final username = '$fname $lname';
 
+      print("👤 fname: $fname, lname: $lname, email: $email");
+
       if (email == null || username.isEmpty) {
         throw Exception('User data not found');
       }

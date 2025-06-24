@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wellnesshub/core/widgets/custom_appbar.dart';
 import 'package:wellnesshub/core/widgets/custom_settingwidget.dart';
+import '../../core/models/sign_up/full_userinfo_model.dart';
 import '../../core/services/getUserInfo_service.dart';
+
 
 class ProfileSettingsPage extends StatefulWidget {
   const ProfileSettingsPage({super.key});
@@ -12,12 +14,26 @@ class ProfileSettingsPage extends StatefulWidget {
 }
 
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
-  late Future<dynamic> _userInfoFuture;
+  FullUserInfo? _userInfo;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _userInfoFuture = GetUserInfoService().getUserInfo();
+    _loadUserInfo();
+  }
+
+  Future<void> _loadUserInfo() async {
+    try {
+      final info = await GetUserInfoService().getUserInfo();
+      setState(() {
+        _userInfo = info;
+        _isLoading = false;
+      });
+    } catch (e) {
+      debugPrint('❌ Failed to load user info: $e');
+      setState(() => _isLoading = false); // Still show the UI
+    }
   }
 
   @override
@@ -25,43 +41,34 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
     return Scaffold(
       appBar: CustomAppbar(title: "Account"),
       body: SafeArea(
-        child: FutureBuilder<dynamic>(
-          future: _userInfoFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else {
-              final response = snapshot.data;
+        child: ListView(
+          children: [
+            const CustomSettingwidget(
+              title: "Profile Details",
+              icon: Icons.person,
+              switchcheck: false,
+              pageName: "Profile",
+            ),
+            const CustomSettingwidget(
+              title: "Delete Account",
+              icon: Icons.delete,
+              switchcheck: false,
+              onTapFunc: 4,
+              pageName: "LoginPage",
+            ),
 
-              return ListView(
-                children: [
-                  const CustomSettingwidget(
-                    title: "Profile Details",
-                    icon: Icons.person,
-                    switchcheck: false,
-                    pageName: "Profile",
-                  ),
-                  const CustomSettingwidget(
-                    title: "Delete Account",
-                    icon: Icons.delete,
-                    switchcheck: false,
-                    onTapFunc: 4,
-                    pageName: "LoginPage",
-                  ),
-                  if (response.provider != "GOOGLE" &&
-                      response.provider != "FACEBOOK")
-                    const CustomSettingwidget(
-                      title: "Change Password",
-                      icon: Icons.password_rounded,
-                      switchcheck: false,
-                      pageName: "ChangePasswordPage",
-                    ),
-                ],
-              );
-            }
-          },
+            // Conditionally show change password if provider is not Google/Facebook
+            if (!_isLoading &&
+                _userInfo != null &&
+                _userInfo!.provider != "GOOGLE" &&
+                _userInfo!.provider != "FACEBOOK")
+              const CustomSettingwidget(
+                title: "Change Password",
+                icon: Icons.password_rounded,
+                switchcheck: false,
+                pageName: "ChangePasswordPage",
+              ),
+          ],
         ),
       ),
     );

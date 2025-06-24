@@ -67,7 +67,7 @@ class FacebookLoginService {
         }
       } catch (err) {
         debugPrint('Error decoding backend error: $err');
-        message = 'Failed to parse backend error';
+        message = 'Failed  Error';
       }
 
       return {'success': false, 'message': message};

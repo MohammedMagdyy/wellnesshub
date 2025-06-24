@@ -81,8 +81,9 @@ class GoogleLoginService {
         } else if (e.response?.statusCode == 401) {
           message = 'Unauthorized Google login: Invalid or expired token.';
         }
-      } catch (_) {
-        message = 'Failed to parse error response';
+      } catch (err) {
+        debugPrint('Error decoding backend error: $err');
+        message = 'Failed  error ';
       }
 
       return {'success': false, 'message': message};

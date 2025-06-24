@@ -140,8 +140,9 @@ class _SignInState extends State<SignInPage> {
                                 // ✅ Check if access token is null or not
                                 if (result['message']=='Continue user Info') {
                                   if (!mounted) return;
-                                  Navigator.pushNamedAndRemoveUntil(
-                                      context, 'AgePage', (route) => false);
+                                  Navigator.pushNamed(context, 'AgePage');
+                                  // Navigator.pushNamedAndRemoveUntil(
+                                  //     context, 'AgePage', (route) => false);
                                 } else {
                                   if (!mounted) return;
                                   Navigator.pushNamedAndRemoveUntil(
@@ -221,7 +222,8 @@ class _SignInState extends State<SignInPage> {
                             } else if (gResult['message'] == 'Continue user Info') {
                               googleFlag = true;
                               if (context.mounted) {
-                                Navigator.pushNamedAndRemoveUntil(context, 'AgePage', (route) => false);
+                                Navigator.pushNamed(context, 'AgePage');
+                                //Navigator.pushNamedAndRemoveUntil(context, 'AgePage', (route) => false);
                               }
                             }
                           } else {
@@ -256,7 +258,8 @@ class _SignInState extends State<SignInPage> {
                               facebookFlag = true;
                               // ➡ Navigate to AgePage
                               if (context.mounted) {
-                                Navigator.pushNamedAndRemoveUntil(context, 'AgePage', (route) => false);
+                                Navigator.pushNamed(context, 'AgePage');
+                                //Navigator.pushNamedAndRemoveUntil(context, 'AgePage', (route) => false);
                               }
                             }
                           } else {
