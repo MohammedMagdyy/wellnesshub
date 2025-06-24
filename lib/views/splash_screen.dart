@@ -87,19 +87,19 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                 fit: BoxFit.cover,
               ),
               Positioned(
-                bottom: screenHeight*0.5,
+                bottom: screenHeight*0.33,
                 left: 0,
                 right: 0,
                 child: SlideTransition(
                   position: _slideAnimation,
                   child: Center(
                     child: Text(
-                      'Welcome To WellnessHub',
+                      'Welcome To\nWellnessHub',
                       overflow: TextOverflow.visible,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: darkImportantButtonEnd,
-                        fontSize: 32,
+                        fontSize: 45,
                         fontFamily:'Roboto',
                         fontWeight: FontWeight.bold,
                         shadows: [
