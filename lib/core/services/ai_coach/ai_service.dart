@@ -27,17 +27,7 @@ class GeminiService {
   /// 🔥 Load real user data from SharedPreferences
   static Future<void> initClientData() async {
     final userData = await GetUserInfoService().getUserInfo();
-    // final localStorage = storage;
-    //
-    // final userData = await localStorage.getUserData();
-    // final height = await localStorage.getUserHeight();
-    // final weight = await localStorage.getUserWeight();
-    // final activity = await localStorage.getUserActivityLevel();
-    // final experience = await localStorage.getUserExperienceLevel();
-    // final goal = await localStorage.getUserGoal();
-    // final injury = await localStorage.getUserInjury();
-
-
+    
     _client = {
       "name": userData.firstName ?? "User",
       "height": userData.height ?? 0,

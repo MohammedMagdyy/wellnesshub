@@ -14,7 +14,7 @@ class UserProgressService {
         token: token,
       );
 
-      print('✅ API response received: ${data.runtimeType}');
+      print('API response received: ${data.runtimeType}');
 
       if (data is List) {
         return data
@@ -26,7 +26,7 @@ class UserProgressService {
         throw NetworkException('Unexpected response format: $data');
       }
     } catch (e) {
-      print('❌ Error in getUserProgress: $e');
+      print('Error in getUserProgress: $e');
       throw NetworkException('Failed to fetch user progress: $e');
     }
   }

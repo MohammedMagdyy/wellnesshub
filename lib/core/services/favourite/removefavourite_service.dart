@@ -2,9 +2,7 @@ import '../../helper_class/accesstoken_storage.dart';
 import '../../helper_class/api.dart';
 import '../../helper_functions/HanleSessionExpired.dart';
 import '../../helper_class/network_exception_class.dart';
-import 'dart:io';
 import 'dart:async';
-
 import '../../utils/global_var.dart';
 
 class RemoveFromFavouriteService {
@@ -15,13 +13,13 @@ class RemoveFromFavouriteService {
       token: token,
     );
 
-    // 🛡️ Central fallback: OAuth HTML response
+    // ️ Central fallback: OAuth HTML response
     if (response is String && response.contains('<html')) {
       await handleSessionExpired();
       throw NetworkException('Session expired. Please login again.');
     }
 
-    // ✅ Success: Check for valid response
+    //  Success: Check for valid response
     if (response is Map<String, dynamic>) {
       final status = response['status'];
       final message = response['message'];
